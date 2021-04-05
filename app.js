@@ -8,10 +8,10 @@ app.set('views', path.join(__dirname, 'views'));
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-//middleware: heroku http->https redirection
+//middleware: herokuapp.com subdomain redirection (handles http->https as well)
 if (process.env.NODE_ENV === 'production') {
     app.use((req, res, next) => {
-        if (req.header('x-forwarded-proto') !== 'https') {
+        if (req.hostname.includes('track-my-warranties')) {
             res.redirect(301, 'https://trackmywarranties.mjfelix.dev')
         }
         else
