@@ -8,8 +8,8 @@ app.set('views', path.join(__dirname, 'views'));
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-//middleware: herokuapp.com subdomain redirection (handles http->https as well)
-if (process.env.NODE_ENV === 'production') {
+//herokuapp.com subdomain permanent redirection
+if (process.env.PROVIDER === 'heroku' && process.env.NODE_ENV === 'production') {
     app.use((req, res, next) => {
         if (req.hostname.includes('track-my-warranties')) {
             res.redirect(301, 'https://trackmywarranties.mjfelix.dev')
