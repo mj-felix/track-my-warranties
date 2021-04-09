@@ -1,0 +1,20 @@
+<nav>
+    <% if(!currentUser) {%>
+    <a href="/">TrackMyWarranties</a>
+    <% if(typeof isLoginForm === 'undefined' || !isLoginForm) {%>
+    <a href=" /login">Login</a>
+    <% } %>
+    <% if(typeof isRegisterForm === 'undefined' || !isRegisterForm) {%>
+    <a href="/register">Register</a>
+    <% } %>
+    <% } else {%>
+    <a href="/entries">TrackMyWarranties</a>
+    <% if(typeof isNewEntryForm === 'undefined' || !isNewEntryForm) {%>
+    <a href="/entries/new">Add New Warranty</a>
+    <% } %>
+    <% if(typeof isProfile === 'undefined' || !isProfile) {%>
+    <a href="/user">Profile</a>
+    <% } %>
+    <a href="/logout">Logout</a>
+    <% } %>
+</nav>

@@ -1,14 +1,109 @@
+if (process.env.NODE_ENV !== "production") {
+    require('dotenv').config();
+}
+
 const express = require('express');
 const path = require('path');
+const mongoose = require('mongoose');
+const ejsMate = require('ejs-mate');
+const session = require('express-session');
+const MongoStore = require("connect-mongo");
+const flash = require('connect-flash');
+const ExpressError = require('./utils/ExpressError');
+const methodOverride = require('method-override');
+const passport = require('passport');
+const LocalStrategy = require('passport-local');
+const User = require('./models/user');
+// const helmet = require('helmet');
+const mongoSanitize = require('express-mongo-sanitize');
+const authRoutes = require('./routes/auth');
+const entryRoutes = require('./routes/entries');
+const userRoutes = require('./routes/users');
+const fileRoutes = require('./routes/files');
+
+
+
+// MongoDB connection
+const dbName = 'track-my-warranties';
+const mongoUrl = process.env.MONGO_URL || 'mongodb://localhost:27017';
+const dbUrl = mongoUrl + '/' + dbName;
+mongoose.connect(dbUrl, {
+    useNewUrlParser: true,
+    useCreateIndex: true,
+    useUnifiedTopology: true,
+    useFindAndModify: false
+});
+const db = mongoose.connection;
+db.on("error", console.error.bind(console, "Connection error:"));
+db.once("open", () => {
+    console.log(`${new Date(Date.now()).toString()}: database connected`);
+});
 
 const app = express();
 
+// Views setup
+app.engine('ejs', ejsMate)
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
-app.use(express.static(path.join(__dirname, 'public')));
+// Session setup
+const secret = process.env.SECRET || 'thisIsNotAGoodSecret!';
+const store = MongoStore.create({
+    mongoUrl,
+    dbName,
+    secret,
+    touchAfter: 24 * 60 * 60
+});
+store.on("error", function (e) {
+    console.log("SESSION STORE ERROR", e)
+})
+const sessionConfig = {
+    store,
+    name: 'session',
+    secret,
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+        httpOnly: true,
+        // secure: true,
+        expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
+        maxAge: 1000 * 60 * 60 * 24 * 7
+    }
+}
+app.use(session(sessionConfig));
 
-//herokuapp.com subdomain permanent redirection
+// Misc setup
+app.use(express.static(path.join(__dirname, 'public')))
+app.use(express.urlencoded({ extended: true }));
+app.use(methodOverride('_method'));
+app.use(mongoSanitize({
+    replaceWith: '_'
+}))
+app.use(flash());
+//app.use(helmet());
+
+// Auth setup
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new LocalStrategy(
+    {
+        usernameField: 'email',
+    },
+    User.authenticate()
+));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
+// locals mw setup
+app.use((req, res, next) => {
+    res.locals.currentUser = req.user;
+    res.locals.success = req.flash('success');
+    res.locals.error = req.flash('error');
+    next();
+})
+
+
+// herokuapp.com subdomain permanent redirection
 if (process.env.PROVIDER === 'heroku' && process.env.NODE_ENV === 'production') {
     app.use((req, res, next) => {
         if (req.hostname.includes('track-my-warranties')) {
@@ -19,11 +114,59 @@ if (process.env.PROVIDER === 'heroku' && process.env.NODE_ENV === 'production') 
     })
 }
 
-app.all('*', (req, res) => {
+// Routes:
+
+// GET / - home
+
+// -- GET /login - login form
+// -- POST /login - login form method
+// -- GET /logout - logout link
+// -- GET /register - register form
+// -- POST /register - register form method
+// GET /forgotpassword - forgot password form
+// POST /forgotpassword - forgot password form method
+// GET /resetpassword?token=xxx - reset password form
+// POST /resetpassword?token=xxx - reset password form method
+
+// -- GET /user - retrieve user's details
+// -- GET /user/edit - edit user form (email)
+// -- PATCH /user - edit user form method (email)
+
+// -- GET /entries/new - add new entry form
+// -- POST /entries - add new entry form method
+// -- GET /entries/:id - retrieve entry's details along with all documents
+// -- GET /entries/:id/edit - edit entry form
+// -- PATCH /entries/:id - edit entry form method
+// -- DELETE /entries/:id - delete entry along with all documents
+
+// POST /entries/:id/documents - upload document via Ajax
+// DELETE /entries/:id/documents/:id - delete document via Ajax
+
+// ROUTING:
+
+app.use('/', authRoutes);
+app.use('/user', userRoutes);
+app.use('/entries', entryRoutes);
+app.use('/entries', fileRoutes);
+
+
+// main page
+app.get('/', (req, res) => {
     res.render('home');
+});
+
+// everything else => 404
+app.all('*', (req, res, next) => {
+    next(new ExpressError('Page Not Found', 404))
+})
+
+app.use((err, req, res, next) => {
+    const { statusCode = 500 } = err;
+    if (!err.message) err.message = 'Oh No, Something Went Wrong!'
+    res.status(statusCode).render('error', { err })
 })
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
-    console.log(`Serving on port ${port} ...`)
+    console.log(`${new Date(Date.now()).toString()}: serving on port ${port}`);
 })

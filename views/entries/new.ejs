@@ -1,0 +1,27 @@
+<% layout('layouts/boilerplate')%>
+<h1>Add New Warranty</h1>
+<form action="/entries" method="POST">
+
+    <div class="mb-3">
+        <label for="productName">Product Name</label>
+        <input type="text" id="productName" name="entry[productName]" required>
+    </div>
+    <div class="mb-3">
+        <label for="datePurchased">Date Purchased</label>
+        <input type="date" id="datePurchased" name="entry[datePurchased]" required>
+    </div>
+    <div class="mb-3">
+        <label for="dateExpired">Warranty Due Date</label>
+        <input type="date" id="dateExpired" name="entry[dateExpired]" required>
+    </div>
+    <div class="mb-3">
+        <label for="storeName">Store Name</label>
+        <input type="text" id="storeName" name="entry[storeName]" required>
+    </div>
+    <div class="mb-3">
+        <label for="additionalComment">Additional Comment</label>
+        <textarea type="text" id="additionalComment" name="entry[additionalComment]"></textarea>
+    </div>
+    <button>Add</button>
+
+</form>

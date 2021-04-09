@@ -1,0 +1,12 @@
+<% layout('layouts/boilerplate')%>
+<h1>Edit User</h1>
+<form action="/user?_method=PATCH" method="POST">
+
+    <div class="mb-3">
+        <label for="email">Email</label>
+        <input type="text" id="email" name="email" value="<%= currentUser.username %>" required>
+    </div>
+    <button>Save</button>
+
+</form>
+<a href="/user">Back</a>

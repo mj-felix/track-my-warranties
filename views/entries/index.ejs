@@ -1,0 +1,10 @@
+<% layout('layouts/boilerplate')%>
+<main>
+    <h1>Warranties</h1>
+    <% for (let entry of entries){ %>
+    <div>Product Name: <a href="/entries/<%- entry._id %>"><%= entry.productName %></a></div>
+    <div>Warranty Due Date: <%= entry.dateExpired.toDateString() %></div>
+    <div>Store Name: <%= entry.storeName %></div>
+    <hr>
+    <% } %>
+</main>

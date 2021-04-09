@@ -1,0 +1,54 @@
+<% layout('layouts/boilerplate')%>
+<h1>Warranty Details</h1>
+Product Name: <%= entry.productName %><br>
+Date Purchased: <%= entry.datePurchased.toDateString() %><br>
+Warranty Due Date: <%= entry.dateExpired.toDateString() %><br>
+Store Name: <%= entry.storeName %><br>
+Additional Comment: <%= entry.additionalComment %><br>
+Date Created: <%= entry.dateCreated %><br>
+Date Last Modified: <%= entry.dateModified %><br>
+<a href="/entries/<%= entry._id %>/edit">Edit</a>
+<form action="/entries/<%= entry._id %>?_method=DELETE" method="POST">
+    <button>Delete</button>
+</form>
+<div class='my-3'>
+    <input type="file" id="file" name="file" required accept="image/*,.pdf">
+</div>
+<div id="files">
+    <ul>
+        <% for (let file of entry.files){ %>
+        <li><a href="<%= file.url %>" target="_blank"><%= file.originalFileName %> -
+                <%= (file.size/1024/1024).toFixed(2) %>MB</a>
+        </li>
+        <% } %>
+    </ul>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+    const uploadFile = async (event) => {
+        let formData = new FormData();
+        formData.append("file", event.target.files[0]);
+        axios.post('/entries/<%=entry._id%>/files', formData, {
+            headers: {
+                "Content-Type": "multipart/form-data"
+            }
+        }).then((res) => {
+            console.log(res.data);
+            if (typeof res.data.file !== 'undefined') {
+                document.querySelector('#file').value = '';
+                const file = res.data.file;
+                const fileSize = (file.size / 1024 / 1024).toFixed(2);
+                const newFile = document.createElement("li");
+                newFile.innerHTML = `<li><a href="${file.url} target="_blank">${file.originalFileName} - ${fileSize}MB</a></li>`;
+                document.querySelector('#files ul').append(newFile);
+            };
+        }).catch((err) => {
+            console.log(err);
+        });
+    };
+
+    const fileInput = document.querySelector('#file');
+    fileInput.addEventListener('change', uploadFile);
+
+</script>

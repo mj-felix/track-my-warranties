@@ -1,0 +1,5 @@
+<% layout('layouts/boilerplate')%>
+<h1>Profile</h1>
+<div>Email: <%= currentUser.username %> <a href="/user/edit">Edit</a></div>
+Date Created: <%= currentUser.dateCreated %><br>
+Date Last Modified: <%= currentUser.dateModified %>
