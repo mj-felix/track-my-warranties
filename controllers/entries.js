@@ -1,4 +1,10 @@
 const Entry = require('../models/entry');
+const AWS = require('aws-sdk');
+
+const s3 = new AWS.S3({
+    accessKeyId: process.env.S3_ACCESS_KEY,
+    secretAccessKey: process.env.S3_ACCESS_SECRET
+});
 
 module.exports.index = async (req, res) => {
     const entries = await Entry.find({ user: req.user }).sort({ dateExpired: 1 });
@@ -26,7 +32,7 @@ module.exports.createEntry = async (req, res, next) => {
     entry.dateModified = d;
     entry.user = req.user._id;
     await entry.save();
-    req.flash('success', 'Successfully added a new entry!');
+    req.flash('success', 'Successfully added a new warranty!');
     res.redirect(`/entries/${entry._id}`)
 }
 
@@ -41,8 +47,21 @@ module.exports.showEntry = async (req, res) => {
 
 module.exports.deleteEntry = async (req, res) => {
     const { id } = req.params;
+    const entry = await Entry.findById(id);
+    if (entry.files.length) {
+        const deleteParam = {
+            Bucket: process.env.S3_BUCKET,
+            Delete: {
+                Objects: []
+            }
+        };
+        for (let file of entry.files) {
+            deleteParam.Delete.Objects.push({ Key: file.storedFileName })
+        }
+        await s3.deleteObjects(deleteParam).promise();
+    }
     await Entry.findByIdAndDelete(id);
-    req.flash('success', 'Successfully deleted warranty')
+    req.flash('success', 'Successfully deleted warranty!')
     res.redirect('/entries');
 }
 
@@ -50,6 +69,6 @@ module.exports.updateEntry = async (req, res) => {
     const { id } = req.params;
     const entry = await Entry.findByIdAndUpdate(id, { ...req.body.entry, dateModified: new Date(Date.now()) });
 
-    req.flash('success', 'Successfully updated warranty');
+    req.flash('success', 'Successfully updated warranty!');
     res.redirect(`/entries/${entry._id}`)
 }

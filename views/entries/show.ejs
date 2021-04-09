@@ -7,17 +7,20 @@ Store Name: <%= entry.storeName %><br>
 Additional Comment: <%= entry.additionalComment %><br>
 Date Created: <%= entry.dateCreated %><br>
 Date Last Modified: <%= entry.dateModified %><br>
-<a href="/entries/<%= entry._id %>/edit">Edit</a>
+<a href="/entries/<%= entry._id %>/edit">Edit Warranty</a>
 <form action="/entries/<%= entry._id %>?_method=DELETE" method="POST">
-    <button>Delete</button>
+    <button class="btn btn-danger my-3">Delete Warranty</button>
 </form>
-<div class='my-3'>
+<h2>Files</h2>
+<div class='my-2'>
     <input type="file" id="file" name="file" required accept="image/*,.pdf">
 </div>
 <div id="files">
     <ul>
         <% for (let file of entry.files){ %>
-        <li><a href="<%= file.url %>" target="_blank"><%= file.originalFileName %> -
+        <li><a href="#" rel="/entries/<%=entry._id%>/files/<%= file.storedFileName %>"
+                class="my-1 btn btn-danger btn-sm deleteFile">Delete</a> <a href="<%= file.url %>"
+                target="_blank"><%= file.originalFileName %> -
                 <%= (file.size/1024/1024).toFixed(2) %>MB</a>
         </li>
         <% } %>
@@ -27,6 +30,9 @@ Date Last Modified: <%= entry.dateModified %><br>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script>
     const uploadFile = async (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+
         let formData = new FormData();
         formData.append("file", event.target.files[0]);
         axios.post('/entries/<%=entry._id%>/files', formData, {
@@ -40,8 +46,10 @@ Date Last Modified: <%= entry.dateModified %><br>
                 const file = res.data.file;
                 const fileSize = (file.size / 1024 / 1024).toFixed(2);
                 const newFile = document.createElement("li");
-                newFile.innerHTML = `<li><a href="${file.url} target="_blank">${file.originalFileName} - ${fileSize}MB</a></li>`;
-                document.querySelector('#files ul').append(newFile);
+                newFile.innerHTML = `<a href="#"
+                rel="/entries/<%=entry._id%>/files/${file.storedFileName}" class="my-1 btn btn-danger btn-sm deleteFile">Delete</a> <a href="${file.url}" target="_blank">${file.originalFileName} - ${fileSize}MB</a>`;
+                document.querySelector('#files ul').prepend(newFile);
+                document.querySelector('#files a.deleteFile').addEventListener('click', deleteFile);
             };
         }).catch((err) => {
             console.log(err);
@@ -50,5 +58,23 @@ Date Last Modified: <%= entry.dateModified %><br>
 
     const fileInput = document.querySelector('#file');
     fileInput.addEventListener('change', uploadFile);
+
+    const deleteFile = async (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+
+        axios.delete(event.target.rel)
+            .then((res) => {
+                event.target.parentNode.remove();
+            }).catch((err) => {
+                console.log(err);
+            });
+    };
+
+    const deleteAs = document.querySelectorAll('.deleteFile');
+
+    for (let dA of deleteAs) {
+        dA.addEventListener('click', deleteFile);
+    }
 
 </script>

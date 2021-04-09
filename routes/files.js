@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const files = require('../controllers/files');
 const catchAsync = require('../utils/catchAsync');
-
+uuid = require('uuid');
 const multer = require('multer');
 const multerS3 = require('multer-s3');
 const AWS = require('aws-sdk');
@@ -21,7 +21,7 @@ const uploadS3 = multer({
             cb(null, { fieldName: file.fieldname })
         },
         key: (req, file, cb) => {
-            cb(null, Date.now().toString() + '-' + file.originalname)
+            cb(null, uuid.v4() + '-' + file.originalname)
         }
     })
 });
@@ -29,9 +29,12 @@ const uploadS3 = multer({
 
 
 
-router.route('/:id/files')
-    .post(uploadS3.single('file'), catchAsync(files.uploadFile));
+router.post('/:id/files', uploadS3.single('file'), catchAsync(files.uploadFile));
 
+router.delete('/:entryId/files/:fileKey', catchAsync(files.deleteFile));
+
+// router.route('/:id/files')
+//     .post(uploadS3.single('file'), catchAsync(files.uploadFile))
 // .delete(catchAsync(files.deleteFile));
 
 

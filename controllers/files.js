@@ -1,4 +1,10 @@
 const Entry = require('../models/entry');
+const AWS = require('aws-sdk');
+
+const s3 = new AWS.S3({
+    accessKeyId: process.env.S3_ACCESS_KEY,
+    secretAccessKey: process.env.S3_ACCESS_SECRET
+});
 
 module.exports.uploadFile = async (req, res) => {
     const file = {
@@ -14,6 +20,17 @@ module.exports.uploadFile = async (req, res) => {
     const entry = await Entry.findById(id);
     entry.files.push(file);
     await entry.save();
-    console.log(file);
     res.json({ file });
+}
+
+module.exports.deleteFile = async (req, res) => {
+    const { entryId, fileKey } = req.params;
+    await s3.deleteObject({
+        Bucket: process.env.S3_BUCKET,
+        Key: fileKey
+    }).promise();
+    const entry = await Entry.findById(entryId);
+    // console.log(entry);
+    await entry.updateOne({ $pull: { files: { storedFileName: fileKey } } });
+    res.json({ 'result': 'file deleted' });
 }
