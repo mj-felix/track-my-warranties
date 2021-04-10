@@ -143,7 +143,7 @@ if (process.env.PROVIDER === 'heroku' && process.env.NODE_ENV === 'production') 
 // -- DELETE /entries/:id/documents/:id - delete document via Ajax
 
 // Helmet
-// Joi validation: User, Entry, Files (upload validation on S3 side)?
+// Joi validation: User, Entry, Files?
 // Frontend
 // Js clean up
 // Dates mismatch

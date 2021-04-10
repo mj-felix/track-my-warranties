@@ -19,6 +19,11 @@ const UserSchema = new Schema({
     dateModified: Date
 });
 
-UserSchema.plugin(passportLocalMongoose, { errorMessages: { UserExistsError: 'A user with the given email is already registered.' } });
+UserSchema.plugin(passportLocalMongoose, {
+    errorMessages: {
+        UserExistsError: 'A user with the given email is already registered.',
+        MissingUsernameError: 'No email was given'
+    }
+});
 
 module.exports = mongoose.model('User', UserSchema);

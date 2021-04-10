@@ -1,5 +1,6 @@
 const ExpressError = require('./utils/ExpressError');
 const Entry = require('./models/entry');
+const { entryValidationSchema, userValidationSchema } = require('./models/validation');
 
 module.exports.isLoggedIn = (req, res, next) => {
     if (!req.isAuthenticated()) {
@@ -32,4 +33,26 @@ module.exports.fileBelongsToEntry = async (req, res, next) => {
         return res.status(403).json({ 'result': 'You do not have permission to do that!' });
     }
     next();
+}
+
+module.exports.validateEntry = (req, res, next) => {
+    const { error } = entryValidationSchema.validate(req.body);
+    // console.log(req.body);
+    if (error) {
+        const msg = error.details.map(el => el.message).join(',')
+        throw new ExpressError(msg, 400)
+    } else {
+        next();
+    }
+}
+
+module.exports.validateUser = (req, res, next) => {
+    const { error } = userValidationSchema.validate({ email: req.body.email });
+    // console.log(req.body);
+    if (error) {
+        const msg = error.details.map(el => el.message).join(',')
+        throw new ExpressError(msg, 400)
+    } else {
+        next();
+    }
 }

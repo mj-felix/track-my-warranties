@@ -13,7 +13,7 @@ Date Last Modified: <%= entry.dateModified %><br>
 </form>
 <h2>Files</h2>
 <div class='my-2'>
-    <input type="file" id="file" name="file" required accept="image/*,.pdf">
+    <input type="file" id="file" name="file" required accept="image/*,application/pdf">
 </div>
 <div id="files">
     <ul>
@@ -32,9 +32,15 @@ Date Last Modified: <%= entry.dateModified %><br>
     const uploadFile = async (event) => {
         event.preventDefault();
         event.stopPropagation();
-
-        let formData = new FormData();
-        formData.append("file", event.target.files[0]);
+        // console.log(document.querySelector('#file').files[0]);
+        const formData = new FormData();
+        const file = event.target.files[0];
+        if (file.size > 10 * 1024 * 1024) {
+            document.querySelector('#file').value = '';
+            console.log(`${file.size / 1024 / 1024} - too large`);
+            return false;
+        }
+        formData.append("file", file);
         axios.post('/entries/<%=entry._id%>/files', formData, {
             headers: {
                 "Content-Type": "multipart/form-data"
@@ -53,6 +59,7 @@ Date Last Modified: <%= entry.dateModified %><br>
             };
         }).catch((err) => {
             console.log(err);
+            document.querySelector('#file').value = '';
             console.log(err.response.data);
         });
     };
