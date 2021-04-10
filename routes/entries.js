@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const { isLoggedIn, isOwner } = require('../middleware');
 const entries = require('../controllers/entries');
 const files = require('../controllers/files');
 const catchAsync = require('../utils/catchAsync');
@@ -39,22 +40,22 @@ const catchAsync = require('../utils/catchAsync');
 //     .post(isLoggedIn, upload.array('image'), validateCampground, catchAsync(campgrounds.createCampground))
 
 
-router.get('/new', entries.renderNewForm)
+router.get('/new', isLoggedIn, entries.renderNewForm)
 // router.get('/entries/new', isLoggedIn, campgrounds.renderNewForm)
 
 router.route('/')
-    .get(catchAsync(entries.index))
-    .post(catchAsync(entries.createEntry));
+    .get(isLoggedIn, catchAsync(entries.index))
+    .post(isLoggedIn, catchAsync(entries.createEntry));
 // .put(isLoggedIn, isAuthor, upload.array('image'), validateCampground, catchAsync(campgrounds.updateCampground))
 // .delete(isLoggedIn, isAuthor, catchAsync(campgrounds.deleteCampground));
 
 
 router.route('/:id')
-    .get(catchAsync(entries.showEntry))
-    .delete(catchAsync(entries.deleteEntry))
-    .patch(catchAsync(entries.updateEntry));
+    .get(isLoggedIn, isOwner, catchAsync(entries.showEntry))
+    .delete(isLoggedIn, isOwner, catchAsync(entries.deleteEntry))
+    .patch(isLoggedIn, isOwner, catchAsync(entries.updateEntry));
 
-router.get('/:id/edit', catchAsync(entries.renderEditForm));
+router.get('/:id/edit', isLoggedIn, isOwner, catchAsync(entries.renderEditForm));
 
 
 

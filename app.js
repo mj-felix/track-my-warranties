@@ -139,8 +139,16 @@ if (process.env.PROVIDER === 'heroku' && process.env.NODE_ENV === 'production') 
 // -- PATCH /entries/:id - edit entry form method
 // -- DELETE /entries/:id - delete entry along with all documents
 
-// POST /entries/:id/documents - upload document via Ajax
-// DELETE /entries/:id/documents/:id - delete document via Ajax
+// -- POST /entries/:id/documents - upload document via Ajax
+// -- DELETE /entries/:id/documents/:id - delete document via Ajax
+
+// Helmet
+// Joi validation: User, Entry, Files (upload validation on S3 side)?
+// Frontend
+// Js clean up
+// Dates mismatch
+// Loading img
+// err returned from ajax handle
 
 // ROUTING:
 

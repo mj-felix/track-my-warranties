@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const { isLoggedIn, isOwner, fileBelongsToEntry } = require('../middleware');
 const files = require('../controllers/files');
 const catchAsync = require('../utils/catchAsync');
 uuid = require('uuid');
@@ -21,21 +22,13 @@ const uploadS3 = multer({
             cb(null, { fieldName: file.fieldname })
         },
         key: (req, file, cb) => {
-            cb(null, uuid.v4() + '-' + file.originalname)
+            cb(null, uuid.v4() + '-' + file.originalname.replace(/[^\.a-zA-Z0-9_-]/g, ''));
         }
     })
 });
 
+router.post('/:id/files', isLoggedIn, isOwner, uploadS3.single('file'), catchAsync(files.uploadFile));
 
-
-
-router.post('/:id/files', uploadS3.single('file'), catchAsync(files.uploadFile));
-
-router.delete('/:entryId/files/:fileKey', catchAsync(files.deleteFile));
-
-// router.route('/:id/files')
-//     .post(uploadS3.single('file'), catchAsync(files.uploadFile))
-// .delete(catchAsync(files.deleteFile));
-
+router.delete('/:id/files/:fileKey', isLoggedIn, isOwner, fileBelongsToEntry, catchAsync(files.deleteFile));
 
 module.exports = router;

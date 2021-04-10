@@ -24,13 +24,12 @@ module.exports.uploadFile = async (req, res) => {
 }
 
 module.exports.deleteFile = async (req, res) => {
-    const { entryId, fileKey } = req.params;
+    const { id, fileKey } = req.params;
     await s3.deleteObject({
         Bucket: process.env.S3_BUCKET,
         Key: fileKey
     }).promise();
-    const entry = await Entry.findById(entryId);
-    // console.log(entry);
+    const entry = await Entry.findById(id);
     await entry.updateOne({ $pull: { files: { storedFileName: fileKey } } });
     res.json({ 'result': 'file deleted' });
 }
