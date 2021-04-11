@@ -8,7 +8,8 @@ module.exports.register = async (req, res, next) => {
     try {
         const { email, password } = req.body;
         const d = new Date(Date.now())
-        const user = new User({ username: email, dateCreated: d, dateModified: d });
+        const accessLevel = email === 'mjfelixdev@gmail.com' ? 'Admin' : 'User';
+        const user = new User({ username: email, dateCreated: d, dateModified: d, accessLevel });
         const registeredUser = await User.register(user, password);
         req.login(registeredUser, err => {
             if (err) return next(err);

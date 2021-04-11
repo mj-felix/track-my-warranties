@@ -16,7 +16,11 @@ const UserSchema = new Schema({
     token: String,
     tokenExpiryDate: Date,
     dateCreated: Date,
-    dateModified: Date
+    dateModified: Date,
+    accessLevel: {
+        type: String,
+        enum: ['User', 'Admin']
+    }
 });
 
 UserSchema.plugin(passportLocalMongoose, {

@@ -11,14 +11,30 @@
         </li>
         <li class="list-group-item lead"><strong>Number of Files Uploaded:</strong> <%= numOfFiles %>
         </li>
-        <li class="list-group-item lead<%= ((storage/500) > 0.8)?' text-danger':'' %>" </li><strong>Disk Storage
+        <li class="list-group-item lead<%= ((storage/500) > 0.8)?' text-danger':'' %>" </li><strong>Storage
                 Used:</strong> <%= storage %>/500MB
         </li>
-
+        <% if (currentUser.accessLevel === 'Admin') { %>
+        <li class="list-group-item lead"><strong>Access Level:</strong> <%= currentUser.accessLevel %>
+        </li>
+        <% } %>
         <li class="list-group-item text-muted small fst-italic">
             Created: <%= currentUser.dateCreated.toLocaleString() %><br>Modified:
             <%= currentUser.dateModified.toLocaleString() %></p>
         </li>
     </ul>
     <a class="btn btn-primary" href="/user/edit">Edit Email</a>
+    <h2 class="mt-5">All Users Stats</h2>
+    <ul class="list-group list-group-flush">
+        <% if (currentUser.accessLevel === 'Admin') { %>
+        <li class="list-group-item lead"><strong>Number of All Users:</strong> <%= numOfUsers %>
+        </li>
+        <li class="list-group-item lead"><strong>Number of All Warranties:</strong> <%= numOfAllEntries %>
+        </li>
+        <li class="list-group-item lead"><strong>Number of All Files:</strong> <%= numOfAllFiles %>
+        </li>
+        <li class="list-group-item lead"><strong>All Storage Used:</strong> <%= allStorage %>MB
+        </li>
+        <% } %>
+    </ul>
 </div>
