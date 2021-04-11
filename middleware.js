@@ -35,6 +35,17 @@ module.exports.fileBelongsToEntry = async (req, res, next) => {
     next();
 }
 
+module.exports.isSpaceAvailable = async (req, res, next) => {
+    const entries = await Entry.find({ user: req.user._id });
+    const files = []
+    for (let entry of entries) files.push(...entry.files);
+    let storage = files.reduce((a, b) => a + b.size, 0);
+    if (storage > 500 * 1024 * 1024) {
+        return res.status(418).json({ 'result': 'You have exceeded storage capacity!' });
+    }
+    next();
+}
+
 module.exports.validateEntry = (req, res, next) => {
     const { error } = entryValidationSchema.validate(req.body);
     // console.log(req.body);

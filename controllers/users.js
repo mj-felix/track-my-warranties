@@ -1,7 +1,13 @@
 const User = require('../models/user');
+const Entry = require('../models/entry');
 
-module.exports.showUser = (req, res) => {
-    res.render('users/show', { isProfile: true });
+module.exports.showUser = async (req, res) => {
+    const entries = await Entry.find({ user: req.user._id });
+    const files = []
+    for (let entry of entries) files.push(...entry.files);
+    let storage = files.reduce((a, b) => a + b.size, 0);
+    storage = (storage / 1024 / 1024).toFixed(2);
+    res.render('users/show', { isProfile: true, numOfEntries: entries.length, numOfFiles: files.length, storage });
 }
 
 module.exports.renderEditForm = (req, res) => {

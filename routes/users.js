@@ -5,7 +5,7 @@ const users = require('../controllers/users');
 const catchAsync = require('../utils/catchAsync');
 
 router.route('/')
-    .get(isLoggedIn, users.showUser)
+    .get(isLoggedIn, catchAsync(users.showUser))
     .patch(isLoggedIn, validateUser, catchAsync(users.updateUser));
 
 router.get('/edit', isLoggedIn, users.renderEditForm)

@@ -12,7 +12,8 @@
         </li>
         <li class="list-group-item lead"><strong>Store Name:</strong> <%= entry.storeName %></li>
         <% if (entry.additionalComment) { %>
-        <li class="list-group-item lead"><strong>Additional Comment:</strong><br><%= entry.additionalComment %></li>
+        <li class="list-group-item lead"><strong class="d-block">Additional
+                Comment:</strong><%= entry.additionalComment %></li>
         <% } %>
         <li class="list-group-item text-muted small fst-italic">
             Created: <%= entry.dateCreated.toLocaleString() %><br>Modified: <%= entry.dateModified.toLocaleString() %>

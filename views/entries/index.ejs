@@ -16,9 +16,9 @@
             <tbody>
                 <% for (let entry of entries){ %>
                 <tr>
-                    <td><a href="/entries/<%- entry._id %>"><%= entry.productName %></a></td>
-                    <td><%= entry.dateExpired.toLocaleDateString() %></td>
-                    <td><%= entry.storeName %></td>
+                    <td class="py-3"><a href="/entries/<%- entry._id %>"><%= entry.productName %></a></td>
+                    <td class="py-3"><%= entry.dateExpired.toLocaleDateString() %></td>
+                    <td class="py-3"><%= entry.storeName %></td>
                 </tr>
                 <% } %>
             </tbody>

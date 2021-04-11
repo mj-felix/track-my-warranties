@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const ExpressError = require('../utils/ExpressError');
-const { isLoggedIn, isOwner, fileBelongsToEntry } = require('../middleware');
+const { isLoggedIn, isOwner, fileBelongsToEntry, isSpaceAvailable } = require('../middleware');
 const files = require('../controllers/files');
 const catchAsync = require('../utils/catchAsync');
 const uuid = require('uuid');
@@ -38,7 +38,7 @@ const uploadS3 = multer({
     })
 });
 
-router.post('/:id/files', isLoggedIn, isOwner, uploadS3.single('file'), catchAsync(files.uploadFile));
+router.post('/:id/files', isLoggedIn, isSpaceAvailable, isOwner, uploadS3.single('file'), catchAsync(files.uploadFile));
 
 router.delete('/:id/files/:fileKey', isLoggedIn, isOwner, fileBelongsToEntry, catchAsync(files.deleteFile));
 

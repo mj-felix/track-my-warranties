@@ -7,6 +7,13 @@
     <ul class="list-group list-group-flush">
         <li class="list-group-item lead"><strong>Email:</strong> <%= currentUser.username %>
         </li>
+        <li class="list-group-item lead"><strong>Number of Warranties:</strong> <%= numOfEntries %>
+        </li>
+        <li class="list-group-item lead"><strong>Number of Files Uploaded:</strong> <%= numOfFiles %>
+        </li>
+        <li class="list-group-item lead<%= ((storage/500) > 0.8)?' text-danger':'' %>" </li><strong>Disk Storage
+                Used:</strong> <%= storage %>/500MB
+        </li>
 
         <li class="list-group-item text-muted small fst-italic">
             Created: <%= currentUser.dateCreated.toLocaleString() %><br>Modified:
