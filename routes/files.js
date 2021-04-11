@@ -38,8 +38,8 @@ const uploadS3 = multer({
     })
 });
 
-router.post('/:id/files', isLoggedIn, isSpaceAvailable, isOwner, uploadS3.single('file'), catchAsync(files.uploadFile));
+router.post('/:id/files', isLoggedIn, catchAsync(isSpaceAvailable), catchAsync(isOwner), uploadS3.single('file'), catchAsync(files.uploadFile));
 
-router.delete('/:id/files/:fileKey', isLoggedIn, isOwner, fileBelongsToEntry, catchAsync(files.deleteFile));
+router.delete('/:id/files/:fileKey', isLoggedIn, catchAsync(isOwner), catchAsync(fileBelongsToEntry), catchAsync(files.deleteFile));
 
 module.exports = router;

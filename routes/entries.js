@@ -16,11 +16,11 @@ router.route('/')
 
 
 router.route('/:id')
-    .get(isLoggedIn, isOwner, catchAsync(entries.showEntry))
-    .delete(isLoggedIn, isOwner, catchAsync(entries.deleteEntry))
-    .patch(isLoggedIn, isOwner, validateEntry, catchAsync(entries.updateEntry));
+    .get(isLoggedIn, catchAsync(isOwner), catchAsync(entries.showEntry))
+    .delete(isLoggedIn, catchAsync(isOwner), catchAsync(entries.deleteEntry))
+    .patch(isLoggedIn, catchAsync(isOwner), validateEntry, catchAsync(entries.updateEntry));
 
-router.get('/:id/edit', isLoggedIn, isOwner, catchAsync(entries.renderEditForm));
+router.get('/:id/edit', isLoggedIn, catchAsync(isOwner), catchAsync(entries.renderEditForm));
 
 
 

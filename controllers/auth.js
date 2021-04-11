@@ -29,11 +29,8 @@ module.exports.renderLogin = (req, res) => {
 module.exports.login = async (req, res) => {
     // req.flash('success', 'Welcome back!');
     const user = await User.find({ _id: req.user._id });
-    console.log('Before:', user);
     const lastLoginDate = user[0].currentLoginDate;
     const updatedUser = await User.findByIdAndUpdate(req.user._id, { lastLoginDate, currentLoginDate: new Date(Date.now()) });
-    console.log('After:', updatedUser);
-
     const redirectUrl = req.session.returnTo || `/entries`;
     delete req.session.returnTo;
     res.redirect(redirectUrl);
