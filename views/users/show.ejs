@@ -1,5 +1,17 @@
 <% layout('layouts/boilerplate')%>
-<h1>Profile</h1>
-<div>Email: <%= currentUser.username %> <a href="/user/edit">Edit</a></div>
-Date Created: <%= currentUser.dateCreated %><br>
-Date Last Modified: <%= currentUser.dateModified %>
+<div class="my-5 col-md-6 offset-md-3">
+    <div class="d-flex justify-content-between align-items-start">
+        <h1>Profile</h1>
+        <a class="btn btn-outline-primary" href="/entries">All Warranties</a>
+    </div>
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item lead"><strong>Email:</strong> <%= currentUser.username %>
+        </li>
+
+        <li class="list-group-item text-muted small fst-italic">
+            Created: <%= currentUser.dateCreated.toLocaleString() %><br>Modified:
+            <%= currentUser.dateModified.toLocaleString() %></p>
+        </li>
+    </ul>
+    <a class="btn btn-primary" href="/user/edit">Edit Email</a>
+</div>

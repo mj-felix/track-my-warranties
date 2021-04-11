@@ -1,27 +1,54 @@
 <% layout('layouts/boilerplate')%>
-<h1>Add New Warranty</h1>
-<form action="/entries" method="POST">
+<div class="card shadow my-5 col-lg-6 offset-lg-3">
+    <div class="card-body">
+        <h1 class="card-title">Add New Warranty</h1>
 
-    <div class="mb-3">
-        <label for="productName">Product Name</label>
-        <input type="text" id="productName" name="entry[productName]" required>
-    </div>
-    <div class="mb-3">
-        <label for="datePurchased">Date Purchased</label>
-        <input type="date" id="datePurchased" name="entry[datePurchased]" required>
-    </div>
-    <div class="mb-3">
-        <label for="dateExpired">Warranty Due Date</label>
-        <input type="date" id="dateExpired" name="entry[dateExpired]" required>
-    </div>
-    <div class="mb-3">
-        <label for="storeName">Store Name</label>
-        <input type="text" id="storeName" name="entry[storeName]" required>
-    </div>
-    <div class="mb-3">
-        <label for="additionalComment">Additional Comment</label>
-        <textarea type="text" id="additionalComment" name="entry[additionalComment]"></textarea>
-    </div>
-    <button>Add</button>
+        <form action="/entries" method="POST">
 
-</form>
+            <div class="mb-3">
+                <label for="productName" class="form-label">Product Name</label>
+                <input type="text" id="productName" class="form-control" name="entry[productName]" required>
+            </div>
+            <div class="mb-3">
+                <label for="datePurchased" class="form-label">Date Purchased <span class="datePattern"></span></label>
+                <input type="date" id="datePurchased" class="form-control" name="entry[datePurchased]" required
+                    pattern="\d{4}-\d{2}-\d{2}">
+            </div>
+            <div class="mb-3">
+                <label for="dateExpired" class="form-label">Expiry Date <span class="datePattern"></span></label>
+                <input type="date" id="dateExpired" class="form-control" name="entry[dateExpired]" required
+                    pattern="\d{4}-\d{2}-\d{2}">
+            </div>
+            <div class="mb-3">
+                <label for="storeName" class="form-label">Store Name</label>
+                <input type="text" id="storeName" class="form-control" name="entry[storeName]" required>
+            </div>
+            <div class="mb-3">
+                <label for="additionalComment" class="form-label">Additional Comment</label>
+                <textarea type="text" class="form-control" id="additionalComment"
+                    name="entry[additionalComment]"></textarea>
+            </div>
+            <div class="d-flex justify-content-start align-items-start">
+
+                <a class="btn btn-primary" href="/entries">Cancel</a>
+                <button class="btn btn-success ms-3">Save</button>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+<script>
+    const dateInputTest = document.createElement('input');
+    try {
+        dateInputTest.type = 'date';
+    } catch (e) {
+        console.log(e.description);
+    }
+    if (dateInputTest.type === 'text') {
+        for (let span of document.querySelectorAll('span.datePattern')) {
+            console.dir(span);
+            span.textContent = '(YYYY-MM-DD)';
+        }
+    }
+</script>

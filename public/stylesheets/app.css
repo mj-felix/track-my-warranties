@@ -1,0 +1,7 @@
+main > .container {
+  padding: 40px 15px 0;
+}
+
+#flash {
+    transition: opacity 1s;
+}

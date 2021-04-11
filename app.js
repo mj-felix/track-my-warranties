@@ -76,11 +76,14 @@ app.use(session(sessionConfig));
 app.use(express.static(path.join(__dirname, 'public')))
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
+app.use(flash());
+//app.use(helmet());
+
+// Mongo injection prevention
 app.use(mongoSanitize({
     replaceWith: '_'
 }))
-app.use(flash());
-//app.use(helmet());
+
 
 // Auth setup
 app.use(passport.initialize());
@@ -143,12 +146,10 @@ if (process.env.PROVIDER === 'heroku' && process.env.NODE_ENV === 'production') 
 // -- DELETE /entries/:id/documents/:id - delete document via Ajax
 
 // Helmet
-// Joi validation: User, Entry, Files?
-// Frontend
 // Js clean up
 // Dates mismatch
-// Loading img
 // err returned from ajax handle
+// replace innerHTML
 
 // ROUTING:
 

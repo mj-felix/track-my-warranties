@@ -8,7 +8,7 @@ const s3 = new AWS.S3({
 
 module.exports.index = async (req, res) => {
     const entries = await Entry.find({ user: req.user }).sort({ dateExpired: 1 });
-    res.render("entries/index", { entries });
+    res.render("entries/index", { entries, isAllEntries: true });
 }
 
 module.exports.renderNewForm = (req, res) => {
@@ -31,6 +31,7 @@ module.exports.createEntry = async (req, res, next) => {
     entry.dateCreated = d;
     entry.dateModified = d;
     entry.user = req.user._id;
+    entry.status = 'Active';
     await entry.save();
     req.flash('success', 'Successfully added a new warranty!');
     res.redirect(`/entries/${entry._id}`)

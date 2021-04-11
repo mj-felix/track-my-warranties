@@ -1,89 +1,131 @@
 <% layout('layouts/boilerplate')%>
-<h1>Warranty Details</h1>
-Product Name: <%= entry.productName %><br>
-Date Purchased: <%= entry.datePurchased.toDateString() %><br>
-Warranty Due Date: <%= entry.dateExpired.toDateString() %><br>
-Store Name: <%= entry.storeName %><br>
-Additional Comment: <%= entry.additionalComment %><br>
-Date Created: <%= entry.dateCreated %><br>
-Date Last Modified: <%= entry.dateModified %><br>
-<a href="/entries/<%= entry._id %>/edit">Edit Warranty</a>
-<form action="/entries/<%= entry._id %>?_method=DELETE" method="POST">
-    <button class="btn btn-danger my-3">Delete Warranty</button>
-</form>
-<h2>Files</h2>
-<div class='my-2'>
-    <input type="file" id="file" name="file" required accept="image/*,application/pdf">
-</div>
-<div id="files">
-    <ul>
-        <% for (let file of entry.files){ %>
-        <li><a href="#" rel="/entries/<%=entry._id%>/files/<%= file.storedFileName %>"
-                class="my-1 btn btn-danger btn-sm deleteFile">Delete</a> <a href="<%= file.url %>"
-                target="_blank"><%= file.originalFileName %> -
-                <%= (file.size/1024/1024).toFixed(2) %>MB</a>
+<div class="mt-5 mb-3 col-lg-8 offset-lg-2">
+    <div class="d-flex justify-content-between align-items-start">
+        <h1><%= entry.productName %></h1>
+        <a class="btn btn-outline-primary" href="/entries">All Warranties</a>
+    </div>
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item lead"><strong>Purchased Date:</strong>
+            <%= entry.datePurchased.toLocaleDateString() %>
         </li>
+        <li class="list-group-item lead"><strong>Expiry Date:</strong> <%= entry.dateExpired.toLocaleDateString() %>
+        </li>
+        <li class="list-group-item lead"><strong>Store Name:</strong> <%= entry.storeName %></li>
+        <% if (entry.additionalComment) { %>
+        <li class="list-group-item lead"><strong>Additional Comment:</strong><br><%= entry.additionalComment %></li>
         <% } %>
+        <li class="list-group-item text-muted small fst-italic">
+            Created: <%= entry.dateCreated.toLocaleString() %><br>Modified: <%= entry.dateModified.toLocaleString() %>
+            </p>
+        </li>
     </ul>
-</div>
+    <div class="d-flex justify-content-start align-items-start">
+        <form class="" action="/entries/<%= entry._id %>?_method=DELETE" method="POST">
+            <button class="btn btn-danger d-inline">Delete Warranty</button>
+        </form>
+        <a class="btn btn-primary ms-3" href="/entries/<%= entry._id %>/edit">Edit Warranty</a>
+    </div>
 
-<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-<script>
-    const uploadFile = async (event) => {
-        event.preventDefault();
-        event.stopPropagation();
-        // console.log(document.querySelector('#file').files[0]);
-        const formData = new FormData();
-        const file = event.target.files[0];
-        if (file.size > 10 * 1024 * 1024) {
-            document.querySelector('#file').value = '';
-            console.log(`${file.size / 1024 / 1024} - too large`);
-            return false;
-        }
-        formData.append("file", file);
-        axios.post('/entries/<%=entry._id%>/files', formData, {
-            headers: {
-                "Content-Type": "multipart/form-data"
-            }
-        }).then((res) => {
-            console.log(res.data);
-            if (typeof res.data.file !== 'undefined') {
+    <div class='mt-4'>
+        <label for="file" class="form-label lead">Upload a file (image or pdf, max 10 MB):</label>
+        <input type="file" class="form-control" id="file" name="file" required accept="image/*,application/pdf">
+    </div>
+
+    <div class="table-responsive mt-3">
+        <table class="table table-striped align-middle" id="files">
+            <thead>
+                <tr>
+                    <th>File Name
+                        <div id="spinner" class="invisible spinner-border spinner-border-sm" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                    </th>
+                    <th>Size</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <% for (let file of entry.files){ %>
+                <tr>
+                    <td><a href="<%= file.url %>" target="_blank"><%= file.originalFileName %></a></td>
+                    <td><%= (file.size/1024/1024).toFixed(2) %> MB</td>
+                    <td class="text-end"><a href="#" rel="/entries/<%=entry._id%>/files/<%= file.storedFileName %>"
+                            class="my-1 btn btn-danger btn-sm deleteFile">Delete</a></td>
+                </tr>
+                <% } %>
+            </tbody>
+        </table>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        const uploadFile = async (event) => {
+            event.preventDefault();
+            event.stopPropagation();
+            // console.log(document.querySelector('#file').files[0]);
+            document.getElementById('spinner').classList.add('visible');
+            document.getElementById('spinner').classList.remove('invisible');
+
+            const formData = new FormData();
+            const file = event.target.files[0];
+            if (file.size > 10 * 1024 * 1024) {
                 document.querySelector('#file').value = '';
-                const file = res.data.file;
-                const fileSize = (file.size / 1024 / 1024).toFixed(2);
-                const newFile = document.createElement("li");
-                newFile.innerHTML = `<a href="#"
-                rel="/entries/<%=entry._id%>/files/${file.storedFileName}" class="my-1 btn btn-danger btn-sm deleteFile">Delete</a> <a href="${file.url}" target="_blank">${file.originalFileName} - ${fileSize}MB</a>`;
-                document.querySelector('#files ul').prepend(newFile);
-                document.querySelector('#files a.deleteFile').addEventListener('click', deleteFile);
-            };
-        }).catch((err) => {
-            console.log(err);
-            document.querySelector('#file').value = '';
-            console.log(err.response.data);
-        });
-    };
-
-    const fileInput = document.querySelector('#file');
-    fileInput.addEventListener('change', uploadFile);
-
-    const deleteFile = async (event) => {
-        event.preventDefault();
-        event.stopPropagation();
-
-        axios.delete(event.target.rel)
-            .then((res) => {
-                event.target.parentNode.remove();
+                console.log(`${file.size / 1024 / 1024} - too large`);
+                return false;
+            }
+            formData.append("file", file);
+            axios.post('/entries/<%=entry._id%>/files', formData, {
+                headers: {
+                    "Content-Type": "multipart/form-data"
+                }
+            }).then((res) => {
+                console.log(res.data);
+                if (typeof res.data.file !== 'undefined') {
+                    document.querySelector('#file').value = '';
+                    const file = res.data.file;
+                    const fileSize = (file.size / 1024 / 1024).toFixed(2);
+                    const newFile = document.createElement("tr");
+                    newFile.innerHTML =
+                        `<td><a href="${file.url}" target="_blank">${file.originalFileName}</a></td>
+                    <td>${fileSize} MB</td>
+                    <td class="text-end"><a href="#" rel="/entries/<%=entry._id%>/files/${file.storedFileName}"
+                        class="my-1 btn btn-danger btn-sm deleteFile">Delete</a></td>`;
+                    // newFile.innerHTML = `<a href="#"
+                    // rel="/entries/<%=entry._id%>/files/${file.storedFileName}" class="my-1 btn btn-danger btn-sm deleteFile">Delete</a> <a href="${file.url}" target="_blank">${file.originalFileName} - ${fileSize}MB</a>`;
+                    document.querySelector('#files tbody').prepend(newFile);
+                    document.querySelector('#files a.deleteFile').addEventListener('click', deleteFile);
+                    document.getElementById('spinner').classList.add('invisible');
+                    document.getElementById('spinner').classList.remove('visible');
+                };
             }).catch((err) => {
                 console.log(err);
+                document.querySelector('#file').value = '';
                 console.log(err.response.data);
+                document.getElementById('spinner').classList.add('invisible');
+                document.getElementById('spinner').classList.remove('visible');
             });
-    };
+        };
 
-    const deleteAs = document.querySelectorAll('.deleteFile');
+        const fileInput = document.querySelector('#file');
+        fileInput.addEventListener('change', uploadFile);
 
-    for (let dA of deleteAs) {
-        dA.addEventListener('click', deleteFile);
-    }
+        const deleteFile = async (event) => {
+            event.preventDefault();
+            event.stopPropagation();
 
-</script>
+            axios.delete(event.target.rel)
+                .then((res) => {
+                    event.target.parentNode.parentNode.remove();
+                }).catch((err) => {
+                    console.log(err);
+                    console.log(err.response.data);
+                });
+        };
+
+        const deleteAs = document.querySelectorAll('.deleteFile');
+
+        for (let dA of deleteAs) {
+            dA.addEventListener('click', deleteFile);
+        }
+
+    </script>

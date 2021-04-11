@@ -12,7 +12,7 @@ module.exports.register = async (req, res, next) => {
         const registeredUser = await User.register(user, password);
         req.login(registeredUser, err => {
             if (err) return next(err);
-            req.flash('success', 'Welcome to Track My Warranties!');
+            // req.flash('success', 'Welcome to Track My Warranties!');
             res.redirect(`/entries/new`);
         })
     } catch (e) {
@@ -26,7 +26,7 @@ module.exports.renderLogin = (req, res) => {
 }
 
 module.exports.login = (req, res) => {
-    req.flash('success', 'Welcome back!');
+    // req.flash('success', 'Welcome back!');
     const redirectUrl = req.session.returnTo || `/entries`;
     delete req.session.returnTo;
     res.redirect(redirectUrl);

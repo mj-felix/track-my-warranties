@@ -49,6 +49,11 @@ const EntrySchema = new Schema({
         type: String,
         required: true
     },
+    status: {
+        type: String,
+        enum: ['Active'],
+        required: true
+    },
     additionalComment: String,
     dateCreated: Date,
     dateModified: Date,

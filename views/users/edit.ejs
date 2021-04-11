@@ -1,12 +1,19 @@
 <% layout('layouts/boilerplate')%>
-<h1>Edit User</h1>
-<form action="/user?_method=PATCH" method="POST">
+<div class="card shadow my-5 col-md-6 offset-md-3">
+    <div class="card-body">
+        <h1 class="card-title">Edit Profile</h1>
+        <form action="/user?_method=PATCH" method="POST">
+            <div class="mb-3">
+                <label for="email" class="form-label">Email address</label>
+                <input type="email" class="form-control" id="email" name="email" value="<%= currentUser.username %>"
+                    required>
+            </div>
 
-    <div class="mb-3">
-        <label for="email">Email</label>
-        <input type="text" id="email" name="email" value="<%= currentUser.username %>" required>
+            <div class="d-flex justify-content-start align-items-start">
+
+                <a class="btn btn-primary" href="/user">Cancel</a>
+                <button class="btn btn-success ms-3">Save</button>
+            </div>
+        </form>
     </div>
-    <button>Save</button>
-
-</form>
-<a href="/user">Back</a>
+</div>

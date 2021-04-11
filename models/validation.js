@@ -34,7 +34,7 @@ module.exports.entryValidationSchema = Joi.object({
 });
 
 module.exports.userValidationSchema = Joi.object({
-    email: Joi.string().allow('').email()
+    email: Joi.string().required().allow('').email()
 });
 
 // module.exports.reviewSchema = Joi.object({
