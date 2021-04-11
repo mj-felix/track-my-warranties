@@ -17,6 +17,8 @@ const UserSchema = new Schema({
     tokenExpiryDate: Date,
     dateCreated: Date,
     dateModified: Date,
+    currentLoginDate: Date,
+    lastLoginDate: Date,
     accessLevel: {
         type: String,
         enum: ['User', 'Admin']

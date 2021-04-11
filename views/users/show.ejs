@@ -19,14 +19,16 @@
         </li>
         <% } %>
         <li class="list-group-item text-muted small fst-italic">
-            Created: <%= currentUser.dateCreated.toLocaleString() %><br>Modified:
-            <%= currentUser.dateModified.toLocaleString() %></p>
+            Created: <%= currentUser.dateCreated.toLocaleString() %><br>
+            Modified:<%= currentUser.dateModified.toLocaleString() %><br>
+            Last Login: <%= currentUser.lastLoginDate?currentUser.lastLoginDate.toLocaleString():'N/A' %>
         </li>
     </ul>
-    <a class="btn btn-primary" href="/user/edit">Edit Email</a>
+    <a class="btn btn-primary mt-2" href="/user/edit">Edit Email</a>
+    <% if (currentUser.accessLevel === 'Admin') { %>
     <h2 class="mt-5">All Users Stats</h2>
     <ul class="list-group list-group-flush">
-        <% if (currentUser.accessLevel === 'Admin') { %>
+
         <li class="list-group-item lead"><strong>Number of All Users:</strong> <%= numOfUsers %>
         </li>
         <li class="list-group-item lead"><strong>Number of All Warranties:</strong> <%= numOfAllEntries %>
@@ -35,6 +37,7 @@
         </li>
         <li class="list-group-item lead"><strong>All Storage Used:</strong> <%= allStorage %>MB
         </li>
-        <% } %>
+
     </ul>
+    <% } %>
 </div>

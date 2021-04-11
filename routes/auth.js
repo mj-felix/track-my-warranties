@@ -11,7 +11,7 @@ router.route('/register')
 
 router.route('/login')
     .get(auth.renderLogin)
-    .post(validateUser, passport.authenticate('local', { failureFlash: 'Invalid email or password.', failureRedirect: '/login' }), auth.login)
+    .post(validateUser, passport.authenticate('local', { failureFlash: 'Invalid email or password.', failureRedirect: '/login' }), catchAsync(auth.login))
 
 router.get('/logout', auth.logout)
 
