@@ -1,4 +1,5 @@
-<section id="flash" class="col-md-6 offset-md-3">
+<!-- <section id="flash" class="col-md-6 offset-md-3"> -->
+<section id="flashContainer">
     <% if(success && success.length) {%>
     <div class="alert alert-success mt-5" role="alert">
         <%= success %>
@@ -9,24 +10,3 @@
         </div>
         <% } %>
 </section>
-<script>
-    const flash = document.getElementById('flash');
-    const intervalID = setInterval(function () {
-
-        if (!flash.style.opacity) {
-            flash.style.opacity = 1;
-        }
-
-
-        if (flash.style.opacity >= 0) {
-            flash.style.opacity -= 0.1;
-        }
-
-        else {
-            clearInterval(intervalID);
-            flash.remove();
-        }
-
-    }, 250);
-
-</script>

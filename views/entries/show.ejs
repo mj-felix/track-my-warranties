@@ -1,5 +1,5 @@
 <% layout('layouts/boilerplate')%>
-<div class="mt-5 mb-3 col-lg-8 offset-lg-2">
+<div class="mt-5 mb-3">
     <div class="d-flex justify-content-between align-items-start">
         <h1><%= entry.productName %></h1>
         <a class="btn btn-outline-primary" href="/entries">All Warranties</a>
@@ -57,6 +57,10 @@
             </tbody>
         </table>
     </div>
+
+    <script>
+        const colOffsetClasses = 'col-lg-8 offset-lg-2';
+    </script>
 
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script>
