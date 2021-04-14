@@ -45,18 +45,3 @@
 <script>
     const colOffsetClasses = 'col-lg-6 offset-lg-3';
 </script>
-
-<script>
-    const dateInputTest = document.createElement('input');
-    try {
-        dateInputTest.type = 'date';
-    } catch (e) {
-        console.log(e.description);
-    }
-    if (dateInputTest.type === 'text') {
-        for (let span of document.querySelectorAll('span.datePattern')) {
-            console.dir(span);
-            span.textContent = '(YYYY-MM-DD)';
-        }
-    }
-</script>
