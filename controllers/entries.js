@@ -27,7 +27,7 @@ module.exports.renderEditForm = async (req, res) => {
 
 module.exports.createEntry = async (req, res, next) => {
     const entry = new Entry(req.body.entry);
-    const d = new Date(Date.now());
+    const d = new Date();
     entry.dateCreated = d;
     entry.dateModified = d;
     entry.user = req.user._id;
@@ -68,7 +68,7 @@ module.exports.deleteEntry = async (req, res) => {
 
 module.exports.updateEntry = async (req, res) => {
     const { id } = req.params;
-    const entry = await Entry.findByIdAndUpdate(id, { ...req.body.entry, dateModified: new Date(Date.now()) });
+    const entry = await Entry.findByIdAndUpdate(id, { ...req.body.entry, dateModified: new Date() });
 
     req.flash('success', 'Successfully updated warranty!');
     res.redirect(`/entries/${entry._id}`)

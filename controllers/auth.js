@@ -8,7 +8,7 @@ module.exports.renderRegister = (req, res) => {
 module.exports.register = async (req, res, next) => {
     try {
         const { email, password } = req.body;
-        const d = new Date(Date.now())
+        const d = new Date();
         const accessLevel = email === 'mjfelixdev@gmail.com' ? 'Admin' : 'User';
         const user = new User({ username: email, dateCreated: d, dateModified: d, currentLoginDate: d, accessLevel });
         const registeredUser = await User.register(user, password);
@@ -16,7 +16,7 @@ module.exports.register = async (req, res, next) => {
         sgMail.setApiKey(process.env.SENDGRID_API_KEY)
         const msg = {
             to: process.env.ADMIN_EMAIL,
-            from: 'no.response.track.my@gmail.com',
+            from: process.env.NO_RESPONSE_EMAIL,
             subject: '[Track My Warranties] New user',
             text: `Email: ${email}\nCreated: ${d.toUTCString()}`,
         }
@@ -48,7 +48,7 @@ module.exports.login = async (req, res) => {
     // req.flash('success', 'Welcome back!');
     const user = await User.find({ _id: req.user._id });
     const lastLoginDate = user[0].currentLoginDate;
-    const updatedUser = await User.findByIdAndUpdate(req.user._id, { lastLoginDate, currentLoginDate: new Date(Date.now()) });
+    const updatedUser = await User.findByIdAndUpdate(req.user._id, { lastLoginDate, currentLoginDate: new Date() });
     const redirectUrl = req.session.returnTo || `/entries`;
     delete req.session.returnTo;
     res.redirect(redirectUrl);
