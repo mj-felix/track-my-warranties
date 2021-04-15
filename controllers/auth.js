@@ -1,4 +1,5 @@
 const User = require('../models/user');
+const sgMail = require('@sendgrid/mail')
 
 module.exports.renderRegister = (req, res) => {
     res.render('auth/register', { isRegisterForm: true });
@@ -11,6 +12,23 @@ module.exports.register = async (req, res, next) => {
         const accessLevel = email === 'mjfelixdev@gmail.com' ? 'Admin' : 'User';
         const user = new User({ username: email, dateCreated: d, dateModified: d, currentLoginDate: d, accessLevel });
         const registeredUser = await User.register(user, password);
+
+        sgMail.setApiKey(process.env.SENDGRID_API_KEY)
+        const msg = {
+            to: process.env.ADMIN_EMAIL,
+            from: 'no.response.track.my@gmail.com',
+            subject: '[Track My Warranties] New user',
+            text: `Email: ${email}\nCreated: ${d.toUTCString()}`,
+        }
+        sgMail
+            .send(msg)
+            .then(() => {
+                console.log('Email sent')
+            })
+            .catch((error) => {
+                console.error(error)
+            })
+
         req.login(registeredUser, err => {
             if (err) return next(err);
             // req.flash('success', 'Welcome to Track My Warranties!');
