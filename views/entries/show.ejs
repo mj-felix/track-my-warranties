@@ -6,9 +6,10 @@
     </div>
     <ul class="list-group list-group-flush">
         <li class="list-group-item lead"><strong>Purchased Date:</strong>
-            <%= entry.datePurchased.toLocaleDateString() %>
+            <%= dateFormat(entry.datePurchased, 'dd mmm yyyy') %>
         </li>
-        <li class="list-group-item lead"><strong>Expiry Date:</strong> <%= entry.dateExpired.toLocaleDateString() %>
+        <li class="list-group-item lead"><strong>Expiry Date:</strong>
+            <%= dateFormat(entry.dateExpired, 'dd mmm yyyy') %>
         </li>
         <li class="list-group-item lead"><strong>Store Name:</strong> <%= entry.storeName %></li>
         <% if (entry.additionalComment) { %>
@@ -16,7 +17,8 @@
                 Comment:</strong><%= entry.additionalComment %></li>
         <% } %>
         <li class="list-group-item text-muted small fst-italic">
-            Created: <%= entry.dateCreated.toLocaleString() %><br>Modified: <%= entry.dateModified.toLocaleString() %>
+            Created: <%= dateFormat(entry.dateCreated, 'dd mmm yyyy HH:mm:ss Z') %><br>Modified:
+            <%= dateFormat(entry.dateModified, 'dd mmm yyyy HH:mm:ss Z') %>
             </p>
         </li>
     </ul>

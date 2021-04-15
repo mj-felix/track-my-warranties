@@ -19,9 +19,10 @@
         </li>
         <% } %>
         <li class="list-group-item text-muted small fst-italic">
-            Created: <%= currentUser.dateCreated.toLocaleString() %><br>
-            Modified:<%= currentUser.dateModified.toLocaleString() %><br>
-            Last Login: <%= currentUser.lastLoginDate?currentUser.lastLoginDate.toLocaleString():'N/A' %>
+            Created: <%= dateFormat(currentUser.dateCreated, 'dd mmm yyyy HH:mm:ss Z') %><br>
+            Modified:<%= dateFormat(currentUser.dateModified, 'dd mmm yyyy HH:mm:ss Z') %><br>
+            Last Login:
+            <%= currentUser.lastLoginDate?dateFormat(currentUser.lastLoginDate, 'dd mmm yyyy HH:mm:ss Z'):'N/A' %>
         </li>
     </ul>
     <a class="btn btn-primary mt-2" href="/user/edit">Edit Email</a>

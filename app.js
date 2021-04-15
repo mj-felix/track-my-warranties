@@ -20,7 +20,7 @@ const authRoutes = require('./routes/auth');
 const entryRoutes = require('./routes/entries');
 const userRoutes = require('./routes/users');
 const fileRoutes = require('./routes/files');
-
+const dateFormat = require("dateformat");
 
 
 // MongoDB connection
@@ -135,6 +135,11 @@ app.use((req, res, next) => {
     next();
 })
 
+//dateFomrat mw setup
+app.use((req, res, next) => {
+    res.locals.dateFormat = dateFormat;
+    next();
+});
 
 // herokuapp.com subdomain permanent redirection
 if (process.env.PROVIDER === 'heroku' && process.env.NODE_ENV === 'production') {
