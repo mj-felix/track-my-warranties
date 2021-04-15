@@ -43,3 +43,8 @@ if (typeof entryId !== 'undefined') {
 if (document.querySelector('#password2')) {
     document.querySelector("form").addEventListener("submit", app.auth.view.checkPasswords);
 }
+
+//disable submit button on submit
+if (document.querySelector('form')) {
+    document.querySelector('form').addEventListener("submit", app.utils.view.disableSubmit);
+}

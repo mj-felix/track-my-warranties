@@ -128,6 +128,10 @@ const app = {
                     }, 200);
                 }, 2000
                 );
+            },
+            disableSubmit: function () {
+                document.querySelector('form button').disabled = true;
+                document.querySelector('form button').innerHTML += ' <div class="spinner-border spinner-border-sm text-light" role="status"><span class= "visually-hidden">Loading...</span></div>';
             }
         }
     }
