@@ -146,9 +146,7 @@ if (process.env.PROVIDER === 'heroku' && process.env.NODE_ENV === 'production') 
 // -- DELETE /entries/:id/documents/:id - delete document via Ajax
 
 // Helmet
-// Js clean up
 // Dates mismatch
-// err returned from ajax handle
 // replace innerHTML
 
 // ROUTING:

@@ -60,77 +60,7 @@
 
     <script>
         const colOffsetClasses = 'col-lg-8 offset-lg-2';
+        const entryId = '<%=entry._id%>';
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script>
-        const uploadFile = async (event) => {
-            event.preventDefault();
-            event.stopPropagation();
-            // console.log(document.querySelector('#file').files[0]);
-            document.getElementById('spinner').classList.add('visible');
-            document.getElementById('spinner').classList.remove('invisible');
-
-            const formData = new FormData();
-            const file = event.target.files[0];
-            if (file.size > 10 * 1024 * 1024) {
-                document.querySelector('#file').value = '';
-                console.log(`${file.size / 1024 / 1024} - too large`);
-                return false;
-            }
-            formData.append("file", file);
-            axios.post('/entries/<%=entry._id%>/files', formData, {
-                headers: {
-                    "Content-Type": "multipart/form-data"
-                }
-            }).then((res) => {
-                console.log(res.data);
-                if (typeof res.data.file !== 'undefined') {
-                    document.querySelector('#file').value = '';
-                    const file = res.data.file;
-                    const fileSize = (file.size / 1024 / 1024).toFixed(2);
-                    const newFile = document.createElement("tr");
-                    newFile.innerHTML =
-                        `<td><a href="${file.url}" target="_blank">${file.originalFileName}</a></td>
-                    <td>${fileSize} MB</td>
-                    <td class="text-end"><a href="#" rel="/entries/<%=entry._id%>/files/${file.storedFileName}"
-                        class="my-1 btn btn-danger btn-sm deleteFile">Delete</a></td>`;
-                    // newFile.innerHTML = `<a href="#"
-                    // rel="/entries/<%=entry._id%>/files/${file.storedFileName}" class="my-1 btn btn-danger btn-sm deleteFile">Delete</a> <a href="${file.url}" target="_blank">${file.originalFileName} - ${fileSize}MB</a>`;
-                    document.querySelector('#files tbody').prepend(newFile);
-                    document.querySelector('#files a.deleteFile').addEventListener('click', deleteFile);
-                    document.getElementById('spinner').classList.add('invisible');
-                    document.getElementById('spinner').classList.remove('visible');
-                };
-            }).catch((err) => {
-                console.log(err);
-                document.querySelector('#file').value = '';
-                console.log(err.response.data);
-                document.getElementById('spinner').classList.add('invisible');
-                document.getElementById('spinner').classList.remove('visible');
-            });
-        };
-
-        const fileInput = document.querySelector('#file');
-        fileInput.addEventListener('change', uploadFile);
-
-        const deleteFile = async (event) => {
-            event.preventDefault();
-            event.stopPropagation();
-
-            axios.delete(event.target.rel)
-                .then((res) => {
-                    event.target.parentNode.parentNode.remove();
-                }).catch((err) => {
-                    console.log(err);
-                    console.log(err.response.data);
-                });
-        };
-
-        const deleteAs = document.querySelectorAll('.deleteFile');
-
-        for (let dA of deleteAs) {
-            dA.addEventListener('click', deleteFile);
-        }
-
-    </script>

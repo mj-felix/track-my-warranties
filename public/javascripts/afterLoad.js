@@ -4,18 +4,7 @@ for (const cl of colOffsetClasses.split(' ')) mainContainer.classList.add(cl);
 
 // auto hide flash message
 if (document.querySelector('#flashContainer div.alert')) {
-    const flash = document.getElementById('flashContainer');
-    const intervalID = setInterval(function () {
-        if (!flash.style.opacity) {
-            flash.style.opacity = 1;
-        }
-        if (flash.style.opacity >= 0) {
-            flash.style.opacity -= 0.1;
-        } else {
-            clearInterval(intervalID);
-            flash.remove();
-        }
-    }, 200);
+    app.utils.view.addAutoHide('#flashContainer');
 }
 
 // add date pattern to date input label for Safari
@@ -30,5 +19,20 @@ if (document.querySelector('span.datePattern')) {
         for (let span of document.querySelectorAll('span.datePattern')) {
             span.textContent = '(YYYY-MM-DD)';
         }
+    }
+}
+
+// add file uploader
+if (entryId) {
+    const fileInput = document.querySelector('#file');
+    fileInput.addEventListener('change', app.file.controler.uploadFile);
+}
+
+// add file deleter
+
+if (entryId) {
+    const deleteAs = document.querySelectorAll('.deleteFile');
+    for (let dA of deleteAs) {
+        dA.addEventListener('click', app.file.controler.deleteFile);
     }
 }
