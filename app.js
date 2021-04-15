@@ -25,9 +25,8 @@ const fileRoutes = require('./routes/files');
 
 // MongoDB connection
 const dbName = 'track-my-warranties';
-const mongoUrl = process.env.MONGO_URL || 'mongodb://localhost:27017';
-const dbUrl = mongoUrl + '/' + dbName;
-mongoose.connect(dbUrl, {
+const mongoUrl = process.env.MONGO_URL || 'mongodb://localhost:27017/track-my-warranties';
+mongoose.connect(mongoUrl, {
     useNewUrlParser: true,
     useCreateIndex: true,
     useUnifiedTopology: true,
