@@ -132,14 +132,9 @@ app.use((req, res, next) => {
     res.locals.currentUser = req.user;
     res.locals.success = req.flash('success');
     res.locals.error = req.flash('error');
-    next();
-})
-
-//dateFomrat mw setup
-app.use((req, res, next) => {
     res.locals.dateFormat = dateFormat;
     next();
-});
+})
 
 // herokuapp.com subdomain permanent redirection
 if (process.env.PROVIDER === 'heroku' && process.env.NODE_ENV === 'production') {
