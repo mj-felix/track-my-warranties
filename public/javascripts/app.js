@@ -37,13 +37,15 @@ const app = {
             deleteFile: function (event) {
                 event.preventDefault();
                 event.stopPropagation();
-
+                app.utils.view.show('#spinner');
                 axios.delete(event.target.rel)
                     .then((res) => {
                         event.target.parentNode.parentNode.remove();
+                        app.utils.view.hide('#spinner');
                         // app.utils.view.showFlash('File deleted successfully', 'success');
                     }).catch((err) => {
                         app.utils.view.showFlash('Something went wrong  ... please try again.', 'danger');
+                        app.utils.view.hide('#spinner');
                     });
             }
 

@@ -23,14 +23,14 @@ if (document.querySelector('span.datePattern')) {
 }
 
 // add file uploader
-if (entryId) {
+if (typeof entryId !== 'undefined') {
     const fileInput = document.querySelector('#file');
     fileInput.addEventListener('change', app.file.controler.uploadFile);
 }
 
 // add file deleter
 
-if (entryId) {
+if (typeof entryId !== 'undefined') {
     const deleteAs = document.querySelectorAll('.deleteFile');
     for (let dA of deleteAs) {
         dA.addEventListener('click', app.file.controler.deleteFile);
