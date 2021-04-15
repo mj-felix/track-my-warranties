@@ -19,16 +19,6 @@
         </form>
     </div>
 </div>
-<script>
-    document.querySelector("form").addEventListener("submit", function (e) {
-        const password1 = document.querySelector('#password').value;
-        const password2 = document.querySelector('#password2').value;
-        if (password1 !== password2) {
-            alert('Passwords do not match');
-            e.preventDefault();
-        }
-    });
-</script>
 
 <script>
     const colOffsetClasses = 'col-md-6 offset-md-3 col-lg-5 offset-lg-3 col-xl-4 offset-xl-4';

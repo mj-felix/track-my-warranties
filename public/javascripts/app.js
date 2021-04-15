@@ -1,4 +1,16 @@
 const app = {
+    auth: {
+        view: {
+            checkPasswords: function (event) {
+                const password1 = document.querySelector('#password').value;
+                const password2 = document.querySelector('#password2').value;
+                if (password1 !== password2) {
+                    app.utils.view.showFlash('Passwords do not match!', 'danger');
+                    event.preventDefault();
+                }
+            }
+        }
+    },
     file: {
         controler: {
             uploadFile: function (event) {

@@ -36,3 +36,8 @@ if (typeof entryId !== 'undefined') {
         dA.addEventListener('click', app.file.controler.deleteFile);
     }
 }
+
+// add password not the same validation on register
+if (document.querySelector('#password2')) {
+    document.querySelector("form").addEventListener("submit", app.auth.view.checkPasswords);
+}
