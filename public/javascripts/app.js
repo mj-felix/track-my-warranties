@@ -111,19 +111,23 @@ const app = {
             },
             addAutoHide: function (id) {
                 const flash = document.querySelector(id);
-                const intervalID = setInterval(function () {
-                    if (!flash.style.opacity) {
-                        flash.style.opacity = 1;
-                    }
-                    if (flash.style.opacity >= 0) {
-                        flash.style.opacity -= 0.1;
-                    } else {
-                        clearInterval(intervalID);
-                        // flash.remove();
-                        flash.textContent = '';
-                        flash.style.opacity = 1
-                    }
-                }, 200);
+                const wait = setInterval(function () {
+                    const intervalID = setInterval(function () {
+                        if (!flash.style.opacity) {
+                            flash.style.opacity = 1;
+                        }
+                        if (flash.style.opacity >= 0) {
+                            flash.style.opacity -= 0.1;
+                        } else {
+                            clearInterval(intervalID);
+                            // flash.remove();
+                            flash.textContent = '';
+                            flash.style.opacity = 1
+                            clearInterval(wait);
+                        }
+                    }, 200);
+                }, 2000
+                );
             }
         }
     }
