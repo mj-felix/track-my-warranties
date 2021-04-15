@@ -14,7 +14,7 @@ const methodOverride = require('method-override');
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
 const User = require('./models/user');
-// const helmet = require('helmet');
+const helmet = require('helmet');
 const mongoSanitize = require('express-mongo-sanitize');
 const authRoutes = require('./routes/auth');
 const entryRoutes = require('./routes/entries');
@@ -65,7 +65,7 @@ const sessionConfig = {
     saveUninitialized: true,
     cookie: {
         httpOnly: true,
-        // secure: true,
+        secure: process.env.IS_COOKIE_SECURE === 'true' ? true : false,
         expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
         maxAge: 1000 * 60 * 60 * 24 * 7
     }
@@ -77,7 +77,37 @@ app.use(express.static(path.join(__dirname, 'public')))
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
 app.use(flash());
-//app.use(helmet());
+app.use(helmet());
+
+const scriptSrcUrls = [
+    "https://cdn.jsdelivr.net",
+];
+const styleSrcUrls = [
+    "https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/",
+];
+const connectSrcUrls = [];
+const fontSrcUrls = [];
+app.use(
+    helmet.contentSecurityPolicy({
+        directives: {
+            defaultSrc: [],
+            connectSrc: ["'self'", ...connectSrcUrls],
+            scriptSrc: ["'unsafe-inline'", "'self'", ...scriptSrcUrls],
+            styleSrc: ["'self'", "'unsafe-inline'", ...styleSrcUrls],
+            workerSrc: ["'self'", "blob:"],
+            childSrc: ["blob:"],
+            objectSrc: [],
+            imgSrc: [
+                "'self'",
+                "blob:",
+                "data:",
+                "https://track-my-warranties.s3.ap-southeast-2.amazonaws.com",
+                "https://images.unsplash.com",
+            ],
+            fontSrc: ["'self'", ...fontSrcUrls],
+        },
+    })
+);
 
 // Mongo injection prevention
 app.use(mongoSanitize({
@@ -117,45 +147,11 @@ if (process.env.PROVIDER === 'heroku' && process.env.NODE_ENV === 'production') 
     })
 }
 
-// Routes:
-
-// GET / - home
-
-// -- GET /login - login form
-// -- POST /login - login form method
-// -- GET /logout - logout link
-// -- GET /register - register form
-// -- POST /register - register form method
-// GET /forgotpassword - forgot password form
-// POST /forgotpassword - forgot password form method
-// GET /resetpassword?token=xxx - reset password form
-// POST /resetpassword?token=xxx - reset password form method
-
-// -- GET /user - retrieve user's details
-// -- GET /user/edit - edit user form (email)
-// -- PATCH /user - edit user form method (email)
-
-// -- GET /entries/new - add new entry form
-// -- POST /entries - add new entry form method
-// -- GET /entries/:id - retrieve entry's details along with all documents
-// -- GET /entries/:id/edit - edit entry form
-// -- PATCH /entries/:id - edit entry form method
-// -- DELETE /entries/:id - delete entry along with all documents
-
-// -- POST /entries/:id/documents - upload document via Ajax
-// -- DELETE /entries/:id/documents/:id - delete document via Ajax
-
-// Helmet
-// Dates mismatch
-// replace innerHTML
-
 // ROUTING:
-
 app.use('/', authRoutes);
 app.use('/user', userRoutes);
 app.use('/entries', entryRoutes);
 app.use('/entries', fileRoutes);
-
 
 // main page
 app.get('/', (req, res) => {
