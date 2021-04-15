@@ -1,6 +1,8 @@
 // adjust layout basing on set bootstrap classes
 const mainContainer = document.querySelector('#mainContainer');
+const footerContainer = document.querySelector('#footerContainer');
 for (const cl of colOffsetClasses.split(' ')) mainContainer.classList.add(cl);
+for (const cl of colOffsetClasses.split(' ')) footerContainer.classList.add(cl);
 
 // auto hide flash message
 if (document.querySelector('#flashContainer div.alert')) {
