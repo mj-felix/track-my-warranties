@@ -27,8 +27,21 @@ module.exports.renderEditForm = (req, res) => {
 }
 
 module.exports.updateUser = async (req, res) => {
-    const user = await User.findByIdAndUpdate(req.user._id, { username: req.body.email, dateModified: new Date(Date.now()) });
+    const { email } = req.body;
+    const existingUser = await User.find({ username: email });
+
+    console.log(existingUser)
+    if (existingUser.length) {
+        if (existingUser[0].username === req.user.username) {
+            req.flash('error', 'It is the same email!');
+            return res.redirect('/user/edit');
+        }
+        req.flash('error', 'You cannot use this email!');
+        return res.redirect('/user/edit');
+    }
+    const user = await User.findByIdAndUpdate(req.user._id, { username: email, dateModified: new Date(Date.now()) });
     req.logout();
     req.flash('success', 'Successfully updated user. Please login again using your new email.');
     res.redirect('/login');
+
 }
