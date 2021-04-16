@@ -2,7 +2,7 @@
 
 ## Live Website
 
-[trackmywarranties.mjfelix.dev](https://trackmywarranties.mjfelix.dev)
+[trackmywarranties.mjfelix.dev](https://trackmywarranties.mjfelix.dev){:target="_blank"}
 
 Feel free to play around ... still ironing out bugs so will be dropping the database.
 
@@ -21,8 +21,10 @@ Feel free to play around ... still ironing out bugs so will be dropping the data
 ## Contact
 
 MJ Felix
+
 mjfelixdev@gmail.com :email:
-[LinkedIn Profile](https://www.linkedin.com/in/mjfelix/) ![Linkedin Profile](https://i.stack.imgur.com/gVE0j.png)
+
+[LinkedIn Profile](https://www.linkedin.com/in/mjfelix/){:target="_blank"} ![Linkedin Profile](https://i.stack.imgur.com/gVE0j.png)
 
 ## Backlog
 
