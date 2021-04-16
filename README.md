@@ -4,7 +4,7 @@
 
 [trackmywarranties.mjfelix.dev](https://trackmywarranties.mjfelix.dev)
 
-Feel free to play around ... still ironing out bugs so will be dropping the database.
+Feel free to play around ... still ironing out bugs so will be dropping the database anyway.
 
 ## Technologies/Components
 

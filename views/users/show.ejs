@@ -20,7 +20,7 @@
         <% } %>
         <li class="list-group-item text-muted small fst-italic">
             Created: <%= dateFormat(currentUser.dateCreated, 'dd mmm yyyy HH:MM:ss Z') %><br>
-            Modified:<%= dateFormat(currentUser.dateModified, 'dd mmm yyyy HH:MM:ss Z') %><br>
+            Modified: <%= dateFormat(currentUser.dateModified, 'dd mmm yyyy HH:MM:ss Z') %><br>
             Last Login:
             <%= currentUser.lastLoginDate?dateFormat(currentUser.lastLoginDate, 'dd mmm yyyy HH:MM:ss Z'):'N/A' %>
         </li>
