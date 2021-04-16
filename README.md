@@ -28,6 +28,7 @@ mjfelixdev@gmail.com :email:<br>
 
  1. Captcha
  2. Forgot password/Password reset
- 3. Email notifications for expiring warranty
+ 3. Email notifications for expiring warranties
  4. Replace innerHTML
  5. Password change (when logged in)
+ 6. ...
