@@ -29,9 +29,8 @@
         </li>
         <% } %>
     </ul>
-
-    <% if(typeof isProfile === 'undefined' || !isProfile) {%>
-    <ul class="navbar-nav">
+    <ul class="navbar-nav mb-2 mb-md-0">
+        <% if(typeof isProfile === 'undefined' || !isProfile) {%>
         <li class="nav-item">
             <a class="nav-link" href="/user">Profile</a>
         </li>
