@@ -1,7 +1,10 @@
 <% layout('layouts/boilerplate')%>
 <div class="card shadow my-5">
     <div class="card-body">
-        <h1>Login</h1>
+        <div class="d-flex justify-content-between align-items-start">
+            <h1>Login</h1>
+            <a class="btn btn-outline-primary" href="/register">Register</a>
+        </div>
         <form action="/login" method="POST">
             <div class="mb-3">
                 <label for="email" class="form-label">Email</label>
@@ -11,7 +14,7 @@
                 <label for="password" class="form-label">Password</label>
                 <input type="password" class="form-control" id="password" name="password" required>
             </div>
-            <button class="btn btn-success">Login</button>
+            <button class="btn btn-success w-100">Login</button>
         </form>
     </div>
 </div>

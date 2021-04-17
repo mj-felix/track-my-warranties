@@ -5,3 +5,13 @@ main > .container {
 #flash {
     transition: opacity 1s;
 }
+
+.btn-outline-primary {
+  display: none;
+}
+
+@media (max-width: 767px){
+    .btn-outline-primary {
+      display: block;
+    }
+}
