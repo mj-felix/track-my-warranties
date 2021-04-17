@@ -33,7 +33,8 @@ const app = {
                 //send file
                 const formData = new FormData();
                 formData.append("file", file);
-                axios.post(`/entries/${entryId}/files`, formData, {
+                //console.dir(document.querySelector('#fileForm'));
+                axios.post(document.querySelector('#fileForm').action, formData, {
                     headers: {
                         "Content-Type": "multipart/form-data"
                     }
@@ -56,7 +57,7 @@ const app = {
                         app.utils.view.hide('#spinner');
                         // app.utils.view.showFlash('File deleted successfully', 'success');
                     }).catch((err) => {
-                        app.utils.view.showFlash('Something went wrong  ... please try again.', 'danger');
+                        app.utils.view.showFlash('Something went wrong ... please try again.', 'danger');
                         app.utils.view.hide('#spinner');
                     });
             }
@@ -72,7 +73,7 @@ const app = {
                     newFile.innerHTML =
                         `<td><a href="${file.url}" target="_blank">${file.originalFileName}</a></td>
                 <td>${fileSize} MB</td>
-                <td class="text-end"><a href="#" rel="/entries/${entryId}/files/${file.storedFileName}"
+                <td class="text-end"><a href="#" rel="/entries/${res.data.entryId}/files/${file.storedFileName}"
                     class="my-1 btn btn-danger btn-sm deleteFile">Delete</a></td>`;
                     document.querySelector('#files tbody').prepend(newFile);
                     document.querySelector('#files a.deleteFile').addEventListener('click', app.file.controler.deleteFile);

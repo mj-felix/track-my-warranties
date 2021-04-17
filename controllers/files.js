@@ -20,7 +20,8 @@ module.exports.uploadFile = async (req, res) => {
     const entry = await Entry.findById(id);
     entry.files.push(file);
     await entry.save();
-    res.json({ file });
+    const entryId = entry._id;
+    res.json({ file, entryId });
 }
 
 module.exports.deleteFile = async (req, res) => {

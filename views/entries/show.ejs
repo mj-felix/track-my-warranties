@@ -1,68 +1,68 @@
 <% layout('layouts/boilerplate')%>
-<div class="mt-5 mb-3">
-    <div class="d-flex justify-content-between align-items-start">
-        <h1><%= entry.productName %></h1>
-        <a class="btn btn-outline-primary" href="/entries">All Warranties</a>
-    </div>
-    <ul class="list-group list-group-flush">
-        <li class="list-group-item lead"><strong>Purchased Date:</strong>
-            <%= dateFormat(entry.datePurchased, 'dd mmm yyyy') %>
-        </li>
-        <li class="list-group-item lead"><strong>Expiry Date:</strong>
-            <%= dateFormat(entry.dateExpired, 'dd mmm yyyy') %>
-        </li>
-        <li class="list-group-item lead"><strong>Store Name:</strong> <%= entry.storeName %></li>
-        <% if (entry.additionalComment) { %>
-        <li class="list-group-item lead"><strong class="d-block">Additional
-                Comment:</strong><%= entry.additionalComment %></li>
-        <% } %>
-        <li class="list-group-item text-muted small fst-italic">
-            Created: <%= dateFormat(entry.dateCreated, 'dd mmm yyyy HH:MM:ss Z') %><br>Modified:
-            <%= dateFormat(entry.dateModified, 'dd mmm yyyy HH:MM:ss Z') %>
-            </p>
-        </li>
-    </ul>
-    <div class="d-flex justify-content-start align-items-start">
-        <form class="" action="/entries/<%= entry._id %>?_method=DELETE" method="POST">
-            <button class="btn btn-danger d-inline">Delete Warranty</button>
-        </form>
-        <a class="btn btn-primary ms-3" href="/entries/<%= entry._id %>/edit">Edit Warranty</a>
-    </div>
+<div class="container col-lg-8 offset-lg-2" id="mainContainer">
+    <%- include('../partials/flash')%>
+    <div class="mt-5 mb-3">
+        <div class="d-flex justify-content-between align-items-start">
+            <h1><%= entry.productName %></h1>
+            <a class="btn btn-outline-primary" href="/entries">All Warranties</a>
+        </div>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item lead"><strong>Purchased Date:</strong>
+                <%= dateFormat(entry.datePurchased, 'dd mmm yyyy') %>
+            </li>
+            <li class="list-group-item lead"><strong>Expiry Date:</strong>
+                <%= dateFormat(entry.dateExpired, 'dd mmm yyyy') %>
+            </li>
+            <li class="list-group-item lead"><strong>Store Name:</strong> <%= entry.storeName %></li>
+            <% if (entry.additionalComment) { %>
+            <li class="list-group-item lead"><strong class="d-block">Additional
+                    Comment:</strong><%= entry.additionalComment %></li>
+            <% } %>
+            <li class="list-group-item text-muted small fst-italic">
+                Created: <%= dateFormat(entry.dateCreated, 'dd mmm yyyy HH:MM:ss Z') %><br>Modified:
+                <%= dateFormat(entry.dateModified, 'dd mmm yyyy HH:MM:ss Z') %>
+                </p>
+            </li>
+        </ul>
+        <div class="d-flex justify-content-start align-items-start">
+            <form class="" action="/entries/<%= entry._id %>?_method=DELETE" method="POST">
+                <button class="btn btn-danger d-inline">Delete Warranty</button>
+            </form>
+            <a class="btn btn-primary ms-3" href="/entries/<%= entry._id %>/edit">Edit Warranty</a>
+        </div>
 
-    <div class='mt-4'>
-        <label for="file" class="form-label lead">Upload a file (image or pdf, max 10 MB):</label>
-        <input type="file" class="form-control" id="file" name="file" required accept="image/*,application/pdf">
-    </div>
+        <div class='mt-4'>
+            <form id="fileForm" action="/entries/<%= entry._id %>/files">
+                <label for="file" class="form-label lead">Upload a file (image or pdf, max 10 MB):</label>
+                <input type="file" class="form-control" id="file" name="file" required accept="image/*,application/pdf">
+            </form>
+        </div>
 
-    <div class="table-responsive mt-3">
-        <table class="table table-striped align-middle" id="files">
-            <thead>
-                <tr>
-                    <th>File Name
-                        <div id="spinner" class="invisible spinner-border spinner-border-sm" role="status">
-                            <span class="visually-hidden">Loading...</span>
-                        </div>
-                    </th>
-                    <th>Size</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                <% for (let file of entry.files){ %>
-                <tr>
-                    <td><a href="<%= file.url %>" target="_blank"><%= file.originalFileName %></a></td>
-                    <td><%= (file.size/1024/1024).toFixed(2) %> MB</td>
-                    <td class="text-end"><a href="#" rel="/entries/<%=entry._id%>/files/<%= file.storedFileName %>"
-                            class="my-1 btn btn-danger btn-sm deleteFile">Delete</a></td>
-                </tr>
-                <% } %>
-            </tbody>
-        </table>
+        <div class="table-responsive mt-3">
+            <table class="table table-striped align-middle" id="files">
+                <thead>
+                    <tr>
+                        <th>File Name
+                            <div id="spinner" class="invisible spinner-border spinner-border-sm" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                        </th>
+                        <th>Size</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% for (let file of entry.files){ %>
+                    <tr>
+                        <td><a href="<%= file.url %>" target="_blank"><%= file.originalFileName %></a></td>
+                        <td><%= (file.size/1024/1024).toFixed(2) %> MB</td>
+                        <td class="text-end"><a href="#" rel="/entries/<%=entry._id%>/files/<%= file.storedFileName %>"
+                                class="my-1 btn btn-danger btn-sm deleteFile">Delete</a></td>
+                    </tr>
+                    <% } %>
+                </tbody>
+            </table>
+        </div>
     </div>
-
-    <script>
-        const colOffsetClasses = 'col-lg-8 offset-lg-2';
-        const entryId = '<%=entry._id%>';
-    </script>
 
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>

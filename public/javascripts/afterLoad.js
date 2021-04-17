@@ -1,9 +1,3 @@
-// adjust layout basing on set bootstrap classes
-const mainContainer = document.querySelector('#mainContainer');
-const footerContainer = document.querySelector('#footerContainer');
-for (const cl of colOffsetClasses.split(' ')) mainContainer.classList.add(cl);
-for (const cl of colOffsetClasses.split(' ')) footerContainer.classList.add(cl);
-
 // auto hide flash message
 if (document.querySelector('#flashContainer div.alert')) {
     app.utils.view.addAutoHide('#flashContainer');
@@ -24,15 +18,11 @@ if (document.querySelector('span.datePattern')) {
     }
 }
 
-// add file uploader
-if (typeof entryId !== 'undefined') {
+// add file uploader and file deleters
+if (document.querySelector('#file')) {
     const fileInput = document.querySelector('#file');
     fileInput.addEventListener('change', app.file.controler.uploadFile);
-}
 
-// add file deleter
-
-if (typeof entryId !== 'undefined') {
     const deleteAs = document.querySelectorAll('.deleteFile');
     for (let dA of deleteAs) {
         dA.addEventListener('click', app.file.controler.deleteFile);
