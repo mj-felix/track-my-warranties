@@ -8,9 +8,9 @@ module.exports.renderRegister = (req, res) => {
 module.exports.register = async (req, res, next) => {
     try {
         const { email, password } = req.body;
-        const d = new Date();
+        const currDate = new Date();
         const accessLevel = email === 'mjfelixdev@gmail.com' ? 'Admin' : 'User';
-        const user = new User({ username: email, dateCreated: d, dateModified: d, currentLoginDate: d, accessLevel });
+        const user = new User({ username: email, dateCreated: currDate, dateModified: currDate, currentLoginDate: currDate, accessLevel });
         const registeredUser = await User.register(user, password);
 
         sgMail.setApiKey(process.env.SENDGRID_API_KEY)

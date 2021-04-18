@@ -37,10 +37,11 @@ module.exports.fileBelongsToEntry = async (req, res, next) => {
 
 module.exports.isSpaceAvailable = async (req, res, next) => {
     const entries = await Entry.find({ user: req.user._id });
-    const files = []
+    const files = [];
     for (let entry of entries) files.push(...entry.files);
     let storage = files.reduce((a, b) => a + b.size, 0);
-    if (storage > 500 * 1024 * 1024) {
+    const size500mb = 500 * 1024 * 1024;
+    if (storage > size500mb) {
         return res.status(418).json({ 'result': 'You have exceeded storage capacity!' });
     }
     next();

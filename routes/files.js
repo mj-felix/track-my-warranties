@@ -22,8 +22,10 @@ const fileFilter = (req, file, cb) => {
     }
 };
 
+const size10mb = 10 * 1024 * 1024;
+
 const uploadS3 = multer({
-    limits: { fileSize: 10 * 1024 * 1024 },
+    limits: { fileSize: size10mb },
     fileFilter: fileFilter,
     storage: multerS3({
         s3: s3,

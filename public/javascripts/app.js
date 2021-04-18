@@ -21,7 +21,8 @@ const app = {
 
                 //file size validation
                 const file = event.target.files[0]; // document.querySelector('#file').files[0];
-                if (file.size > 10 * 1024 * 1024) {
+                const size10mb = 10 * 1024 * 1024;
+                if (file.size > size10mb) {
                     document.querySelector('#file').value = '';
                     app.utils.view.showFlash('File too large!', 'danger')
                     app.utils.view.addAutoHide('#flashContainer');

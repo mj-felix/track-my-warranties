@@ -14,7 +14,7 @@ module.exports.uploadFile = async (req, res) => {
         size: req.file.size,
         url: req.file.location,
         bucket: req.file.bucket,
-        dateCreated: new Date(Date.now())
+        dateCreated: new Date()
     };
     const { id } = req.params;
     const entry = await Entry.findById(id);

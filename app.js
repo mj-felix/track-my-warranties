@@ -47,15 +47,17 @@ app.set('views', path.join(__dirname, 'views'));
 
 // Session setup
 const secret = process.env.SECRET || 'thisIsNotAGoodSecret!';
+const period1dayInSeconds = 24 * 60 * 60;
 const store = MongoStore.create({
     mongoUrl,
     dbName,
     secret,
-    touchAfter: 24 * 60 * 60
+    touchAfter: period1dayInSeconds
 });
 store.on("error", function (e) {
     console.log("SESSION STORE ERROR", e)
 })
+const period7daysInMilliseconds = 1000 * 60 * 60 * 24 * 7;
 const sessionConfig = {
     store,
     name: 'session',
@@ -66,8 +68,8 @@ const sessionConfig = {
     cookie: {
         httpOnly: true,
         secure: (process.env.NODE_ENV !== "production") ? false : true,
-        expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
-        maxAge: 1000 * 60 * 60 * 24 * 7
+        expires: Date.now() + period7daysInMilliseconds,
+        maxAge: period7daysInMilliseconds
     }
 }
 app.use(session(sessionConfig));
