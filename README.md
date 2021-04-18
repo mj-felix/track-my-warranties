@@ -30,6 +30,5 @@ mjfelixdev@gmail.com :email:<br>
 ## Backlog
 
  1. Captcha
- 2. Forgot password/Password reset
- 3. Email notifications for expiring warranties
- 4. Accessibility assessment
+ 2. Email notifications for expiring warranties
+ 3. Accessibility assessment

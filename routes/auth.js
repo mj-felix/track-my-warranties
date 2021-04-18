@@ -13,6 +13,14 @@ router.route('/login')
     .get(auth.renderLogin)
     .post(validateUser, passport.authenticate('local', { failureFlash: 'Invalid email or password.', failureRedirect: '/login' }), catchAsync(auth.login))
 
-router.get('/logout', auth.logout)
+router.get('/logout', auth.logout);
+
+router.route('/forgotpassword')
+    .get(auth.renderForgotPassword)
+    .post(validateUser, catchAsync(auth.forgotPassword));
+
+router.route('/resetpassword')
+    .get(auth.renderResetPassword)
+    .post(validateUser, catchAsync(auth.resetPassword));
 
 module.exports = router;

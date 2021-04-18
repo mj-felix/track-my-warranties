@@ -1,7 +1,14 @@
 const User = require('../models/user');
-const sgMail = require('@sendgrid/mail')
+const sgMail = require('@sendgrid/mail');
+const uuid = require('uuid');
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
 
 module.exports.renderRegister = (req, res) => {
+    if (req.isAuthenticated()) {
+        req.logout();
+        res.redirect('/');
+    }
     res.render('auth/register', { isRegisterForm: true });
 }
 
@@ -43,6 +50,10 @@ module.exports.register = async (req, res, next) => {
 }
 
 module.exports.renderLogin = (req, res) => {
+    if (req.isAuthenticated()) {
+        req.logout();
+        res.redirect('/');
+    }
     res.render('auth/login', { isLoginForm: true });
 }
 
@@ -61,4 +72,79 @@ module.exports.logout = (req, res) => {
     // req.session.destroy();
     req.flash('success', "Goodbye! Hope to see you soon.");
     res.redirect('/login');
+}
+
+module.exports.renderForgotPassword = (req, res) => {
+    if (req.isAuthenticated()) {
+        req.logout();
+        res.redirect('/');
+    }
+    res.render('auth/forgotPassword', { isForgotPasswordForm: true });
+}
+
+module.exports.forgotPassword = async (req, res) => {
+    req.flash('success', 'Please follow the instructions in the email that was just sent.');
+    const { email } = req.body;
+    const existingUser = await User.find({ username: email });
+    if (!existingUser.length) return res.redirect('/forgotpassword');
+    const token = uuid.v4();
+    bcrypt.hash(token, saltRounds, async function (err, hash) {
+        const period1dayInMilliseconds = 1000 * 60 * 60 * 24;
+        const tokenExpiryDate = new Date(Date.now() + period1dayInMilliseconds);
+        await User.updateOne({ username: email }, { $set: { token: hash, tokenExpiryDate } });
+
+        if ('SENDGRID_API_KEY' in process.env) {
+            sgMail.setApiKey(process.env.SENDGRID_API_KEY)
+            const resetUrl = process.env.PROD_URL || 'http://localhost:3000';
+            const msg = {
+                to: existingUser[0].username,
+                from: process.env.NO_RESPONSE_EMAIL,
+                subject: '[Track My Warranties] Reset Password',
+                text: `Password reset requested. If it wasn't you, please ignore this email. Otherwise, please click:\n\n${resetUrl}/resetpassword?email=${existingUser[0].username}&token=${token}\n\nLink is valid for 24h.`,
+            }
+            sgMail
+                .send(msg)
+                .then(() => {
+                    console.log('Email sent')
+                })
+                .catch((error) => {
+                    console.error(error)
+                })
+        }
+
+        res.redirect('/forgotpassword');
+    });
+
+}
+
+module.exports.renderResetPassword = (req, res) => {
+    if (req.isAuthenticated()) {
+        req.logout();
+        res.redirect('/');
+    }
+    res.render('auth/resetPassword', { isResetPasswordForm: true });
+}
+
+module.exports.resetPassword = async (req, res) => {
+
+    const { email, token, password } = req.body;
+    const existingUsers = await User.find({ username: email });
+    const existingUser = existingUsers[0];
+
+    if (!existingUser || Date.now() > existingUser.tokenExpiryDate) {
+        req.flash('error', 'Link invalid or expired. Please request new link.');
+        return res.redirect('/forgotpassword');
+    }
+    bcrypt.compare(token, existingUser.token, async function (err, result) {
+        if (result) {
+            await existingUser.setPassword(password);
+            await existingUser.save();
+            req.flash('success', 'Password successfully reset. Please login.');
+            res.redirect('/login');
+        } else {
+            req.flash('error', 'Link invalid or expired. Please request new link.');
+            res.redirect('/forgotpassword');
+        }
+    });
+
 }

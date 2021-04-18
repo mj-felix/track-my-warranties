@@ -136,6 +136,11 @@ const app = {
                 const formButton = document.querySelector('form button');
                 formButton.disabled = true;
                 formButton.innerHTML += ' <div class="spinner-border spinner-border-sm text-light" role="status"><span class= "visually-hidden">Loading...</span></div>';
+            },
+            populateParamToFormField: function (param, targetId) {
+                const params = (new URL(document.location)).searchParams;
+                const paramValue = params.get(param);
+                document.querySelector(targetId).value = paramValue;
             }
         }
     }

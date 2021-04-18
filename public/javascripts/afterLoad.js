@@ -42,3 +42,10 @@ if (forms.length && !password2Input) {
         form.addEventListener("submit", app.utils.view.disableSubmit);
     }
 }
+
+//prefill email and token on resetPassword
+const tokenInput = document.querySelector('#token');
+if (tokenInput) {
+    app.utils.view.populateParamToFormField('token', '#token');
+    app.utils.view.populateParamToFormField('email', '#email');
+}

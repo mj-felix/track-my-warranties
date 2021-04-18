@@ -30,7 +30,7 @@ module.exports.updateUser = async (req, res) => {
     const { email } = req.body;
     const existingUser = await User.find({ username: email });
 
-    console.log(existingUser)
+    // console.log(existingUser)
     if (existingUser.length) {
         if (existingUser[0].username === req.user.username) {
             req.flash('error', 'It is the same email!');

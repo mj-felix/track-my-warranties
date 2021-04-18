@@ -17,6 +17,11 @@
             <a class="nav-link" href="/register">Register</a>
         </li>
         <% } %>
+        <% if(typeof isForgotPasswordForm === 'undefined' || !isForgotPasswordForm) {%>
+        <li class="nav-item">
+            <a class="nav-link" href="/forgotpassword">Forgot Password</a>
+        </li>
+        <% } %>
         <% } else {%>
         <% if(typeof isAllEntries === 'undefined' || !isAllEntries) {%>
         <li class="nav-item">
