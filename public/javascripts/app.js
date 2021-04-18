@@ -8,7 +8,7 @@ const app = {
                     app.utils.view.showFlash('Passwords do not match!', 'danger');
                     event.preventDefault();
                 } else {
-                    app.utils.view.disableSubmit;
+                    app.utils.view.disableSubmit();
                 }
             }
         }
@@ -105,10 +105,10 @@ const app = {
             },
             showFlash: function (msg, type) {
                 const divMsg = document.createElement('div');
-                divM.classList.add('alert');
-                divM.classList.add('alert-' + type);
-                divM.classList.add('mt-5');
-                divM.appendChild(document.createTextNode(msg));
+                divMsg.classList.add('alert');
+                divMsg.classList.add('alert-' + type);
+                divMsg.classList.add('mt-5');
+                divMsg.appendChild(document.createTextNode(msg));
                 document.querySelector('#flashContainer').append(divMsg);
                 app.utils.view.addAutoHide('#flashContainer');
             },
