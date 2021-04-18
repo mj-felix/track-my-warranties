@@ -15,7 +15,8 @@ const s3 = new AWS.S3({
 });
 
 const fileFilter = (req, file, cb) => {
-    if (file.mimetype.startsWith("image/") || file.mimetype === "application/pdf") {
+    const isAllowableMimeType = file.mimetype.startsWith("image/") || file.mimetype === "application/pdf";
+    if (isAllowableMimeType) {
         cb(null, true);
     } else {
         cb(new ExpressError("Invalid mime type, only images and PDFs.", 415), false);

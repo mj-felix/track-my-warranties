@@ -9,25 +9,27 @@ module.exports.register = async (req, res, next) => {
     try {
         const { email, password } = req.body;
         const currDate = new Date();
-        const accessLevel = email === 'mjfelixdev@gmail.com' ? 'Admin' : 'User';
+        const accessLevel = email === process.env.ADMIN_EMAIL ? 'Admin' : 'User';
         const user = new User({ username: email, dateCreated: currDate, dateModified: currDate, currentLoginDate: currDate, accessLevel });
         const registeredUser = await User.register(user, password);
 
-        sgMail.setApiKey(process.env.SENDGRID_API_KEY)
-        const msg = {
-            to: process.env.ADMIN_EMAIL,
-            from: process.env.NO_RESPONSE_EMAIL,
-            subject: '[Track My Warranties] New user',
-            text: `Email: ${email}\nCreated: ${d.toUTCString()}`,
+        if ('SENDGRID_API_KEY' in process.env) {
+            sgMail.setApiKey(process.env.SENDGRID_API_KEY)
+            const msg = {
+                to: process.env.ADMIN_EMAIL,
+                from: process.env.NO_RESPONSE_EMAIL,
+                subject: '[Track My Warranties] New user',
+                text: `Email: ${email}\nCreated: ${currDate.toUTCString()}`,
+            }
+            sgMail
+                .send(msg)
+                .then(() => {
+                    console.log('Email sent')
+                })
+                .catch((error) => {
+                    console.error(error)
+                })
         }
-        sgMail
-            .send(msg)
-            .then(() => {
-                console.log('Email sent')
-            })
-            .catch((error) => {
-                console.error(error)
-            })
 
         req.login(registeredUser, err => {
             if (err) return next(err);
