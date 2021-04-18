@@ -86,7 +86,7 @@ module.exports.forgotPassword = async (req, res) => {
     const { email } = req.body;
     req.flash('success', `Please follow the instructions sent to ${email} from ${process.env.NO_RESPONSE_EMAIL}`);
     const existingUser = await User.find({ username: email });
-    if (!existingUser.length) return res.redirect('/forgotpassword');
+    if (!existingUser.length) return res.redirect('/success');
     const token = uuid.v4();
     bcrypt.hash(token, saltRounds, async function (err, hash) {
         const period1dayInMilliseconds = 1000 * 60 * 60 * 24;
