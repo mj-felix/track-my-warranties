@@ -142,9 +142,14 @@ module.exports.resetPassword = async (req, res) => {
     bcrypt.compare(token, existingUser.token, async function (err, result) {
         if (result) {
             await existingUser.setPassword(password);
+            existingUser.tokenExpiryDate = null;
+            existingUser.token = null;
             await existingUser.save();
-            req.flash('success', 'Password successfully reset. Please login.');
-            res.redirect('/login');
+            req.login(existingUser, err => {
+                if (err) return next(err);
+                req.flash('success', 'Password successfully reset.');
+                res.redirect('/entries');
+            })
         } else {
             req.flash('error', 'Link invalid or expired. Please request new link.');
             res.redirect('/forgotpassword');
