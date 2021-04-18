@@ -23,4 +23,6 @@ router.route('/resetpassword')
     .get(auth.renderResetPassword)
     .post(validateUser, catchAsync(auth.resetPassword));
 
+router.get('/success', auth.success)
+
 module.exports = router;

@@ -83,8 +83,8 @@ module.exports.renderForgotPassword = (req, res) => {
 }
 
 module.exports.forgotPassword = async (req, res) => {
-    req.flash('success', 'Please follow the instructions in the email that was just sent.');
     const { email } = req.body;
+    req.flash('success', `Please follow the instructions sent to ${email} from ${process.env.NO_RESPONSE_EMAIL}`);
     const existingUser = await User.find({ username: email });
     if (!existingUser.length) return res.redirect('/forgotpassword');
     const token = uuid.v4();
@@ -112,9 +112,13 @@ module.exports.forgotPassword = async (req, res) => {
                 })
         }
 
-        res.redirect('/forgotpassword');
+        res.redirect('/success');
     });
 
+}
+
+module.exports.success = (req, res) => {
+    res.render('success');
 }
 
 module.exports.renderResetPassword = (req, res) => {
