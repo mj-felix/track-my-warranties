@@ -83,9 +83,14 @@ app.use(helmet());
 
 const scriptSrcUrls = [
     "https://cdn.jsdelivr.net",
+    "https://www.google.com",
+    "https://www.gstatic.com",
 ];
 const styleSrcUrls = [
     "https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/",
+];
+const frameSrcUrls = [
+    "https://www.google.com",
 ];
 const connectSrcUrls = [];
 const fontSrcUrls = [];
@@ -98,6 +103,7 @@ app.use(
             styleSrc: ["'self'", ...styleSrcUrls],
             workerSrc: ["'self'", "blob:"],
             childSrc: ["blob:"],
+            frameSrc: [...frameSrcUrls],
             objectSrc: [],
             imgSrc: [
                 "'self'",

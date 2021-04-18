@@ -1,6 +1,7 @@
 const ExpressError = require('./utils/ExpressError');
 const Entry = require('./models/entry');
 const { entryValidationSchema, userValidationSchema } = require('./models/validation');
+const axios = require('axios');
 
 module.exports.isLoggedIn = (req, res, next) => {
     if (!req.isAuthenticated()) {
@@ -72,4 +73,23 @@ module.exports.validateUser = (req, res, next) => {
 module.exports.emailToLowerCase = (req, res, next) => {
     req.body.email = req.body.email.toLowerCase();
     next();
+}
+
+module.exports.checkCaptcha = async (req, res, next) => {
+    axios.post('https://www.google.com/recaptcha/api/siteverify', undefined, {
+        params: {
+            secret: process.env.RECAPTCHA_SECRET_KEY,
+            response: req.body['g-recaptcha-response']
+        }
+    })
+        .then(function (response) {
+            if (response.data.success) {
+                next();
+            } else {
+                next(new ExpressError('Invalid reCAPTCHA response', 400));
+            }
+        })
+        .catch(function (error) {
+            next(new ExpressError('Invalid reCAPTCHA response', 400));
+        });
 }

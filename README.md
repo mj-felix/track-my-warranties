@@ -24,11 +24,10 @@ To be added.
 ## Contact
 
 MJ Felix<br>
-mjfelixdev@gmail.com :email:<br>
+mjfelixdev@gmail.com<br>
 [LinkedIn Profile](https://www.linkedin.com/in/mjfelix/) ![Linkedin Profile](https://i.stack.imgur.com/gVE0j.png)
 
 ## Backlog
 
- 1. Captcha
- 2. Email notifications for expiring warranties
- 3. Accessibility assessment
+ 1. Email notifications for expiring warranties
+ 2. Accessibility assessment

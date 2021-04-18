@@ -12,7 +12,7 @@ module.exports.renderRegister = (req, res) => {
     res.render('auth/register', { isRegisterForm: true });
 }
 
-module.exports.register = async (req, res, next) => {
+module.exports.register = async (req, res) => {
     try {
         const { email, password } = req.body;
         const currDate = new Date();

@@ -20,8 +20,14 @@
                     <label for="password2" class="form-label">Repeat password</label>
                     <input type="password" class="form-control" id="password2" required>
                 </div>
+                <div class="mb-3">
+                    <div class="g-recaptcha" data-size="normal" data-sitekey="<%= process.env.RECAPTCHA_SITE_KEY %>">
+                    </div>
+                </div>
                 <button class="btn btn-success w-100">Register</button>
             </form>
         </div>
     </div>
 </div>
+
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
