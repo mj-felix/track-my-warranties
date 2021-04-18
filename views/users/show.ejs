@@ -32,7 +32,17 @@
         <h2 class="mt-5">All Users Stats</h2>
         <ul class="list-group list-group-flush">
 
-            <li class="list-group-item lead"><strong>Number of All Users:</strong> <%= numOfUsers %>
+            <li class="list-group-item lead"><strong>Number of All Users:</strong> <%= users.length %>
+                <a class="btn btn-outline-secondary btn-sm" data-bs-toggle="collapse" href="#collapseUsers"
+                    role="button" aria-expanded="false" aria-controls="collapseUsers">
+                    Show
+                </a>
+            </li>
+            <li class="list-group-item collapse" id="collapseUsers">
+                <% for (let user of users){ %>
+                <div class="ms-2 text-muted small fst-italic"><%= user.username %> -
+                    <%= dateFormat(user.currentLoginDate, 'dd mmm yyyy HH:MM') %></div>
+                <% } %>
             </li>
             <li class="list-group-item lead"><strong>Number of All Warranties:</strong> <%= numOfAllEntries %>
             </li>
