@@ -68,3 +68,8 @@ module.exports.validateUser = (req, res, next) => {
         next();
     }
 }
+
+module.exports.emailToLowerCase = (req, res, next) => {
+    req.body.email = req.body.email.toLowerCase();
+    next();
+}
