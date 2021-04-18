@@ -4,7 +4,9 @@
 
 [trackmywarranties.mjfelix.dev](https://trackmywarranties.mjfelix.dev)
 
-Feel free to play around ... still ironing out bugs so will be dropping the database anyway.
+## Installation Guide
+
+To be added.
 
 ## Technologies/Components
 
@@ -14,9 +16,10 @@ Feel free to play around ... still ironing out bugs so will be dropping the data
  - EJS
  - MongoDB
  - AWS S3
- - Heroku
  - SendGrid
  - Others ([see package.json](https://github.com/mj-felix/track-my-warranties/blob/main/package.json))
+
+ Web application deployed on Heroku.
  
 ## Contact
 
@@ -29,6 +32,4 @@ mjfelixdev@gmail.com :email:<br>
  1. Captcha
  2. Forgot password/Password reset
  3. Email notifications for expiring warranties
- 4. Replace innerHTML
- 5. Password change (when logged in)
- 6. ...
+ 4. Accessibility assessment
