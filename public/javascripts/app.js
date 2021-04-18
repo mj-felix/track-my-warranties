@@ -7,6 +7,8 @@ const app = {
                 if (password1 !== password2) {
                     app.utils.view.showFlash('Passwords do not match!', 'danger');
                     event.preventDefault();
+                } else {
+                    app.utils.view.disableSubmit;
                 }
             }
         }
@@ -101,13 +103,12 @@ const app = {
                 document.querySelector(id).disabled = false;
             },
             showFlash: function (msg, type) {
-                const divM = document.createElement('div');
+                const divMsg = document.createElement('div');
                 divM.classList.add('alert');
                 divM.classList.add('alert-' + type);
                 divM.classList.add('mt-5');
-                const m = document.createTextNode(msg);
-                divM.appendChild(m);
-                document.querySelector('#flashContainer').append(divM);
+                divM.appendChild(document.createTextNode(msg));
+                document.querySelector('#flashContainer').append(divMsg);
                 app.utils.view.addAutoHide('#flashContainer');
             },
             addAutoHide: function (id) {
@@ -131,8 +132,9 @@ const app = {
                 );
             },
             disableSubmit: function () {
-                document.querySelector('form button').disabled = true;
-                document.querySelector('form button').innerHTML += ' <div class="spinner-border spinner-border-sm text-light" role="status"><span class= "visually-hidden">Loading...</span></div>';
+                const formButton = document.querySelector('form button');
+                formButton.disabled = true;
+                formButton.innerHTML += ' <div class="spinner-border spinner-border-sm text-light" role="status"><span class= "visually-hidden">Loading...</span></div>';
             }
         }
     }
