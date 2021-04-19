@@ -132,8 +132,8 @@ const app = {
                 }, 2000
                 );
             },
-            disableSubmit: function () {
-                const formButton = document.querySelector('form button');
+            disableSubmit: function (event) {
+                const formButton = event.target.querySelector('form button');
                 formButton.disabled = true;
                 formButton.innerHTML += ' <div class="spinner-border spinner-border-sm text-light" role="status"><span class= "visually-hidden">Loading...</span></div>';
             },

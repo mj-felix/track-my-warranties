@@ -10,8 +10,24 @@ main > .container {
   display: none;
 }
 
+.hideMobile {
+  display: inline-block;
+}
+
+.showMobile {
+  display: none;
+}
+
 @media (max-width: 767px){
     .btn-outline-primary {
-      display: block;
+      display: inline-block;
     }
+
+  .hideMobile {
+    display: none;
+  }
+
+  .showMobile {
+    display: flex;
+  }
 }
