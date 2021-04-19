@@ -23,8 +23,8 @@
                     Comment:</strong><%= entry.additionalComment %></li>
             <% } %>
             <li class="list-group-item text-muted small fst-italic">
-                Created: <%= dateFormat(entry.dateCreated, 'dd mmm yyyy HH:MM:ss Z') %><br>Modified:
-                <%= dateFormat(entry.dateModified, 'dd mmm yyyy HH:MM:ss Z') %>
+                Created: <%= dateFormat(entry.dateCreated, 'dd mmm yyyy HH:MM:ss Z', true) %><br>Modified:
+                <%= dateFormat(entry.dateModified, 'dd mmm yyyy HH:MM:ss Z', true) %>
                 </p>
             </li>
         </ul>

@@ -22,10 +22,10 @@
             </li>
             <% } %>
             <li class="list-group-item text-muted small fst-italic">
-                Created: <%= dateFormat(currentUser.dateCreated, 'dd mmm yyyy HH:MM:ss Z') %><br>
-                Modified: <%= dateFormat(currentUser.dateModified, 'dd mmm yyyy HH:MM:ss Z') %><br>
+                Created: <%= dateFormat(currentUser.dateCreated, 'dd mmm yyyy HH:MM:ss Z', true) %><br>
+                Modified: <%= dateFormat(currentUser.dateModified, 'dd mmm yyyy HH:MM:ss Z', true) %><br>
                 Last Login:
-                <%= currentUser.lastLoginDate?dateFormat(currentUser.lastLoginDate, 'dd mmm yyyy HH:MM:ss Z'):'N/A' %>
+                <%= currentUser.lastLoginDate?dateFormat(currentUser.lastLoginDate, 'dd mmm yyyy HH:MM:ss Z', true):'N/A' %>
             </li>
         </ul>
         <div class="justify-content-start showMobile mt-2">
