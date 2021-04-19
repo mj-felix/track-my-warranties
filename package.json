@@ -1,6 +1,6 @@
 {
   "name": "track-my-warranties",
-  "version": "0.8.61",
+  "version": "0.8.63",
   "description": "App to track warranties on purchased items",
   "main": "app.js",
   "scripts": {
