@@ -5,41 +5,43 @@
     <span class="navbar-toggler-icon"></span>
 </button>
 <div class="collapse navbar-collapse" id="navbarCollapse">
+
     <ul class="navbar-nav me-auto mb-2 mb-md-0">
         <% if(!currentUser) {%>
-        <% if(typeof isLoginForm === 'undefined' || !isLoginForm) {%>
         <li class="nav-item">
-            <a class="nav-link" href="/login">Login</a>
+            <a class="nav-link<% if(typeof isLoginForm !== 'undefined' && isLoginForm){ %> active<% } %>"
+                href="/login">Login</a>
         </li>
-        <% } %>
-        <% if(typeof isRegisterForm === 'undefined' || !isRegisterForm) {%>
+
         <li class="nav-item">
-            <a class="nav-link" href="/register">Register</a>
+            <a class="nav-link<% if(typeof isRegisterForm !== 'undefined' && isRegisterForm){ %> active<% } %>"
+                href="/register">Register</a>
         </li>
-        <% } %>
-        <% if(typeof isForgotPasswordForm === 'undefined' || !isForgotPasswordForm) {%>
+
         <li class="nav-item">
-            <a class="nav-link" href="/forgotpassword">Forgot Password</a>
+            <a class="nav-link<% if(typeof isForgotPasswordForm !== 'undefined' && isForgotPasswordForm){ %> active<% } %>"
+                href="/forgotpassword">Forgot Password</a>
         </li>
-        <% } %>
-        <% } else {%>
-        <% if(typeof isAllEntries === 'undefined' || !isAllEntries) {%>
+        <% } else { %>}
         <li class="nav-item">
-            <a class="nav-link" href="/entries">All Warranties</a>
+            <a class="nav-link<% if(typeof isAllEntries !== 'undefined' && isAllEntries){ %> active<% } %>"
+                href="/entries">All Warranties</a>
         </li>
-        <% } %>
-        <% if(typeof isNewEntryForm === 'undefined' || !isNewEntryForm) {%>
+
         <li class="nav-item">
-            <a class="nav-link" href="/entries/new">Add New Warranty</a>
+            <a class="nav-link<% if(typeof isNewEntryForm !== 'undefined' && isNewEntryForm){ %> active<% } %>"
+                href="/entries/new">Add New Warranty</a>
         </li>
-        <% } %>
+
     </ul>
+
     <ul class="navbar-nav mb-2 mb-md-0">
-        <% if(typeof isProfile === 'undefined' || !isProfile) {%>
+
         <li class="nav-item">
-            <a class="nav-link" href="/user">Profile</a>
+            <a class="nav-link<% if(typeof isProfile !== 'undefined' && isProfile){ %> active<% } %>"
+                href="/user">Profile</a>
         </li>
-        <% } %>
+
         <li class="nav-item">
             <a class="nav-link" href="/logout">Logout</a>
         </li>
