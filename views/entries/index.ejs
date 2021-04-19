@@ -17,7 +17,7 @@
                 </thead>
                 <tbody>
                     <% for (let entry of entries){ %>
-                    <tr>
+                    <tr class="<% if(entry.dateExpired < new Date()){ %>text-secondary<% } %>">
                         <td class="py-3"><a href="/entries/<%- entry._id %>"><%= entry.productName %></a></td>
                         <td class="py-3"><%= dateFormat(entry.dateExpired, 'dd/mm/yyyy') %></td>
                         <td class="py-3 minWidthStoreName"><%= entry.storeName %></td>
