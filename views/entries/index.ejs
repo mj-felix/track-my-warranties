@@ -19,8 +19,8 @@
                     <% for (let entry of entries){ %>
                     <tr>
                         <td class="py-3"><a href="/entries/<%- entry._id %>"><%= entry.productName %></a></td>
-                        <td class="py-3"><%= dateFormat(entry.dateExpired, 'dd mmm yyyy') %></td>
-                        <td class="py-3"><%= entry.storeName %></td>
+                        <td class="py-3"><%= dateFormat(entry.dateExpired, 'dd/mm/yyyy') %></td>
+                        <td class="py-3 minWidthStoreName"><%= entry.storeName %></td>
                     </tr>
                     <% } %>
                 </tbody>

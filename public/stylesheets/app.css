@@ -6,6 +6,10 @@ main > .container {
     transition: opacity 1s;
 }
 
+.minWidthStoreName {
+  min-width: 80px;
+}
+
 .btn-outline-primary {
   display: none;
 }
