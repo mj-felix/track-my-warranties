@@ -6,8 +6,7 @@ const saltRounds = 10;
 
 module.exports.renderRegister = (req, res) => {
     if (req.isAuthenticated()) {
-        req.logout();
-        return res.redirect('/');
+        return res.redirect('/entries');
     }
     res.render('auth/register', { isRegisterForm: true });
 }
@@ -51,8 +50,7 @@ module.exports.register = async (req, res) => {
 
 module.exports.renderLogin = (req, res) => {
     if (req.isAuthenticated()) {
-        req.logout();
-        return res.redirect('/');
+        return res.redirect('/entries');
     }
     res.render('auth/login', { isLoginForm: true });
 }
