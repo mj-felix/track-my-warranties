@@ -44,10 +44,10 @@ if (forms.length && !password2Input) {
 }
 
 //add spinner to button links on navigating to another page
-const aButtons = document.querySelectorAll('a.btn');
-for (let aButton of aButtons) {
-    if (aButton.id !== 'aShowAllUsers') aButton.addEventListener("click", app.utils.view.addSpinner);
-}
+// const aButtons = document.querySelectorAll('a.btn');
+// for (let aButton of aButtons) {
+//     if (aButton.id !== 'aShowAllUsers') aButton.addEventListener("click", app.utils.view.addSpinner);
+// }
 
 //prefill email and token on resetPassword
 const tokenInput = document.querySelector('#token');
