@@ -57,7 +57,7 @@ const store = MongoStore.create({
 store.on("error", function (e) {
     console.log("SESSION STORE ERROR", e)
 })
-const period7daysInMilliseconds = 1000 * 60 * 60 * 24 * 7;
+const period1dayInMilliseconds = 1000 * 60 * 60 * 24 * 1;
 const sessionConfig = {
     store,
     name: 'session',
@@ -68,8 +68,8 @@ const sessionConfig = {
     cookie: {
         httpOnly: true,
         secure: (process.env.NODE_ENV !== "production") ? false : true,
-        expires: Date.now() + period7daysInMilliseconds,
-        maxAge: period7daysInMilliseconds
+        expires: Date.now() + period1dayInMilliseconds,
+        maxAge: period1dayInMilliseconds
     }
 }
 app.use(session(sessionConfig));
