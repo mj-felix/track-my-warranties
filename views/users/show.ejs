@@ -1,5 +1,5 @@
 <% layout('layouts/boilerplate')%>
-<div class="container col-md-6 offset-md-3 col-lg-6 offset-lg-3" id="mainContainer">
+<div class="container col-md-8 offset-md-2 col-lg-6 offset-lg-3" id="mainContainer">
     <%- include('../partials/flash')%>
     <div class="my-5">
         <div class="d-flex justify-content-between align-items-start">
@@ -43,8 +43,8 @@
             </li>
             <li class="list-group-item collapse" id="collapseUsers">
                 <% for (let user of users){ %>
-                <div class="ms-2 text-muted small fst-italic"><%= user.username %> -
-                    <%= dateFormat(user.currentLoginDate, 'dd mmm yyyy HH:MM') %></div>
+                <div class="ms-2 text-muted small fst-italic"><%= dateFormat(user.currentLoginDate, 'dd/mm/yyyy') %>:
+                    <%= user.username %></div>
                 <% } %>
             </li>
             <li class="list-group-item lead"><strong>Number of All Warranties:</strong> <%= numOfAllEntries %>
