@@ -46,7 +46,7 @@ if (forms.length && !password2Input) {
 //add spinner to button links on navigating to another page
 const aButtons = document.querySelectorAll('a.btn');
 for (let aButton of aButtons) {
-    aButton.addEventListener("click", app.utils.view.addSpinner);
+    if (aButton.id !== 'aShowAllUsers') aButton.addEventListener("click", app.utils.view.addSpinner);
 }
 
 //prefill email and token on resetPassword
