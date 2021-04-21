@@ -163,6 +163,9 @@ app.use('/entries', fileRoutes);
 
 // main page
 app.get('/', (req, res) => {
+    if (req.isAuthenticated()) {
+        return res.redirect('/entries');
+    }
     res.render('home');
 });
 
