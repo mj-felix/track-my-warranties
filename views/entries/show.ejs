@@ -26,20 +26,23 @@
             <li class="list-group-item lead"><strong>Scheduled Email Notifications:</strong>
                 <div>
                     <% if(entry.date12weekNotification) { %>
-                    <%= dateFormat(new Date(Date.parse(entry.date12weekNotification)+1000 * 60 * 60 * 24), 'dd mmm yyyy') %>
-                    <span class="text-muted small">(12 weeks before)</span>
+                    <!-- <%= dateFormat(new Date(Date.parse(entry.date12weekNotification)+1000 * 60 * 60 * 24), 'dd mmm yyyy') %> -->
+                    <!-- <span class="text-muted small">(12 weeks before)</span> -->
+                    <span class="">12 weeks before Expiry Date</span>
                     <% } %>
                 </div>
                 <div>
                     <% if(entry.date4weekNotification) { %>
-                    <%= dateFormat(new Date(Date.parse(entry.date4weekNotification)+1000 * 60 * 60 * 24), 'dd mmm yyyy') %>
-                    <span class="text-muted small">(4 weeks before)</span>
+                    <!-- <%= dateFormat(new Date(Date.parse(entry.date4weekNotification)+1000 * 60 * 60 * 24), 'dd mmm yyyy') %> -->
+                    <!-- <span class="text-muted small">(4 weeks before)</span> -->
+                    <span class="">4 weeks before Expiry Date</span>
                     <% } %>
                 </div>
                 <div>
                     <% if(entry.date1weekNotification) { %>
-                    <%= dateFormat(new Date(Date.parse(entry.date1weekNotification)+1000 * 60 * 60 * 24), 'dd mmm yyyy') %>
-                    <span class="text-muted small">(1 week before)</span>
+                    <!-- <%= dateFormat(new Date(Date.parse(entry.date1weekNotification)+1000 * 60 * 60 * 24), 'dd mmm yyyy') %> -->
+                    <!-- <span class="text-muted small">(1 week before)</span> -->
+                    <span class="">1 week before Expiry Date</span>
                     <% } %>
                 </div>
             </li>
