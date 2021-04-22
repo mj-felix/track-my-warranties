@@ -20,9 +20,7 @@ const db = mongoose.connection;
 db.on("error", console.error.bind(console, "Connection error:"));
 db.once("open", async () => {
     console.log(`${new Date().toString()}: database connected`);
-    // const currentDate = new Date(Date.parse(new Date()) + 1000 * 60 * 60 * 24); // push by 1 day to test
-    console.log('Now + day:', new Date(Date.now() + 1000 * 60 * 60 * 24));
-    const currentDate = new Date();
+    const currentDate = new Date(Date.now() + 1000 * 60 * 60 * 24);
     console.log('Before set UTC:', currentDate);
     currentDate.setUTCHours(0, 0, 0, 0);
     console.log('After set UTC:', currentDate);
