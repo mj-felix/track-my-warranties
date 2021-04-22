@@ -26,19 +26,19 @@
             <li class="list-group-item lead"><strong>Scheduled Email Notifications:</strong>
                 <div>
                     <% if(entry.date12weekNotification) { %>
-                    <%= dateFormat(entry.date12weekNotification, 'dd mmm yyyy') %>
+                    <%= dateFormat(new Date(Date.parse(entry.date12weekNotification)+1000 * 60 * 60 * 24), 'dd mmm yyyy') %>
                     <span class="text-muted small">(12 weeks before)</span>
                     <% } %>
                 </div>
                 <div>
                     <% if(entry.date4weekNotification) { %>
-                    <%= dateFormat(entry.date4weekNotification, 'dd mmm yyyy') %>
+                    <%= dateFormat(new Date(Date.parse(entry.date4weekNotification)+1000 * 60 * 60 * 24), 'dd mmm yyyy') %>
                     <span class="text-muted small">(4 weeks before)</span>
                     <% } %>
                 </div>
                 <div>
                     <% if(entry.date1weekNotification) { %>
-                    <%= dateFormat(entry.date1weekNotification, 'dd mmm yyyy') %>
+                    <%= dateFormat(new Date(Date.parse(entry.date1weekNotification)+1000 * 60 * 60 * 24), 'dd mmm yyyy') %>
                     <span class="text-muted small">(1 week before)</span>
                     <% } %>
                 </div>
