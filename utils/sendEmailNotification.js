@@ -11,7 +11,7 @@ module.exports = async (email, productName, dateExpired, entryId) => {
         const msg = {
             to: email,
             from: process.env.NO_RESPONSE_EMAIL,
-            subject: `[Track My Warranties] ${productName} expiring on ${dateFormat(dateExpired, 'dd mmm yyyy')}`,
+            subject: `[Track My Warranties] ${productName} expires on ${dateFormat(dateExpired, 'dd mmm yyyy')}`,
             text: `Warranty details:\n\n${url}/entries/${entryId}`,
         }
         sgMail
