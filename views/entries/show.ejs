@@ -4,7 +4,7 @@
     <div class="mt-5 mb-3">
         <div class="d-flex justify-content-between align-items-start">
             <h1 class="me-1"><%= entry.productName %></h1>
-            <a class="btn btn-outline-primary ms-auto" href="/entries">All&nbsp;Warranties</a>
+            <a class="btn btn-outline-primary ms-auto" href="/entries">Show All</a>
             <form class="ms-auto hideMobile" action="/entries/<%= entry._id %>?_method=DELETE" method="POST">
                 <button class="btn btn-danger">Delete</button>
             </form>
@@ -22,13 +22,35 @@
             <li class="list-group-item lead"><strong class="d-block">Additional
                     Comment:</strong><%= entry.additionalComment %></li>
             <% } %>
-            <li class="list-group-item text-muted small fst-italic">
+            <!-- <% if (entry.date12weekNotification || entry.date4weekNotification || entry.date1weekNotification) { %>
+            <li class="list-group-item lead"><strong>Scheduled Email Notifications:</strong>
+                <div>
+                    <% if(entry.date12weekNotification) { %>
+                    <%= dateFormat(entry.date12weekNotification, 'dd mmm yyyy') %>
+                    <span class="text-muted small">(12 weeks before)</span>
+                    <% } %>
+                </div>
+                <div>
+                    <% if(entry.date4weekNotification) { %>
+                    <%= dateFormat(entry.date4weekNotification, 'dd mmm yyyy') %>
+                    <span class="text-muted small">(4 weeks before)</span>
+                    <% } %>
+                </div>
+                <div>
+                    <% if(entry.date1weekNotification) { %>
+                    <%= dateFormat(entry.date1weekNotification, 'dd mmm yyyy') %>
+                    <span class="text-muted small">(1 week before)</span>
+                    <% } %>
+                </div>
+            </li>
+            <% } %> -->
+            <!-- <li class="list-group-item text-muted small fst-italic">
                 Created: <%= dateFormat(entry.dateCreated, 'dd mmm yyyy HH:MM:ss Z', true) %><br>Modified:
                 <%= dateFormat(entry.dateModified, 'dd mmm yyyy HH:MM:ss Z', true) %>
                 </p>
-            </li>
+            </li> -->
         </ul>
-        <div class="justify-content-start showMobile">
+        <div class="mb-4 mt-1 justify-content-start showMobile">
             <form class="w-100" action="/entries/<%= entry._id %>?_method=DELETE" method="POST">
                 <button class="btn btn-danger d-inline w-100">Delete</button>
             </form>

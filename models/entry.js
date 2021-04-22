@@ -57,6 +57,9 @@ const EntrySchema = new Schema({
     additionalComment: String,
     dateCreated: Date,
     dateModified: Date,
+    date12weekNotification: Date,
+    date4weekNotification: Date,
+    date1weekNotification: Date,
     user: {
         type: Schema.Types.ObjectId,
         ref: 'User'

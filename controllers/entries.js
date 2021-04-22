@@ -27,9 +27,20 @@ module.exports.renderEditForm = async (req, res) => {
 
 module.exports.createEntry = async (req, res, next) => {
     const entry = new Entry(req.body.entry);
-    const d = new Date();
-    entry.dateCreated = d;
-    entry.dateModified = d;
+    const dateExpired = req.body.entry.dateExpired;
+    const period12weeksInMilliseconds = 1000 * 60 * 60 * 24 * 7 * 12;
+    let date12weekNotification = new Date(Date.parse(dateExpired) - period12weeksInMilliseconds);
+    if (date12weekNotification < new Date()) date12weekNotification = null;
+    let date4weekNotification = new Date(Date.parse(dateExpired) - period12weeksInMilliseconds / 3);
+    if (date4weekNotification < new Date()) date4weekNotification = null;
+    let date1weekNotification = new Date(Date.parse(dateExpired) - period12weeksInMilliseconds / 12);
+    if (date1weekNotification < new Date()) date1weekNotification = null;
+    const currentDate = new Date();
+    entry.dateCreated = currentDate;
+    entry.dateModified = currentDate;
+    entry.date12weekNotification = date12weekNotification;
+    entry.date4weekNotification = date4weekNotification;
+    entry.date1weekNotification = date1weekNotification;
     entry.user = req.user._id;
     entry.status = 'Active';
     await entry.save();
@@ -68,8 +79,15 @@ module.exports.deleteEntry = async (req, res) => {
 
 module.exports.updateEntry = async (req, res) => {
     const { id } = req.params;
-    const entry = await Entry.findByIdAndUpdate(id, { ...req.body.entry, dateModified: new Date() });
-
+    const dateExpired = req.body.entry.dateExpired;
+    const period12weeksInMilliseconds = 1000 * 60 * 60 * 24 * 7 * 12;
+    let date12weekNotification = new Date(Date.parse(dateExpired) - period12weeksInMilliseconds);
+    if (date12weekNotification < new Date()) date12weekNotification = null;
+    let date4weekNotification = new Date(Date.parse(dateExpired) - period12weeksInMilliseconds / 3);
+    if (date4weekNotification < new Date()) date4weekNotification = null;
+    let date1weekNotification = new Date(Date.parse(dateExpired) - period12weeksInMilliseconds / 12);
+    if (date1weekNotification < new Date()) date1weekNotification = null;
+    const entry = await Entry.findByIdAndUpdate(id, { ...req.body.entry, date12weekNotification, date4weekNotification, date1weekNotification, dateModified: new Date() });
     req.flash('success', 'Successfully updated warranty!');
     res.redirect(`/entries/${entry._id}`)
 }
