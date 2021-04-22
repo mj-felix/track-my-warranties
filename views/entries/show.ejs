@@ -22,7 +22,7 @@
             <li class="list-group-item lead"><strong class="d-block">Additional
                     Comment:</strong><%= entry.additionalComment %></li>
             <% } %>
-            <!-- <% if (entry.date12weekNotification || entry.date4weekNotification || entry.date1weekNotification) { %>
+            <% if (entry.date12weekNotification || entry.date4weekNotification || entry.date1weekNotification) { %>
             <li class="list-group-item lead"><strong>Scheduled Email Notifications:</strong>
                 <div>
                     <% if(entry.date12weekNotification) { %>
@@ -43,7 +43,7 @@
                     <% } %>
                 </div>
             </li>
-            <% } %> -->
+            <% } %>
             <!-- <li class="list-group-item text-muted small fst-italic">
                 Created: <%= dateFormat(entry.dateCreated, 'dd mmm yyyy HH:MM:ss Z', true) %><br>Modified:
                 <%= dateFormat(entry.dateModified, 'dd mmm yyyy HH:MM:ss Z', true) %>
