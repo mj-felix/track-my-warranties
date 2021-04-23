@@ -8,7 +8,7 @@ const app = {
                     app.utils.view.showFlash('Passwords do not match!', 'danger');
                     event.preventDefault();
                 } else {
-                    app.utils.view.disableSubmit();
+                    app.utils.view.disableSubmit(event);
                 }
             }
         }
