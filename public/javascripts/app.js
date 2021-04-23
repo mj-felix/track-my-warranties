@@ -75,7 +75,7 @@ const app = {
                     const newFile = document.createElement("tr");
                     newFile.innerHTML =
                         `<td><a href="${file.url}" target="_blank">${file.originalFileName}</a></td>
-                <td>${fileSize} MB</td>
+                <td class="onlyDesktop">${fileSize} MB</td>
                 <td class="text-end"><a href="#" rel="/entries/${res.data.entryId}/files/${file.storedFileName}"
                     class="my-1 btn btn-danger btn-sm deleteFile">Delete</a></td>`;
                     document.querySelector('#files tbody').prepend(newFile);

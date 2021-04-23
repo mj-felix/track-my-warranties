@@ -78,7 +78,7 @@
                                 <span class="visually-hidden">Loading...</span>
                             </div>
                         </th>
-                        <th>Size</th>
+                        <th class="onlyDesktop">Size</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -86,7 +86,7 @@
                     <% for (let file of entry.files){ %>
                     <tr>
                         <td><a href="<%= file.url %>" target="_blank"><%= file.originalFileName %></a></td>
-                        <td><%= (file.size/1024/1024).toFixed(2) %> MB</td>
+                        <td class="onlyDesktop"><%= (file.size/1024/1024).toFixed(2) %> MB</td>
                         <td class="text-end"><a href="#" rel="/entries/<%=entry._id%>/files/<%= file.storedFileName %>"
                                 class="my-1 btn btn-danger btn-sm deleteFile">Delete</a></td>
                     </tr>

@@ -34,4 +34,9 @@ main > .container {
   .showMobile {
     display: flex;
   }
+
+  .onlyDesktop {
+    visibility: hidden;
+    display: none;
+  }
 }

@@ -12,7 +12,7 @@
                     <tr>
                         <th>Product</th>
                         <th>Expires</th>
-                        <th>Store</th>
+                        <th class="onlyDesktop">Store</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -21,7 +21,7 @@
                         <td class="py-3"><a class="<% if(entry.dateExpired < new Date()){ %>text-muted<% } %>"
                                 href="/entries/<%- entry._id %>"><%= entry.productName %></a></td>
                         <td class="py-3"><%= dateFormat(entry.dateExpired, 'dd mmm yyyy') %></td>
-                        <td class="py-3 minWidthStoreName"><%= entry.storeName %></td>
+                        <td class="py-3 minWidthStoreName onlyDesktop"><%= entry.storeName %></td>
                     </tr>
                     <% } %>
                 </tbody>
