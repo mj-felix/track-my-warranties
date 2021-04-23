@@ -4,7 +4,7 @@
 
 [trackmywarranties.mjfelix.dev](https://trackmywarranties.mjfelix.dev)
 
-## Installation Guide
+## Installation Notes
 
 To be added.
 
@@ -14,7 +14,7 @@ To be added.
  - Node.js
  - Express.js
  - EJS
- - MongoDB
+ - MongoDB (Atlas)
  - AWS S3
  - SendGrid
  - Others ([see package.json](https://github.com/mj-felix/track-my-warranties/blob/main/package.json))
@@ -29,5 +29,5 @@ mjfelixdev@gmail.com<br>
 
 ## Backlog
 
- 1. Email notifications for expiring warranties
- 2. Accessibility assessment
+ 1. Accessibility improvements
+ 2. Password strength
