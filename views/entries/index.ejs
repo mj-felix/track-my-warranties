@@ -10,9 +10,9 @@
             <table class="table table-striped">
                 <thead>
                     <tr>
-                        <th>Product Name</th>
-                        <th>Expiry Date</th>
-                        <th>Store Name</th>
+                        <th>Product</th>
+                        <th>Expires</th>
+                        <th>Store</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -20,7 +20,7 @@
                     <tr class="<% if(entry.dateExpired < new Date()){ %>text-secondary<% } %>">
                         <td class="py-3"><a class="<% if(entry.dateExpired < new Date()){ %>text-muted<% } %>"
                                 href="/entries/<%- entry._id %>"><%= entry.productName %></a></td>
-                        <td class="py-3"><%= dateFormat(entry.dateExpired, 'dd/mm/yyyy') %></td>
+                        <td class="py-3"><%= dateFormat(entry.dateExpired, 'dd mmm yyyy') %></td>
                         <td class="py-3 minWidthStoreName"><%= entry.storeName %></td>
                     </tr>
                     <% } %>
