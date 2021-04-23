@@ -8,7 +8,6 @@ const Entry = require('./models/entry');
 const sendEmailNotification = require('./utils/sendEmailNotification');
 
 // MongoDB connection
-const dbName = 'track-my-warranties';
 const mongoUrl = process.env.MONGO_URL || 'mongodb://localhost:27017/track-my-warranties';
 mongoose.connect(mongoUrl, {
     useNewUrlParser: true,
@@ -22,9 +21,9 @@ db.once("open", async () => {
     console.log(`${new Date().toString()}: database connected`);
     const currentDate = new Date();
     // const currentDate = new Date(Date.now() + 1000 * 60 * 60 * 24);
-    console.log('Before set UTC:', currentDate);
+    // console.log('Before set UTC:', currentDate);
     currentDate.setUTCHours(0, 0, 0, 0);
-    console.log('After set UTC:', currentDate);
+    // console.log('After set UTC:', currentDate);
     const entries = await Entry.find({
         $or: [
             { date12weekNotification: currentDate },
@@ -49,6 +48,6 @@ db.once("open", async () => {
             await entry.save();
         }
     }
-    console.log(entries);
+    // console.log(entries);
     db.close();
 });
