@@ -33,7 +33,7 @@ module.exports.createEntry = async (req, res, next) => {
     dayAfterTomorrow.setUTCHours(0, 0, 0, 0);
     const period12weeksInMilliseconds = 1000 * 60 * 60 * 24 * 7 * 12;
     let date12weekNotification = new Date(Date.parse(dateExpired) - period12weeksInMilliseconds);
-    console.log(new Date(), date12weekNotification, dayAfterTomorrow);
+    // console.log(new Date(), date12weekNotification, dayAfterTomorrow);
     if (date12weekNotification <= dayAfterTomorrow) date12weekNotification = null;
     let date4weekNotification = new Date(Date.parse(dateExpired) - period12weeksInMilliseconds / 3);
     if (date4weekNotification <= dayAfterTomorrow) date4weekNotification = null;
@@ -89,7 +89,7 @@ module.exports.updateEntry = async (req, res) => {
     dayAfterTomorrow.setUTCHours(0, 0, 0, 0);
     const period12weeksInMilliseconds = 1000 * 60 * 60 * 24 * 7 * 12;
     let date12weekNotification = new Date(Date.parse(dateExpired) - period12weeksInMilliseconds);
-    console.log(new Date(), date12weekNotification, dayAfterTomorrow);
+    // console.log(new Date(), date12weekNotification, dayAfterTomorrow);
     if (date12weekNotification <= dayAfterTomorrow) date12weekNotification = null;
     let date4weekNotification = new Date(Date.parse(dateExpired) - period12weeksInMilliseconds / 3);
     if (date4weekNotification <= dayAfterTomorrow) date4weekNotification = null;
