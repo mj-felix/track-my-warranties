@@ -2,8 +2,9 @@
 
 ## Live Application
 
-[trackmywarranties.mjfelix.dev](https://trackmywarranties.mjfelix.dev)
+Application is fully functional in production environemnt:
 
+[trackmywarranties.mjfelix.dev](https://trackmywarranties.mjfelix.dev)
 
 ## Technologies/Components
 
@@ -16,7 +17,7 @@
  - SendGrid
  - Others ([see package.json](https://github.com/mj-felix/track-my-warranties/blob/main/package.json))
 
- Web application deployed on Heroku.
+ Application deployed on Heroku.
 
 ## Installation Notes
 
@@ -98,7 +99,7 @@ In production environment, the application uses [Heroku Scheduler](https://devce
 
 MJ Felix<br>
 mjfelixdev@gmail.com<br>
-[mjfelix.dev](https://mjfelix.dev)
+[mjfelix.dev](https://mjfelix.dev)<br>
 [LinkedIn Profile](https://www.linkedin.com/in/mjfelix/) ![Linkedin Profile](https://i.stack.imgur.com/gVE0j.png)
 
 ## Backlog
