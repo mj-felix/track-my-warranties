@@ -20,7 +20,7 @@
 
 ## Installation Notes
 
-To run the application locally (accessible via [localhost:3000](http://localhost:3000/)) you will need:
+Below components are required to run the application locally (accessible via [localhost:3000](http://localhost:3000/)):
 
 ### Node.js
 
@@ -38,7 +38,7 @@ To install MongoDB Community Edition follow the instructions for your platform o
 ```
 ADMIN_EMAIL=your email
 ```
-This will allow to set the user as Admin when you use this email during registration.
+This will allow to set the user as Admin when this email is used during registration.
 
 #### Extended setup
 
@@ -48,7 +48,7 @@ S3_ACCESS_KEY=key obtained from AWS S3
 S3_ACCESS_SECRET=secret obtained from AWS S3
 S3_BUCKET=track-my-warranties-dev
 ```
-For AWS S3 setup, go to [aws.amazon.com/s3](https://aws.amazon.com/s3/) and create an account. Once you have setup your account, navigate to the S3 services dashboard to create a new bucket with the name as above. When you create new bucket, allow all public access. Once the bucket has been created, go to Permissions tab and set Bucket policy to be:
+For AWS S3 setup, go to [aws.amazon.com/s3](https://aws.amazon.com/s3/) and create an account. Once the account has been set up, navigate to the S3 services dashboard to create a new bucket with the name as above. Allow all public access while creating a bucket. Once the bucket has been created, go to Permissions tab and set Bucket policy to be:
 
     {
         "Version": "2012-10-17",
@@ -66,7 +66,7 @@ For AWS S3 setup, go to [aws.amazon.com/s3](https://aws.amazon.com/s3/) and crea
         ]
     }
 
-To obtain your access key and secret, open account dropdown and select “My Security Credentials”. Within the security credentials dashboard, open the “Access Keys” section and select “Create New Access Key.” This will generate the access key and secret for the application.
+To obtain access key and secret, open account dropdown and select “My Security Credentials”. Within the security credentials dashboard, open the “Access Keys” section and select “Create New Access Key.” This will generate the access key and secret for the application.
 
 - **SendGrid service** to send reset password and transactional emails:
 ```
@@ -88,7 +88,7 @@ For more information about Google reCAPTCHA see [the official Google reCAPTCHA d
 
 Application sends automatic email notifications 1 week, 4 weeks and 12 weeks before the expiry date of the warranty.
 
-To trigger these notifications locally you can just run `node sendNotificationsSchedule.js` in the main directory of the application. 
+To trigger these notifications locally run `node sendNotificationsSchedule.js` in the main directory of the application. 
 
 In production environment, application uses [Heroku Scheduler](https://devcenter.heroku.com/articles/scheduler).
  
