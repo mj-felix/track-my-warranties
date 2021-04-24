@@ -73,7 +73,9 @@ To obtain access key and secret, open account dropdown and select “My Security
 SENDGRID_API_KEY=key obtained from SendGrid
 NO_RESPONSE_EMAIL=From email configured with SendGrid
 ```
-Transactional emails inlude: email sent to Admin's email on new user registration and notification emails about expiring warranty.
+Transactional emails inlude:
+-- email sent to Admin's email on new user registration
+-- notification emails about expiring warranty
 
 For more information about SendGrid setup with Node.js see [the official SendGrid docs](https://sendgrid.com/docs/for-developers/sending-email/quickstart-nodejs/).
 
