@@ -93,7 +93,7 @@ To trigger these notifications locally run `node sendNotificationsSchedule.js` i
 
 In production environment, the application uses [Heroku Scheduler](https://devcenter.heroku.com/articles/scheduler).
 
-In order for the email notifications to be sent out on the right dates, application has time zone set to New Zealand via environment variable:
+In order for the email notifications to be sent out on the right dates, the application has time zone set to New Zealand via environment variable:
 
 ```
 TZ=Pacific/Auckland
