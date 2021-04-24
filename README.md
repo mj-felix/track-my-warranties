@@ -1,6 +1,6 @@
 # TrackMyWarranties by MJ Felix
 
-## Live Website
+## Live Application
 
 [trackmywarranties.mjfelix.dev](https://trackmywarranties.mjfelix.dev)
 
@@ -92,12 +92,13 @@ Application sends automatic email notifications 1 week, 4 weeks and 12 weeks bef
 
 To trigger these notifications locally run `node sendNotificationsSchedule.js` in the main directory of the application. 
 
-In production environment, application uses [Heroku Scheduler](https://devcenter.heroku.com/articles/scheduler).
+In production environment, the application uses [Heroku Scheduler](https://devcenter.heroku.com/articles/scheduler).
  
 ## Contact
 
 MJ Felix<br>
 mjfelixdev@gmail.com<br>
+[mjfelix.dev](https://mjfelix.dev)
 [LinkedIn Profile](https://www.linkedin.com/in/mjfelix/) ![Linkedin Profile](https://i.stack.imgur.com/gVE0j.png)
 
 ## Backlog
