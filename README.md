@@ -11,7 +11,7 @@ Application is fully functional in production environment: [trackmywarranties.mj
  - Express.js
  - Embedded JavaScript (EJS)
  - MongoDB (Atlas)
- - Aamazon Web Services (AWS) S3
+ - Amazon Web Services (AWS) S3
  - SendGrid
  - Others ([see package.json](https://github.com/mj-felix/track-my-warranties/blob/main/package.json))
 
