@@ -92,12 +92,6 @@ Application sends automatic email notifications 1 week, 4 weeks and 12 weeks bef
 To trigger these notifications locally run `node sendNotificationsSchedule.js` in the main directory of the application. 
 
 In production environment, the application uses [Heroku Scheduler](https://devcenter.heroku.com/articles/scheduler).
-
-In order for the email notifications to be sent out on the right dates, the application has time zone set to New Zealand via environment variable:
-
-```
-TZ=Pacific/Auckland
-```
  
 ## Contact
 
