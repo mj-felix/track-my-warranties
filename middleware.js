@@ -77,20 +77,22 @@ module.exports.emailToLowerCase = (req, res, next) => {
 }
 
 module.exports.checkCaptcha = async (req, res, next) => {
-    axios.post('https://www.google.com/recaptcha/api/siteverify', undefined, {
-        params: {
-            secret: process.env.RECAPTCHA_SECRET_KEY,
-            response: req.body['g-recaptcha-response']
-        }
-    })
-        .then(function (response) {
-            if (response.data.success) {
-                next();
-            } else {
-                next(new ExpressError('Invalid reCAPTCHA response', 400));
+    if ('RECAPTCHA_SITE_KEY' in process.env && 'RECAPTCHA_SECRET_KEY' in process.env) {
+        axios.post('https://www.google.com/recaptcha/api/siteverify', undefined, {
+            params: {
+                secret: process.env.RECAPTCHA_SECRET_KEY,
+                response: req.body['g-recaptcha-response']
             }
         })
-        .catch(function (error) {
-            next(new ExpressError('Invalid reCAPTCHA response', 400));
-        });
+            .then(function (response) {
+                if (response.data.success) {
+                    next();
+                } else {
+                    next(new ExpressError('Invalid reCAPTCHA response', 400));
+                }
+            })
+            .catch(function (error) {
+                next(new ExpressError('Invalid reCAPTCHA response', 400));
+            });
+    } else next();
 }
