@@ -35,19 +35,19 @@ To install MongoDB Community Edition follow the instructions for your platform o
 ### Environement Variables
 
 #### Minimum setup
-
-    ADMIN_EMAIL=your email
-    
+```
+ADMIN_EMAIL=your email
+```
 This will allow to set the user as Admin when you use this email during registration.
 
 #### Extended setup
 
 - **AWS S3 cloud storage** for uploaded files:
-
-    S3_ACCESS_KEY=key obtained from AWS S3
-    S3_ACCESS_SECRET=secret obtained from AWS S3
-    S3_BUCKET=track-my-warranties-dev
-
+```
+S3_ACCESS_KEY=key obtained from AWS S3
+S3_ACCESS_SECRET=secret obtained from AWS S3
+S3_BUCKET=track-my-warranties-dev
+```
 For AWS S3 setup, go to [aws.amazon.com/s3](https://aws.amazon.com/s3/) and create an account. Once you have setup your account, navigate to the S3 services dashboard to create a new bucket with the name as above. When you create new bucket, allow all public access. Once the bucket has been created, go to Permissions tab and set Bucket policy to be:
 
     {
@@ -69,19 +69,19 @@ For AWS S3 setup, go to [aws.amazon.com/s3](https://aws.amazon.com/s3/) and crea
 To obtain your access key and secret, open account dropdown and select “My Security Credentials”. Within the security credentials dashboard, open the “Access Keys” section and select “Create New Access Key.” This will generate the access key and secret for the application.
 
 - **SendGrid service** to send reset password and transactional emails:
-
-    SENDGRID_API_KEY=key obtained from SendGrid
-    NO_RESPONSE_EMAIL=From email configured with SendGrid
-
+```
+SENDGRID_API_KEY=key obtained from SendGrid
+NO_RESPONSE_EMAIL=From email configured with SendGrid
+```
 Transactional emails inlude: email sent to Admin's email on new user registration and notification emails about expiring warranty.
 
 For more information about SendGrid setup with Node.js see [the official SendGrid docs](https://sendgrid.com/docs/for-developers/sending-email/quickstart-nodejs/).
 
 - **Google reCAPTCHA** on new user registration form:
-
-    RECAPTCHA_SITE_KEY=key from Google reCaptcha
-    RECAPTCHA_SECRET_KEY=secret from Google reCaptcha
-
+```
+RECAPTCHA_SITE_KEY=key from Google reCaptcha
+RECAPTCHA_SECRET_KEY=secret from Google reCaptcha
+```
 For more information about Google reCAPTCHA see [the official Google reCAPTCHA developer's guide](https://developers.google.com/recaptcha/intro) or [create new reCAPTCHA](https://www.google.com/recaptcha/admin/create) - choose reCAPTCHA v2: "I'm not a robot" Checkbox and add `localhost` to Domains.
 
 ## Scheduled Email Notifications
