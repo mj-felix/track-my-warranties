@@ -2,7 +2,7 @@
 
 ## Live Application
 
-Application is fully functional in production environemnt: [trackmywarranties.mjfelix.dev](https://trackmywarranties.mjfelix.dev)
+Application is fully functional in production environment: [trackmywarranties.mjfelix.dev](https://trackmywarranties.mjfelix.dev)
 
 ## Technologies/Components
 
