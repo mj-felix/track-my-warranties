@@ -1,6 +1,8 @@
 # TrackMyWarranties by MJ Felix
 
-## Live Application
+## Description
+
+Add your warranties, upload your receipts and warranty cards, and receive automatic email notifications before the expiry date of the warranty.
 
 Application is fully functional in production environment: [trackmywarranties.mjfelix.dev](https://trackmywarranties.mjfelix.dev)
 
