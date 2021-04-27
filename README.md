@@ -98,9 +98,9 @@ In production environment, the application uses [Heroku Scheduler](https://devce
 ## Contact
 
 MJ Felix<br>
-mjfelixdev@gmail.com<br>
 [mjfelix.dev](https://mjfelix.dev)<br>
-[LinkedIn Profile](https://www.linkedin.com/in/mjfelix/) ![Linkedin Profile](https://i.stack.imgur.com/gVE0j.png)
+mjfelixdev@gmail.com<br>
+[linkedin.com/in/mszonline](https://www.linkedin.com/in/mjfelix/) ![Linkedin Profile](https://i.stack.imgur.com/gVE0j.png)
 
 ## Backlog
 
