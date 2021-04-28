@@ -12,12 +12,15 @@ Application is fully functional in production environment: [trackmywarranties.mj
  - Node.js
  - Express.js
  - Embedded JavaScript (EJS)
+ - Boilerplate ejs-mate
  - MongoDB (Atlas)
  - Amazon Web Services (AWS) S3
  - SendGrid
  - Others ([see package.json](https://github.com/mj-felix/track-my-warranties/blob/main/package.json))
 
- Application deployed on Heroku.
+Application deployed on Heroku.
+
+Selection of components was dictated by the Udemy course [The Web Developer Bootcamp 2001](https://www.udemy.com/course/the-web-developer-bootcamp/) from [Colt Steele](https://www.youtube.com/channel/UCrqAGUPPMOdo0jfQ6grikZw) - the main difference was the replacement of Cloudinary by AWS S3 as a file storage component. Application uses free-for-hobbyist-purposes technologies.
 
 ## Installation Notes
 
@@ -93,7 +96,7 @@ Application sends automatic email notifications 1 week, 4 weeks and 12 weeks bef
 
 To trigger these notifications locally run `node sendNotificationsSchedule.js` in the main directory of the application. 
 
-In production environment, the application uses [Heroku Scheduler](https://devcenter.heroku.com/articles/scheduler).
+In production environment, the application uses free [Heroku Scheduler](https://devcenter.heroku.com/articles/scheduler) plugin, which proved to be sufficient in terms of offered functionality.
  
 ## Contact
 
@@ -106,3 +109,4 @@ mjfelixdev@gmail.com<br>
 
  1. Accessibility improvements
  2. Password strength
+ 3. Clean up commented out code/unused variables
