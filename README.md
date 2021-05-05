@@ -101,7 +101,7 @@ In production environment, the application uses free [Heroku Scheduler](https://
 ## Contact
 
 MJ Felix<br>
-[mj-felix.github.io](https://mj-felix.github.io)<br>
+[mjfelix.dev](https://mjfelix.dev)<br>
 mjfelixdev@gmail.com<br>
 [linkedin.com/in/mszonline](https://www.linkedin.com/in/mjfelix/) ![Linkedin Profile](https://i.stack.imgur.com/gVE0j.png)
 
