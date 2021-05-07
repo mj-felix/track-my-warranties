@@ -109,4 +109,5 @@ mjfelixdev@gmail.com<br>
 
  1. Accessibility improvements
  2. Password strength
- 3. Clean up commented out code/unused variables
+ 3. Allow user to edit email notification dates
+ 4. Clean up commented out code/unused variables

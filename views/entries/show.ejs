@@ -17,6 +17,28 @@
             <li class="list-group-item lead"><strong>Expiry Date:</strong>
                 <%= dateFormat(entry.dateExpired, 'dd mmm yyyy') %>
             </li>
+            <% if (entry.date12weekNotification || entry.date4weekNotification || entry.date1weekNotification) { %>
+            <li class="list-group-item lead"><strong>Email Notifications:</strong>
+                <div class="ms-1">
+                    <% if(entry.date12weekNotification) { %>
+                    <%= dateFormat(entry.date12weekNotification, 'dd mmm yyyy') %>
+                    <span class="text-muted small">(12 weeks before)</span>
+                    <% } %>
+                </div>
+                <div class="ms-1">
+                    <% if(entry.date4weekNotification) { %>
+                    <%= dateFormat(entry.date4weekNotification, 'dd mmm yyyy') %>
+                    <span class="text-muted small">(4 weeks before)</span>
+                    <% } %>
+                </div>
+                <div class="ms-1">
+                    <% if(entry.date1weekNotification) { %>
+                    <%= dateFormat(entry.date1weekNotification, 'dd mmm yyyy') %>
+                    <span class="text-muted small">(1 week before)</span>
+                    <% } %>
+                </div>
+            </li>
+            <% } %>
             <li class="list-group-item lead"><strong>Store Name:</strong> <%= entry.storeName %></li>
             <% if (entry.additionalComment) { %>
             <li class="list-group-item lead"><strong class="d-block">Additional
@@ -24,36 +46,6 @@
                 <div class="ms-1"><%= entry.additionalComment %></div>
             </li>
             <% } %>
-            <% if (entry.date12weekNotification || entry.date4weekNotification || entry.date1weekNotification) { %>
-            <li class="list-group-item lead"><strong>Scheduled Email Notifications:</strong>
-                <div class="ms-1">
-                    <% if(entry.date12weekNotification) { %>
-                    <%= dateFormat(entry.date12weekNotification, 'dd mmm yyyy') %>
-                    <span class="text-muted small">(12 weeks before)</span>
-                    <!-- <span class="ms-1">12 weeks before Expiry Date</span> -->
-                    <% } %>
-                </div>
-                <div class="ms-1">
-                    <% if(entry.date4weekNotification) { %>
-                    <%= dateFormat(entry.date4weekNotification, 'dd mmm yyyy') %>
-                    <span class="text-muted small">(4 weeks before)</span>
-                    <!-- <span class="ms-1">4 weeks before Expiry Date</span> -->
-                    <% } %>
-                </div>
-                <div class="ms-1">
-                    <% if(entry.date1weekNotification) { %>
-                    <%= dateFormat(entry.date1weekNotification, 'dd mmm yyyy') %>
-                    <span class="text-muted small">(1 week before)</span>
-                    <!-- <span class="ms-1">1 week before Expiry Date</span> -->
-                    <% } %>
-                </div>
-            </li>
-            <% } %>
-            <!-- <li class="list-group-item text-muted small fst-italic">
-                Created: <%= dateFormat(entry.dateCreated, 'dd mmm yyyy HH:MM:ss Z', true) %><br>Modified:
-                <%= dateFormat(entry.dateModified, 'dd mmm yyyy HH:MM:ss Z', true) %>
-                </p>
-            </li> -->
         </ul>
         <div class="mb-4 mt-1 justify-content-start showMobile">
             <form class="w-100" action="/entries/<%= entry._id %>?_method=DELETE" method="POST">
