@@ -1,6 +1,6 @@
 # TrackMyWarranties by MJ Felix
 
-## Table of contents
+## Table of Contents
 
   - [Description](#description)
   - [Technologies/Components](#technologiescomponents)
