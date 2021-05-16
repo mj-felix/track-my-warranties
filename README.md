@@ -1,5 +1,19 @@
 # TrackMyWarranties by MJ Felix
 
+## Table of contents
+
+  - [Description](#description)
+  - [Technologies/Components](#technologiescomponents)
+  - [Installation Notes](#installation-notes)
+    - [Node.js](#nodejs)
+    - [MongoDB](#mongodb)
+    - [Environement Variables](#environement-variables)
+      - [Minimum setup](#minimum-setup)
+      - [Extended setup](#extended-setup)
+  - [Scheduled Email Notifications](#scheduled-email-notifications)
+  - [Contact](#contact)
+  - [Backlog](#backlog)
+
 ## Description
 
 Add your warranties, upload your receipts and warranty cards, and receive automatic email notifications before the expiry date of the warranty.
