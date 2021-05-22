@@ -15,8 +15,7 @@ module.exports.isLoggedIn = (req, res, next) => {
 module.exports.isOwner = async (req, res, next) => {
     const { id } = req.params;
     const entry = await Entry.findById(id);
-    if (!entry) return next(); //commit: c7d7735
-    if (!entry.user.equals(req.user._id)) {
+    if (!entry || !entry.user.equals(req.user._id)) {
         if (req.headers.accept.indexOf('json') > -1) {
             return res.status(403).json({ 'result': 'You do not have permission to do that!' });
         } else {
