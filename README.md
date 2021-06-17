@@ -118,10 +118,3 @@ MJ Felix<br>
 [mjfelix.dev](https://mjfelix.dev)<br>
 mjfelixdev@gmail.com<br>
 [linkedin.com/in/mszonline](https://www.linkedin.com/in/mjfelix/) ![Linkedin Profile](https://i.stack.imgur.com/gVE0j.png)
-
-## Backlog
-
- 1. Accessibility improvements
- 2. Password strength
- 3. Allow user to edit email notification dates
- 4. Clean up commented out code/unused variables
