@@ -12,7 +12,6 @@
       - [Extended setup](#extended-setup)
   - [Scheduled Email Notifications](#scheduled-email-notifications)
   - [Contact](#contact)
-  - [Backlog](#backlog)
 
 ## Description
 
@@ -99,8 +98,8 @@ For more information about SendGrid setup with Node.js see [the official SendGri
 
 - **Google reCAPTCHA** on new user registration form:
 ```
-RECAPTCHA_SITE_KEY=key from Google reCaptcha
-RECAPTCHA_SECRET_KEY=secret from Google reCaptcha
+RECAPTCHA_SITE_KEY=site key from Google reCaptcha
+RECAPTCHA_SECRET_KEY=secret key from Google reCaptcha
 ```
 For more information about Google reCAPTCHA see [the official Google reCAPTCHA developer's guide](https://developers.google.com/recaptcha/intro) or [create new reCAPTCHA](https://www.google.com/recaptcha/admin/create) - choose reCAPTCHA v2: "I'm not a robot" Checkbox and add `localhost` to Domains.
 
