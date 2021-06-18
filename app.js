@@ -20,7 +20,8 @@ const authRoutes = require('./routes/auth');
 const entryRoutes = require('./routes/entries');
 const userRoutes = require('./routes/users');
 const fileRoutes = require('./routes/files');
-const dateFormat = require("dateformat");
+const replaceLinks = require('./utils/replaceLinks.js');
+const dateFormat = require('dateformat');
 
 
 // MongoDB connection
@@ -141,6 +142,7 @@ app.use((req, res, next) => {
     res.locals.success = req.flash('success');
     res.locals.error = req.flash('error');
     res.locals.dateFormat = dateFormat;
+    res.locals.replaceLinks = replaceLinks;
     next();
 })
 
