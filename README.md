@@ -3,10 +3,10 @@
 ## Table of Contents
 
   - [Description](#description)
-  - [Technologies/Components](#technologiescomponents)
   - [Scope of Functionalities](#scope-of-functionalities)
     - [Pre-login](#pre-login)
     - [Post-login](#post-login)
+  - [Technologies/Components](#technologiescomponents)
   - [Installation Notes](#installation-notes)
     - [Node.js](#nodejs)
     - [MongoDB](#mongodb)
@@ -21,22 +21,6 @@
 Add your warranties, upload your receipts and warranty cards, and receive automatic email notifications before the expiry date of the warranty.
 
 Application is fully functional in production environment: [trackmywarranties.mjfelix.dev](https://trackmywarranties.mjfelix.dev)
-
-## Technologies/Components
-
- - Bootstrap 5
- - Node.js
- - Express.js
- - Embedded JavaScript (EJS)
- - Boilerplate ejs-mate
- - MongoDB (Atlas)
- - Amazon Web Services (AWS) S3
- - SendGrid
- - Others ([see package.json](https://github.com/mj-felix/track-my-warranties/blob/main/package.json))
-
-Application is deployed on Heroku.
-
-Selection of components was dictated by the Udemy course [The Web Developer Bootcamp 2001](https://www.udemy.com/course/the-web-developer-bootcamp/) from [Colt Steele](https://www.youtube.com/channel/UCrqAGUPPMOdo0jfQ6grikZw). The main difference is the replacement of Cloudinary by AWS S3 as a file storage component as well as the addition of SendGrid to send emails. Application uses free-for-hobbyist technologies.
 
 ## Scope of Functionalities
 
@@ -59,6 +43,22 @@ Selection of components was dictated by the Udemy course [The Web Developer Boot
 - See profile + warranties/files stats
 - Update email
 - Automatic email notifications before warranty due date
+
+## Technologies/Components
+
+ - Bootstrap 5
+ - Node.js
+ - Express.js
+ - Embedded JavaScript (EJS)
+ - Boilerplate ejs-mate
+ - MongoDB (Atlas)
+ - Amazon Web Services (AWS) S3
+ - SendGrid
+ - Others ([see package.json](https://github.com/mj-felix/track-my-warranties/blob/main/package.json))
+
+Application is deployed on Heroku.
+
+Selection of components was dictated by the Udemy course [The Web Developer Bootcamp 2001](https://www.udemy.com/course/the-web-developer-bootcamp/) from [Colt Steele](https://www.youtube.com/channel/UCrqAGUPPMOdo0jfQ6grikZw). The main difference is the replacement of Cloudinary by AWS S3 as a file storage component as well as the addition of SendGrid to send emails. Application uses free-for-hobbyist technologies.
 
 ## Installation Notes
 
