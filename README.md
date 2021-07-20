@@ -40,9 +40,9 @@ Selection of components was dictated by the Udemy course [The Web Developer Boot
 
 ### Pre-login
 
-- login
-- registration
-- reset password
+- Login
+- Registration
+- Reset password
 
 ### Post-login
 
