@@ -50,7 +50,6 @@ Application is fully functional in production environment: [trackmywarranties.mj
  - Node.js
  - Express.js
  - Embedded JavaScript (EJS)
- - Boilerplate ejs-mate
  - MongoDB (Atlas)
  - Amazon Web Services (AWS) S3
  - SendGrid
