@@ -4,6 +4,7 @@
 
   - [Description](#description)
   - [Technologies/Components](#technologiescomponents)
+  - [Functionalities Scope](#functionalities-scope)
   - [Installation Notes](#installation-notes)
     - [Node.js](#nodejs)
     - [MongoDB](#mongodb)
@@ -34,6 +35,28 @@ Application is fully functional in production environment: [trackmywarranties.mj
 Application is deployed on Heroku.
 
 Selection of components was dictated by the Udemy course [The Web Developer Bootcamp 2001](https://www.udemy.com/course/the-web-developer-bootcamp/) from [Colt Steele](https://www.youtube.com/channel/UCrqAGUPPMOdo0jfQ6grikZw). The main difference is the replacement of Cloudinary by AWS S3 as a file storage component as well as the addition of SendGrid to send emails. Application uses free-for-hobbyist technologies.
+
+## Functionalities Scope
+
+### Pre-login
+
+- login
+- registration
+- reset password
+
+### Post-login
+
+- See all warranties
+- See warranty details
+- Add warranty
+- Update warranty
+- Delete warranty
+- Upload attachment to warranty
+- Download attachment
+- Delete attachment
+- See profile + warranties/files stats
+- Update email
+- Automatic email notifications before warranty due date
 
 ## Installation Notes
 
