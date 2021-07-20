@@ -4,7 +4,9 @@
 
   - [Description](#description)
   - [Technologies/Components](#technologiescomponents)
-  - [Functionalities Scope](#functionalities-scope)
+  - [Scope of Functionalities](#scope-of-functionalities)
+    - [Pre-login](#pre-login)
+    - [Post-login](#post-login)
   - [Installation Notes](#installation-notes)
     - [Node.js](#nodejs)
     - [MongoDB](#mongodb)
@@ -36,7 +38,7 @@ Application is deployed on Heroku.
 
 Selection of components was dictated by the Udemy course [The Web Developer Bootcamp 2001](https://www.udemy.com/course/the-web-developer-bootcamp/) from [Colt Steele](https://www.youtube.com/channel/UCrqAGUPPMOdo0jfQ6grikZw). The main difference is the replacement of Cloudinary by AWS S3 as a file storage component as well as the addition of SendGrid to send emails. Application uses free-for-hobbyist technologies.
 
-## Functionalities Scope
+## Scope of Functionalities
 
 ### Pre-login
 
