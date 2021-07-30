@@ -43,7 +43,7 @@
             <% if (entry.additionalComment) { %>
             <li class="list-group-item lead"><strong class="d-block">Additional
                     Comment:</strong>
-                <div class="ms-1"><%- replaceLinks(entry.additionalComment) %></div>
+                <div class="ms-1"><%- replaceLinks(entry.additionalComment).split('\n').join('<br />') %></div>
             </li>
             <% } %>
         </ul>
