@@ -24,7 +24,7 @@ const app = {
                 const size10mb = 10 * 1024 * 1024;
                 if (file.size > size10mb) {
                     document.querySelector('#file').value = '';
-                    app.utils.view.showFlash('File too large!', 'danger')
+                    app.utils.view.showFlash('File too large!', 'danger');
                     app.utils.view.addAutoHide('#flashContainer');
                     return false;
                 }
@@ -48,11 +48,14 @@ const app = {
                     document.querySelector('#file').value = '';
                     app.utils.view.hide('#spinner');
                     app.utils.view.enableInput('#file');
-                })
+                });
             },
             deleteFile: function (event) {
                 event.preventDefault();
                 event.stopPropagation();
+                if (!window.confirm('Do you want to delete this file?')) {
+                    return;
+                }
                 app.utils.view.show('#spinner');
                 axios.delete(event.target.rel)
                     .then((res) => {
@@ -125,7 +128,7 @@ const app = {
                             clearInterval(intervalID);
                             // flash.remove();
                             flash.textContent = '';
-                            flash.style.opacity = 1
+                            flash.style.opacity = 1;
                             clearInterval(wait);
                         }
                     }, 200);
@@ -145,6 +148,14 @@ const app = {
                 const params = (new URL(document.location)).searchParams;
                 const paramValue = params.get(param);
                 document.querySelector(targetId).value = paramValue;
+            },
+            deleteWarrantyConfirmation: function (e) {
+                if (confirm('Do you want to delete this warranty?')) {
+                    return true;
+                } else {
+                    e.preventDefault();
+                    return false;
+                }
             }
         }
     }

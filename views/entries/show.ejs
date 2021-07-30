@@ -5,7 +5,8 @@
         <div class="d-flex justify-content-between align-items-center">
             <h1 class="me-1"><%= entry.productName %></h1>
             <a class="btn btn-outline-primary ms-auto" href="/entries">Show&nbsp;All</a>
-            <form class="ms-auto hideMobile" action="/entries/<%= entry._id %>?_method=DELETE" method="POST">
+            <form class="ms-auto hideMobile deleteWarranty" action="/entries/<%= entry._id %>?_method=DELETE"
+                method="POST">
                 <button class="btn btn-danger">Delete</button>
             </form>
             <a class="btn btn-primary ms-2 hideMobile" href="/entries/<%= entry._id %>/edit">Edit</a>
@@ -48,7 +49,7 @@
             <% } %>
         </ul>
         <div class="mb-4 mt-1 justify-content-start showMobile">
-            <form class="w-100" action="/entries/<%= entry._id %>?_method=DELETE" method="POST">
+            <form class="w-100 deleteWarranty" action="/entries/<%= entry._id %>?_method=DELETE" method="POST">
                 <button class="btn btn-danger d-inline w-100">Delete</button>
             </form>
             <a class="btn btn-primary ms-2 w-100" href="/entries/<%= entry._id %>/edit">Edit</a>

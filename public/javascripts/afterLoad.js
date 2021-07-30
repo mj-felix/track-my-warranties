@@ -55,3 +55,11 @@ if (tokenInput) {
     app.utils.view.populateParamToFormField('token', '#token');
     app.utils.view.populateParamToFormField('email', '#email');
 }
+
+//add confirmation on warranty delete
+const deleteButtons = document.querySelectorAll('form.deleteWarranty button');
+if (deleteButtons.length) {
+    for (let deleteButton of deleteButtons) {
+        deleteButton.addEventListener("click", app.utils.view.deleteWarrantyConfirmation);
+    }
+}
