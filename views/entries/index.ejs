@@ -21,7 +21,11 @@
                         <td class="py-3"><a
                                 class="<% if(entry.dateExpired < new Date().setUTCHours(0, 0, 0, 0)){ %>text-muted<% } %>"
                                 href="/entries/<%- entry._id %>"><%= entry.productName %></a></td>
-                        <td class="py-3"><%= dateFormat(entry.dateExpired, 'dd mmm yyyy') %></td>
+                        <td class="py-3">
+                            <time datetime="<%= dateFormat(entry.dateExpired, 'yyyy-mm-dd') %>">
+                                <%= dateFormat(entry.dateExpired, 'dd mmm yyyy') %>
+                            </time>
+                        </td>
                         <td class="py-3 minWidthStoreName onlyDesktop"><%= entry.storeName %></td>
                     </tr>
                     <% } %>

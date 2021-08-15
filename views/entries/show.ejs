@@ -13,10 +13,14 @@
         </div>
         <ul class="list-group list-group-flush">
             <li class="list-group-item lead"><strong>Purchased Date:</strong>
-                <%= dateFormat(entry.datePurchased, 'dd mmm yyyy') %>
+                <time datetime="<%= dateFormat(entry.datePurchased, 'yyyy-mm-dd') %>">
+                    <%= dateFormat(entry.datePurchased, 'dd mmm yyyy') %>
+                </time>
             </li>
             <li class="list-group-item lead"><strong>Expiry Date:</strong>
-                <%= dateFormat(entry.dateExpired, 'dd mmm yyyy') %>
+                <time datetime="<%= dateFormat(entry.dateExpired, 'yyyy-mm-dd') %>">
+                    <%= dateFormat(entry.dateExpired, 'dd mmm yyyy') %>
+                </time>
             </li>
             <% if (entry.date12weekNotification || entry.date4weekNotification || entry.date1weekNotification) { %>
             <li class="list-group-item lead"><strong>Email Notifications:</strong>
