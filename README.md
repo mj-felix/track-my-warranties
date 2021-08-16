@@ -48,6 +48,8 @@ Application is fully functional in production environment: [trackmywarranties.mj
 
 ## Technologies/Components
 
+![MEN stack](https://mjfelix.dev/img/external/men-stack.png)
+
  - Bootstrap 5
  - Node.js
  - Express.js
