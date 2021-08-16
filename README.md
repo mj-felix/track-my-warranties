@@ -1,5 +1,7 @@
 # TrackMyWarranties by MJ Felix
 
+![TrackMyWarranties by MJ Felix](https://trackmywarranties.mjfelix.dev/images/screenshot.jpg)
+
 ## Table of Contents
 
   - [Description](#description)
