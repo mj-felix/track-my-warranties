@@ -57,6 +57,7 @@ Application is fully functional in production environment: [trackmywarranties.mj
  - MongoDB (Atlas)
  - Amazon Web Services (AWS) S3
  - SendGrid
+ - reCAPTCHA v2
  - Others ([see package.json](https://github.com/mj-felix/track-my-warranties/blob/main/package.json))
 
 Application is deployed on Heroku.
