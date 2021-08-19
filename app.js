@@ -22,7 +22,7 @@ const userRoutes = require('./routes/users');
 const fileRoutes = require('./routes/files');
 const replaceLinks = require('./utils/replaceLinks.js');
 const dateFormat = require('dateformat');
-
+const csrf = require('csurf');
 
 // MongoDB connection
 const dbName = 'track-my-warranties';
@@ -42,7 +42,7 @@ db.once("open", () => {
 const app = express();
 
 // Views setup
-app.engine('ejs', ejsMate)
+app.engine('ejs', ejsMate);
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
@@ -56,8 +56,8 @@ const store = MongoStore.create({
     touchAfter: period1dayInSeconds
 });
 store.on("error", function (e) {
-    console.log("SESSION STORE ERROR", e)
-})
+    console.log("SESSION STORE ERROR", e);
+});
 const period1dayInMilliseconds = 1000 * 60 * 60 * 24 * 1;
 const sessionConfig = {
     store,
@@ -72,11 +72,11 @@ const sessionConfig = {
         expires: Date.now() + period1dayInMilliseconds,
         maxAge: period1dayInMilliseconds
     }
-}
+};
 app.use(session(sessionConfig));
 
 // Misc setup
-app.use(express.static(path.join(__dirname, 'public')))
+app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
 app.use(flash());
@@ -121,7 +121,7 @@ app.use(
 // Mongo injection prevention
 app.use(mongoSanitize({
     replaceWith: '_'
-}))
+}));
 
 
 // Auth setup
@@ -144,27 +144,34 @@ app.use((req, res, next) => {
     res.locals.dateFormat = dateFormat;
     res.locals.replaceLinks = replaceLinks;
     next();
-})
+});
+
+// CSRF protection
+app.use(csrf());
+app.use((req, res, next) => {
+    res.locals.csrfToken = req.csrfToken();
+    next();
+});
 
 // herokuapp.com subdomain permanent redirection
 if (process.env.PROVIDER === 'heroku' && process.env.NODE_ENV === 'production') {
     app.use((req, res, next) => {
         if (req.hostname.includes('track-my-warranties')) {
-            res.redirect(301, 'https://trackmywarranties.mjfelix.dev')
+            res.redirect(301, 'https://trackmywarranties.mjfelix.dev');
         }
         else
-            next()
-    })
+            next();
+    });
 }
 
 // redirection to https - heroku way
 if (process.env.NODE_ENV === 'production') {
     app.use((req, res, next) => {
         if (req.header('x-forwarded-proto') !== 'https')
-            res.redirect(301, `https://${req.header('host')}${req.url}`)
+            res.redirect(301, `https://${req.header('host')}${req.url}`);
         else
             next();
-    })
+    });
 }
 
 // ROUTING:
@@ -183,16 +190,21 @@ app.get('/', (req, res) => {
 
 // everything else => 404
 app.all('*', (req, res, next) => {
-    next(new ExpressError('Page Not Found', 404))
-})
+    next(new ExpressError('Page Not Found', 404));
+});
 
 app.use((err, req, res, next) => {
+    // Set CSRF error message
+    if (err.code === 'EBADCSRFTOKEN') {
+        err.message = 'CSRF attack?! Not cool to tamper with the form!';
+    }
+
     const { statusCode = 500 } = err;
-    if (!err.message) err.message = 'Oh No, Something Went Wrong!'
-    res.status(statusCode).render('error', { err })
-})
+    if (!err.message) err.message = 'Oh No, Something Went Wrong!';
+    res.status(statusCode).render('error', { err });
+});
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
     console.log(`${new Date().toString()}: serving on port ${port}`);
-})
+});

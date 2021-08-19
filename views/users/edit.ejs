@@ -4,7 +4,7 @@
     <div class="card shadow my-5">
         <div class="card-body">
             <h1 class="card-title">Edit Profile</h1>
-            <form action="/user?_method=PATCH" method="POST">
+            <form action="/user?_method=PATCH&_csrf=<%= csrfToken %>" method="POST">
                 <div class="mb-3">
                     <label for="email" class="form-label">Email address</label>
                     <input type="email" class="form-control" id="email" name="email" value="<%= currentUser.username %>"

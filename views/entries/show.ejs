@@ -4,9 +4,9 @@
     <div class="mt-5 mb-3">
         <div class="d-flex justify-content-between align-items-center">
             <h1 class="me-1"><%= entry.productName %></h1>
-            <a class="btn btn-outline-primary ms-auto" href="/entries">Show&nbsp;All</a>
-            <form class="ms-auto hideMobile deleteWarranty" action="/entries/<%= entry._id %>?_method=DELETE"
-                method="POST">
+            <a class="btn btn-outline-primary ms-auto" href="/entries?_csrf=<%= csrfToken %>">Show&nbsp;All</a>
+            <form class="ms-auto hideMobile deleteWarranty"
+                action="/entries/<%= entry._id %>?_method=DELETE&_csrf=<%= csrfToken %>" method="POST">
                 <button class="btn btn-danger">Delete</button>
             </form>
             <a class="btn btn-primary ms-2 hideMobile" href="/entries/<%= entry._id %>/edit">Edit</a>
@@ -53,14 +53,15 @@
             <% } %>
         </ul>
         <div class="mb-4 mt-1 justify-content-start showMobile">
-            <form class="w-100 deleteWarranty" action="/entries/<%= entry._id %>?_method=DELETE" method="POST">
+            <form class="w-100 deleteWarranty" action="/entries/<%= entry._id %>?_method=DELETE&_csrf=<%= csrfToken %>"
+                method="POST">
                 <button class="btn btn-danger d-inline w-100">Delete</button>
             </form>
             <a class="btn btn-primary ms-2 w-100" href="/entries/<%= entry._id %>/edit">Edit</a>
         </div>
         <h2 class='mt-3'>Attachments</h2>
         <div>
-            <form id="fileForm" action="/entries/<%= entry._id %>/files">
+            <form id="fileForm" action="/entries/<%= entry._id %>/files?_csrf=<%= csrfToken %>">
                 <label for="file" class="form-label lead">Upload a file (image or pdf, max 10 MB):</label>
                 <input type="file" class="form-control" id="file" name="file" required accept="image/*,application/pdf">
             </form>
@@ -84,7 +85,8 @@
                     <tr>
                         <td><a href="<%= file.url %>" target="_blank"><%= file.originalFileName %></a></td>
                         <td class="onlyDesktop"><%= (file.size/1024/1024).toFixed(2) %> MB</td>
-                        <td class="text-end"><a href="#" rel="/entries/<%=entry._id%>/files/<%= file.storedFileName %>"
+                        <td class="text-end"><a href="#"
+                                rel="/entries/<%=entry._id%>/files/<%= file.storedFileName %>?_csrf=<%= csrfToken %>"
                                 class="my-1 btn btn-danger btn-sm deleteFile">Delete</a></td>
                     </tr>
                     <% } %>

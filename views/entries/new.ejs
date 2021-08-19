@@ -5,7 +5,7 @@
         <div class="card-body">
             <h1 class="card-title">Add New Warranty</h1>
 
-            <form action="/entries" method="POST">
+            <form action="/entries?_csrf=<%= csrfToken %>" method="POST">
 
                 <div class="mb-3">
                     <label for="productName" class="form-label">Product Name</label>
