@@ -1,6 +1,6 @@
 # TrackMyWarranties by MJ Felix
 
-![TrackMyWarranties by MJ Felix](https://trackmywarranties.mjfelix.dev/images/screenshot.jpg)
+![TrackMyWarranties by MJ Felix](./public/images/screenshot.jpg)
 
 ## Table of Contents
 
@@ -15,6 +15,7 @@
     - [Environement Variables](#environement-variables)
       - [Minimum setup](#minimum-setup)
       - [Extended setup](#extended-setup)
+  - [Run Application](#run-application)
   - [Scheduled Email Notifications](#scheduled-email-notifications)
   - [Contact](#contact)
 
@@ -48,7 +49,7 @@ Application is fully functional in production environment: [trackmywarranties.mj
 
 ## Technologies/Components
 
-![MEN stack](https://mjfelix.dev/img/external/men-stack.png)
+![MEN stack](./public/images/men-stack.png)
 
  - Bootstrap 5
  - Node.js
@@ -72,7 +73,7 @@ Below components are required to run the application locally (accessible via [lo
 
 Download installer from [the Node.js website](https://nodejs.org/en/download/) and follow the instructions.
 
-Node Package Manager (NPM) command tool will be installed along with Node.js - run `npm install` in the main directory of the downloaded project to install all required packages/dependencies.
+Node Package Manager (NPM) command tool will be installed along with Node.js - run `npm i` in the main directory of the downloaded project to install all required packages/dependencies.
 
 ### MongoDB
 
@@ -117,7 +118,7 @@ To obtain access key and secret, open account dropdown and select “My Security
 - **SendGrid service** to send reset password and transactional emails:
 ```
 SENDGRID_API_KEY=key obtained from SendGrid
-NO_RESPONSE_EMAIL=From email configured with SendGrid
+NO_RESPONSE_EMAIL=From email configured in SendGrid
 ```
 Transactional emails inlude:
 1. email sent to Admin's email on new user registration
@@ -132,11 +133,16 @@ RECAPTCHA_SECRET_KEY=secret key from Google reCaptcha
 ```
 For more information about Google reCAPTCHA see [the official Google reCAPTCHA developer's guide](https://developers.google.com/recaptcha/intro) or [create new reCAPTCHA](https://www.google.com/recaptcha/admin/create) - choose reCAPTCHA v2: "I'm not a robot" Checkbox and add `localhost` to Domains.
 
+## Run Application
+
+Before you run the application, make sure the [MongoDB](#mongodb) has been started.
+
+To start the application locally run `npm start` and open `http://localhost:3000` in the browser.
 ## Scheduled Email Notifications
 
 Application sends automatic email notifications 1 week, 4 weeks and 12 weeks before the expiry date of the warranty.
 
-To trigger these notifications locally run `node sendNotificationsSchedule.js` in the main directory of the application. 
+To trigger these notifications locally run `npm run email`. 
 
 In production environment, the application uses free [Heroku Scheduler](https://devcenter.heroku.com/articles/scheduler) plugin, which proved to be sufficient in terms of offered functionality.
  

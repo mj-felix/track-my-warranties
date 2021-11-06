@@ -67,7 +67,7 @@ module.exports.deleteEntry = async (req, res) => {
     const entry = await Entry.findById(id);
     if (entry.files.length) {
         const deleteParam = {
-            Bucket: process.env.S3_BUCKET,
+            Bucket: process.env.S3_BUCKET || 'track-my-warranties-dev',
             Delete: {
                 Objects: []
             }

@@ -27,7 +27,7 @@ module.exports.uploadFile = async (req, res) => {
 module.exports.deleteFile = async (req, res) => {
     const { id, fileKey } = req.params;
     await s3.deleteObject({
-        Bucket: process.env.S3_BUCKET,
+        Bucket: process.env.S3_BUCKET || 'track-my-warranties-dev',
         Key: fileKey
     }).promise();
     const entry = await Entry.findById(id);
