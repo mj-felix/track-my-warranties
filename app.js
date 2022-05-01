@@ -178,7 +178,7 @@ if (process.env.NODE_ENV === "production") {
 app.use("/", authRoutes);
 app.use("/user", userRoutes);
 app.use("/entries", entryRoutes);
-app.use("/entries", fileRoutes);
+app.use("/entries/:id/files", fileRoutes);
 
 // main page
 app.get("/", (req, res) => {
