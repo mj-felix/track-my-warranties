@@ -6,7 +6,9 @@
   "scripts": {
     "dev": "nodemon app.js",
     "start": "node app.js",
-    "email": "node sendNotificationsSchedule.js"
+    "email": "node sendNotificationsSchedule.js",
+    "format": "prettier --write './**/*.js'",
+    "ejs": "prettier --check './**/*.ejs'"
   },
   "author": "MJ Felix",
   "license": "MIT",
@@ -39,6 +41,7 @@
     "uuid": "^3.3.2"
   },
   "devDependencies": {
-    "nodemon": "^2.0.14"
+    "nodemon": "^2.0.14",
+    "prettier": "^2.6.2"
   }
 }
