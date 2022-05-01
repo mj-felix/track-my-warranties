@@ -88,7 +88,7 @@ const app = {
           const newFile = document.createElement("tr");
           const csrfToken =
             app.utils.security.extractCsrfTokenFromHtmlMetadata();
-          newFile.innerHTML = `<td><a href="${file.url}" target="_blank">${file.originalFileName}</a></td>
+          newFile.innerHTML = `<td><a href="/attachments/${file.storedFileName}" target="_blank">${file.originalFileName}</a></td>
                 <td class="onlyDesktop">${fileSize} MB</td>
                 <td class="text-end"><a href="#" rel="/entries/${res.data.entryId}/files/${file.storedFileName}?_csrf=${csrfToken}"
                     class="my-1 btn btn-danger btn-sm deleteFile">Delete</a></td>`;

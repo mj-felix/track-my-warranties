@@ -126,7 +126,7 @@
           <% for (let file of entry.files){ %>
           <tr>
             <td>
-              <a href="<%= file.url %>" target="_blank"
+              <a href="/attachments/<%= file.storedFileName %>" target="_blank"
                 ><%= file.originalFileName %></a
               >
             </td>

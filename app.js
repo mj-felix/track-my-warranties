@@ -20,6 +20,7 @@ const authRoutes = require("./routes/auth");
 const entryRoutes = require("./routes/entries");
 const userRoutes = require("./routes/users");
 const fileRoutes = require("./routes/files");
+const attachmentRoutes = require("./routes/attachments");
 const replaceLinks = require("./utils/replaceLinks.js");
 const dateFormat = require("dateformat");
 const csrf = require("csurf");
@@ -92,6 +93,7 @@ const styleSrcUrls = ["https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/"];
 const frameSrcUrls = ["https://www.google.com"];
 const connectSrcUrls = [];
 const fontSrcUrls = [];
+const imgSrcUrls = ["https://images.unsplash.com"];
 app.use(
   helmet.contentSecurityPolicy({
     directives: {
@@ -103,13 +105,7 @@ app.use(
       childSrc: ["blob:"],
       frameSrc: [...frameSrcUrls],
       objectSrc: [],
-      imgSrc: [
-        "'self'",
-        "blob:",
-        "data:",
-        "https://track-my-warranties.s3.ap-southeast-2.amazonaws.com",
-        "https://images.unsplash.com",
-      ],
+      imgSrc: ["'self'", "blob:", "data:", ...imgSrcUrls],
       fontSrc: ["'self'", ...fontSrcUrls],
     },
   })
@@ -179,6 +175,7 @@ app.use("/", authRoutes);
 app.use("/user", userRoutes);
 app.use("/entries", entryRoutes);
 app.use("/entries/:id/files", fileRoutes);
+app.use("/attachments", attachmentRoutes);
 
 // main page
 app.get("/", (req, res) => {
