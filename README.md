@@ -99,7 +99,7 @@ S3_ACCESS_SECRET=secret obtained from AWS S3
 S3_BUCKET=track-my-warranties-dev
 ```
 
-For AWS S3 setup, go to [aws.amazon.com/s3](https://aws.amazon.com/s3/) and create an account. Once the account has been set up, navigate to the S3 services dashboard to create a new bucket with the name as above. Do not allow any public access while creating a bucket. Once the bucket has been created, go to Permissions tab and set Bucket policy to be:
+For AWS S3 setup, go to [aws.amazon.com/s3](https://aws.amazon.com/s3/) and create an account. Once the account has been set up, navigate to the S3 services dashboard to create a new bucket with the name as above. Allow all public access while creating a bucket. Once the bucket has been created, go to Permissions tab and set Bucket policy to be:
 
 ```
 {
@@ -118,6 +118,8 @@ For AWS S3 setup, go to [aws.amazon.com/s3](https://aws.amazon.com/s3/) and crea
     ]
 }
 ```
+
+Turn off public access to the bucket.
 
 To obtain access key and secret, open account dropdown and select “My Security Credentials”. Within the security credentials dashboard, open the “Access Keys” section and select “Create New Access Key.” This will generate the access key and secret for the application.
 
