@@ -1,0 +1,26 @@
+version: "3"
+services:
+  mongodb:
+    image: mongo
+    container_name: mongodb
+    restart: unless-stopped
+    ports:
+      - 27017:27017
+    volumes:
+      - mongodata:/data/db
+  app:
+    container_name: app
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    volumes:
+      - /app/node_modules
+      - .:/app
+    ports:
+      - 3000:3000
+    environment:
+      - MONGO_URL=mongodb://mongodb:27017/track-my-warranties
+    depends_on:
+      - mongodb
+volumes:
+  mongodata:

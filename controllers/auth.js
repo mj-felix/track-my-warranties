@@ -15,7 +15,8 @@ module.exports.register = async (req, res) => {
   try {
     const { email, password } = req.body;
     const currDate = new Date();
-    const accessLevel = email === process.env.ADMIN_EMAIL ? "Admin" : "User";
+    const adminEmail = process.env.ADMIN_EMAIL || "mjfelixdev@gmail.com";
+    const accessLevel = email === adminEmail ? "Admin" : "User";
     const user = new User({
       username: email,
       dateCreated: currDate,
@@ -28,7 +29,7 @@ module.exports.register = async (req, res) => {
     if ("SENDGRID_API_KEY" in process.env) {
       sgMail.setApiKey(process.env.SENDGRID_API_KEY);
       const msg = {
-        to: process.env.ADMIN_EMAIL,
+        to: adminEmail,
         from: process.env.NO_RESPONSE_EMAIL,
         subject: "[Track My Warranties] New user",
         text: `Email: ${email}\nCreated: ${currDate.toUTCString()}`,

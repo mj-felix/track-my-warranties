@@ -4,11 +4,14 @@
   "description": "App to track warranties on purchased items",
   "main": "app.js",
   "scripts": {
+    "updev": "docker-compose -f docker-compose-dev.yml up -d && npm run app-logs",
+    "downdev": "docker-compose -f docker-compose-dev.yml down",
+    "app-logs": "docker logs -f app",
     "dev": "nodemon app.js",
     "start": "node app.js",
-    "email": "node sendNotificationsSchedule.js",
-    "format": "prettier --write './**/*.js'",
-    "ejs": "prettier --check './**/*.ejs'"
+    "notifications": "docker exec -it app node sendNotificationsSchedule.js",
+    "format": "docker exec -it app npx prettier --write './**/*.js'",
+    "check-ejs": "docker exec -it app npx prettier --check './**/*.ejs'"
   },
   "author": "MJ Felix",
   "license": "MIT",

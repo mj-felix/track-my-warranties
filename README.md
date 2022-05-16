@@ -156,7 +156,7 @@ To start the application locally run `npm start` and open `http://localhost:3000
 
 Application sends automatic email notifications 1 week, 4 weeks and 12 weeks before the expiry date of the warranty.
 
-To trigger these notifications locally run `npm run email`.
+To trigger these notifications locally run `npm run notifications`.
 
 In production environment, the application uses free [Heroku Scheduler](https://devcenter.heroku.com/articles/scheduler) plugin, which proved to be sufficient in terms of offered functionality.
 
