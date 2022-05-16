@@ -49,7 +49,7 @@ app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
 // Session setup
-const secret = process.env.SECRET || "thisIsNotAGoodSecret!";
+const secret = process.env.SECRET;
 const period1dayInSeconds = 24 * 60 * 60;
 const store = MongoStore.create({
   mongoUrl,

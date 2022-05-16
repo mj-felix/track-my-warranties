@@ -15,7 +15,7 @@ module.exports.register = async (req, res) => {
   try {
     const { email, password } = req.body;
     const currDate = new Date();
-    const adminEmail = process.env.ADMIN_EMAIL || "mjfelixdev@gmail.com";
+    const adminEmail = process.env.ADMIN_EMAIL;
     const accessLevel = email === adminEmail ? "Admin" : "User";
     const user = new User({
       username: email,
@@ -26,14 +26,16 @@ module.exports.register = async (req, res) => {
     });
     const registeredUser = await User.register(user, password);
 
+    const msg = {
+      to: adminEmail,
+      from: process.env.NO_RESPONSE_EMAIL,
+      subject: "[Track My Warranties] New user",
+      text: `Email: ${email}\nCreated: ${currDate.toUTCString()}`,
+    };
+
     if ("SENDGRID_API_KEY" in process.env) {
       sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-      const msg = {
-        to: adminEmail,
-        from: process.env.NO_RESPONSE_EMAIL,
-        subject: "[Track My Warranties] New user",
-        text: `Email: ${email}\nCreated: ${currDate.toUTCString()}`,
-      };
+
       sgMail
         .send(msg)
         .then(() => {
@@ -42,6 +44,8 @@ module.exports.register = async (req, res) => {
         .catch((error) => {
           console.error(error);
         });
+    } else {
+      console.log(msg);
     }
 
     req.login(registeredUser, (err) => {
@@ -107,15 +111,17 @@ module.exports.forgotPassword = async (req, res) => {
       { $set: { token: hash, tokenExpiryDate } }
     );
 
+    const resetUrl = process.env.PROD_URL;
+    const msg = {
+      to: existingUser[0].username,
+      from: process.env.NO_RESPONSE_EMAIL,
+      subject: "[Track My Warranties] Reset Password",
+      text: `Password reset requested. If it wasn't you, please ignore this email. Otherwise, please click:\n\n${resetUrl}/resetpassword?email=${existingUser[0].username}&token=${token}\n\nLink is valid for 24h.`,
+    };
+
     if ("SENDGRID_API_KEY" in process.env) {
       sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-      const resetUrl = process.env.PROD_URL || "http://localhost:3000";
-      const msg = {
-        to: existingUser[0].username,
-        from: process.env.NO_RESPONSE_EMAIL,
-        subject: "[Track My Warranties] Reset Password",
-        text: `Password reset requested. If it wasn't you, please ignore this email. Otherwise, please click:\n\n${resetUrl}/resetpassword?email=${existingUser[0].username}&token=${token}\n\nLink is valid for 24h.`,
-      };
+
       sgMail
         .send(msg)
         .then(() => {
@@ -124,6 +130,8 @@ module.exports.forgotPassword = async (req, res) => {
         .catch((error) => {
           console.error(error);
         });
+    } else {
+      console.log(msg);
     }
 
     res.redirect("/success");
