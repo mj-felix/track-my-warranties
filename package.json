@@ -4,9 +4,9 @@
   "description": "App to track warranties on purchased items",
   "main": "app.js",
   "scripts": {
-    "updev": "docker-compose -f docker-compose-dev.yml up -d && npm run app-logs",
+    "updev": "docker-compose -f docker-compose-dev.yml up -d",
     "downdev": "docker-compose -f docker-compose-dev.yml down",
-    "app-logs": "docker logs -f app",
+    "logs": "docker logs -f app",
     "dev": "nodemon app.js",
     "start": "node app.js",
     "notifications": "docker exec -it app node sendNotificationsSchedule.js",

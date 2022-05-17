@@ -31,6 +31,7 @@ services:
       - S3MOCK_PORT=9000
     depends_on:
       - mongodb
+      - createbucket
   s3mock:
     image: minio/minio:latest
     container_name: s3mock
@@ -41,6 +42,17 @@ services:
     volumes:
       - s3mockdata:/data
     command: ["server", "--console-address", ":9001", "/data"]
+  createbucket:
+    image: minio/mc
+    container_name: createbucket
+    depends_on:
+      - s3mock
+    entrypoint: >
+      /bin/sh -c "
+      /usr/bin/mc config host add s3mock http://s3mock:9000 minioadmin minioadmin;
+      /usr/bin/mc mb s3mock/track-my-warranties-dev;
+      exit 0;
+      "
 volumes:
   mongodata:
   s3mockdata:
