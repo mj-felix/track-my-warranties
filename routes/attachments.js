@@ -8,7 +8,7 @@ const s3ProxyConfig = {
   bucket: process.env.S3_BUCKET,
   accessKeyId: process.env.S3_ACCESS_KEY,
   secretAccessKey: process.env.S3_ACCESS_SECRET,
-  overrideCacheControl: "max-age=100000",
+  overrideCacheControl: "no-cache",
 };
 
 if (s3ProxyConfig.accessKeyId === "minioadmin") {
