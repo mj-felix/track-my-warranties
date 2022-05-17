@@ -16,6 +16,7 @@
     - [SendGrid Service](#sendgrid-service)
     - [Google reCAPTCHA](#google-recaptcha)
 - [Scheduled Email Notifications](#scheduled-email-notifications)
+- [Code Formatting](#code-formatting)
 - [Contact](#contact)
 
 ## Description
@@ -159,6 +160,12 @@ Application sends automatic email notifications 1 week, 4 weeks and 12 weeks bef
 In order to trigger these notifications in development environment run `npm run notifications` (after `npm run updev`).
 
 In production environment, the application uses free [Heroku Scheduler](https://devcenter.heroku.com/articles/scheduler) plugin, which proved to be sufficient in terms of offered functionality.
+
+## Code Formatting
+
+JavaScript code can be formatted using `npm run format` (after `npm run updev`).
+
+Embedded JavaScript (EJS) code can be checked using `npm run check-ejs` (after `npm run updev`). Any discovered errors will have to be fixed manually.
 
 ## Contact
 
