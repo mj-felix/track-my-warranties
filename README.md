@@ -9,13 +9,12 @@
   - [Pre-login](#pre-login)
   - [Post-login](#post-login)
 - [Technologies/Components](#technologiescomponents)
-- [Installation Notes](#installation-notes)
-  - [Node.js](#nodejs)
-  - [MongoDB](#mongodb)
-  - [Environement Variables](#environement-variables)
-    - [Minimum setup](#minimum-setup)
-    - [Extended setup](#extended-setup)
-- [Run Application](#run-application)
+- [Development Environment](#development-environment)
+  - [Main Setup](#main-setup)
+  - [Extended Setup](#extended-setup)
+    - [AWS S3 Cloud Storage](#aws-s3-cloud-storage)
+    - [SendGrid Service](#sendgrid-service)
+    - [Google reCAPTCHA](#google-recaptcha)
 - [Scheduled Email Notifications](#scheduled-email-notifications)
 - [Contact](#contact)
 
@@ -57,6 +56,7 @@ Application is fully functional in production environment: [trackmywarranties.mj
 - Embedded JavaScript (EJS)
 - MongoDB (Atlas)
 - Amazon Web Services (AWS) S3
+- MinIO (in development environment to mock AWS S3)
 - SendGrid
 - reCAPTCHA v2
 - Others ([see package.json](https://github.com/mj-felix/track-my-warranties/blob/main/package.json))
@@ -65,38 +65,34 @@ Application is deployed on Heroku.
 
 Selection of components was dictated by the Udemy course [The Web Developer Bootcamp 2001](https://www.udemy.com/course/the-web-developer-bootcamp/) from [Colt Steele](https://www.youtube.com/channel/UCrqAGUPPMOdo0jfQ6grikZw). The main difference is the replacement of Cloudinary by AWS S3 as a file storage component as well as the addition of SendGrid to send emails. Application uses free-for-hobbyist technologies.
 
-## Installation Notes
+In April 2021 application has been presented to the facilitator at [DevAcademy](https://devacademy.co.nz) which resulted in the author/developer being assessed as too advanced for the course and subsequently withdrawing from it.
 
-Below components are required to run the application locally (accessible via [localhost:3000](http://localhost:3000/)):
+After initial release of the application, refactoring of the code has been limited to only new functionalities.
 
-### Node.js
+Docker was introduced for development environment setup only a year after the initial release.
 
-Download installer from [the Node.js website](https://nodejs.org/en/download/) and follow the instructions.
+## Development Environment
+### Main Setup
 
-Node Package Manager (NPM) command tool will be installed along with Node.js - run `npm i` in the main directory of the downloaded project to install all required packages/dependencies.
+Development environment has been dockerized for ease of use.
 
-### MongoDB
+After cloning the repository `git clone https://github.com/mj-felix/track-my-warranties.git` and changing into the main directory `cd track-my-warranties` it is enough to `npm run updev` (and then optionally `npm run logs` to access main application's logs).
 
-To install MongoDB Community Edition follow the instructions for your platform on [the offcial MongoDB website](https://docs.mongodb.com/manual/administration/install-community/).
+Application will be served at [localhost:3000](http://localhost:3000/).
 
-### Environement Variables
+`npm run downdev` will shut down the development environment while persisting the data (database and uploaded files).
 
-#### Minimum setup
+### Extended Setup
 
-```
-ADMIN_EMAIL=your email
-```
+#### AWS S3 Cloud Storage
 
-This will allow to set the user as Admin when this email is used during registration.
+Development environment mocks AWS S3 using [MinIO](https://min.io) solution.
 
-#### Extended setup
-
-- **AWS S3 cloud storage** for uploaded files:
+In order to access real AWS S3 bucket for file storage below environment variables need to be amended in `docker-compose-dev.yml`:
 
 ```
 S3_ACCESS_KEY=key obtained from AWS S3
 S3_ACCESS_SECRET=secret obtained from AWS S3
-S3_BUCKET=track-my-warranties-dev
 ```
 
 For AWS S3 setup, go to [aws.amazon.com/s3](https://aws.amazon.com/s3/) and create an account. Once the account has been set up, navigate to the S3 services dashboard to create a new bucket with the name as above. Allow all public access while creating a bucket. Once the bucket has been created, go to Permissions tab and set Bucket policy to be:
@@ -123,21 +119,31 @@ Turn off public access to the bucket.
 
 To obtain access key and secret, open account dropdown and select “My Security Credentials”. Within the security credentials dashboard, open the “Access Keys” section and select “Create New Access Key.” This will generate the access key and secret for the application.
 
-- **SendGrid service** to send reset password and transactional emails:
+#### SendGrid Service
+
+Development environment prints out emails to the console.
+
+In order to send real emails below variables needs to be amended in `docker-compose-dev.yml`:
 
 ```
 SENDGRID_API_KEY=key obtained from SendGrid
 NO_RESPONSE_EMAIL=From email configured in SendGrid
 ```
 
-Transactional emails inlude:
+There are 2 types of emails:
+1. Reset password emails
+2. Transactional emails:
 
-1. email sent to Admin's email on new user registration
-2. notification emails about expiring warranty
+   * email sent to Admin's email (set via `ADMIN_EMAIL` variable) on new user registration
+   * notification emails about expiring warranty
 
 For more information about SendGrid setup with Node.js see [the official SendGrid docs](https://sendgrid.com/docs/for-developers/sending-email/quickstart-nodejs/).
 
-- **Google reCAPTCHA** on new user registration form:
+#### Google reCAPTCHA
+
+Development environment ignores captcha.
+
+In order to have captcha on new user registration form below variables needs to be amended in `docker-compose-dev.yml`:
 
 ```
 RECAPTCHA_SITE_KEY=site key from Google reCaptcha
@@ -146,17 +152,11 @@ RECAPTCHA_SECRET_KEY=secret key from Google reCaptcha
 
 For more information about Google reCAPTCHA see [the official Google reCAPTCHA developer's guide](https://developers.google.com/recaptcha/intro) or [create new reCAPTCHA](https://www.google.com/recaptcha/admin/create) - choose reCAPTCHA v2: "I'm not a robot" Checkbox and add `localhost` to Domains.
 
-## Run Application
-
-Before you run the application, make sure the [MongoDB](#mongodb) has been started.
-
-To start the application locally run `npm start` and open `http://localhost:3000` in the browser.
-
 ## Scheduled Email Notifications
 
 Application sends automatic email notifications 1 week, 4 weeks and 12 weeks before the expiry date of the warranty.
 
-To trigger these notifications locally run `npm run notifications`.
+In order to trigger these notifications in development environment run `npm run notifications` (after `npm run updev`).
 
 In production environment, the application uses free [Heroku Scheduler](https://devcenter.heroku.com/articles/scheduler) plugin, which proved to be sufficient in terms of offered functionality.
 
