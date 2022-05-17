@@ -24,6 +24,7 @@ const attachmentRoutes = require("./routes/attachments");
 const replaceLinks = require("./utils/replaceLinks.js");
 const dateFormat = require("dateformat");
 const csrf = require("csurf");
+const nocache = require('nocache');
 
 // MongoDB connection
 const dbName = "track-my-warranties";
@@ -169,6 +170,10 @@ if (process.env.NODE_ENV === "production") {
     else next();
   });
 }
+
+// remove caching
+app.use(nocache());
+app.set('etag', false); 
 
 // Use Morgan logging in dev
 if (process.env.NODE_ENV !== "production") {
