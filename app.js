@@ -170,6 +170,12 @@ if (process.env.NODE_ENV === "production") {
   });
 }
 
+// Use Morgan logging in dev
+if (process.env.NODE_ENV !== "production") {
+    const morgan = require('morgan');
+    app.use(morgan(':user-agent :date[iso] :method :url :status :response-time ms - :res[content-length]'));
+}
+
 // ROUTING:
 app.use("/", authRoutes);
 app.use("/user", userRoutes);

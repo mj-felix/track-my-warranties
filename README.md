@@ -11,12 +11,14 @@
 - [Technologies/Components](#technologiescomponents)
 - [Development Environment](#development-environment)
   - [Main Setup](#main-setup)
+    - [Running Development Environment](#running-development-environment)
+    - [Rebuilding Development Environment](#rebuilding-development-environment)
+    - [Code Formatting](#code-formatting)
+    - [Scheduled Email Notifications](#scheduled-email-notifications)
   - [Extended Setup](#extended-setup)
     - [AWS S3 Cloud Storage](#aws-s3-cloud-storage)
     - [SendGrid Service](#sendgrid-service)
     - [Google reCAPTCHA](#google-recaptcha)
-- [Scheduled Email Notifications](#scheduled-email-notifications)
-- [Code Formatting](#code-formatting)
 - [Contact](#contact)
 
 ## Description
@@ -75,6 +77,8 @@ Docker was introduced for development environment setup only a year after the in
 ## Development Environment
 ### Main Setup
 
+#### Running Development Environment
+
 Development environment has been dockerized for ease of use.
 
 After cloning the repository `git clone https://github.com/mj-felix/track-my-warranties.git` and changing into the main directory `cd track-my-warranties` it is enough to `npm run updev` (and then optionally `npm run logs` to access main application's logs).
@@ -82,6 +86,24 @@ After cloning the repository `git clone https://github.com/mj-felix/track-my-war
 Application will be served at [localhost:3000](http://localhost:3000/).
 
 `npm run downdev` will shut down the development environment while persisting the data (database and uploaded files).
+
+#### Rebuilding Development Environment
+
+In order to rebuid the development environment (e.g. after installing new modules) run `npm run build-dev`.
+
+#### Code Formatting
+
+JavaScript code can be formatted using `npm run format` (after `npm run updev`).
+
+Embedded JavaScript (EJS) code can be checked using `npm run check-ejs` (after `npm run updev`). Any discovered errors will have to be fixed manually.
+
+#### Scheduled Email Notifications
+
+Application sends automatic email notifications 1 week, 4 weeks and 12 weeks before the expiry date of the warranty.
+
+In order to trigger these notifications in development environment run `npm run notifications` (after `npm run updev`).
+
+In production environment, the application uses free [Heroku Scheduler](https://devcenter.heroku.com/articles/scheduler) plugin, which proved to be sufficient in terms of offered functionality.
 
 ### Extended Setup
 
@@ -152,20 +174,6 @@ RECAPTCHA_SECRET_KEY=secret key from Google reCaptcha
 ```
 
 For more information about Google reCAPTCHA see [the official Google reCAPTCHA developer's guide](https://developers.google.com/recaptcha/intro) or [create new reCAPTCHA](https://www.google.com/recaptcha/admin/create) - choose reCAPTCHA v2: "I'm not a robot" Checkbox and add `localhost` to Domains.
-
-## Scheduled Email Notifications
-
-Application sends automatic email notifications 1 week, 4 weeks and 12 weeks before the expiry date of the warranty.
-
-In order to trigger these notifications in development environment run `npm run notifications` (after `npm run updev`).
-
-In production environment, the application uses free [Heroku Scheduler](https://devcenter.heroku.com/articles/scheduler) plugin, which proved to be sufficient in terms of offered functionality.
-
-## Code Formatting
-
-JavaScript code can be formatted using `npm run format` (after `npm run updev`).
-
-Embedded JavaScript (EJS) code can be checked using `npm run check-ejs` (after `npm run updev`). Any discovered errors will have to be fixed manually.
 
 ## Contact
 

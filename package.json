@@ -5,6 +5,7 @@
   "main": "app.js",
   "scripts": {
     "updev": "docker-compose -f docker-compose-dev.yml up -d",
+    "build-dev": "docker-compose -f docker-compose-dev.yml up --build -d",
     "downdev": "docker-compose -f docker-compose-dev.yml down",
     "logs": "docker logs -f app",
     "dev": "nodemon app.js",
@@ -44,6 +45,7 @@
     "uuid": "^3.3.2"
   },
   "devDependencies": {
+    "morgan": "^1.10.0",
     "nodemon": "^2.0.14",
     "prettier": "^2.6.2"
   }
