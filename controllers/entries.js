@@ -1,10 +1,5 @@
 const Entry = require("../models/entry");
-const AWS = require("aws-sdk");
-
-const s3 = new AWS.S3({
-  accessKeyId: process.env.S3_ACCESS_KEY,
-  secretAccessKey: process.env.S3_ACCESS_SECRET,
-});
+const s3 = require("../aws/s3");
 
 module.exports.index = async (req, res) => {
   const entries = await Entry.find({ user: req.user }).sort({ dateExpired: 1 });
@@ -73,7 +68,7 @@ module.exports.deleteEntry = async (req, res) => {
   const entry = await Entry.findById(id);
   if (entry.files.length) {
     const deleteParam = {
-      Bucket: process.env.S3_BUCKET || "track-my-warranties-dev",
+      Bucket: process.env.S3_BUCKET,
       Delete: {
         Objects: [],
       },

@@ -1,10 +1,5 @@
 const Entry = require("../models/entry");
-const AWS = require("aws-sdk");
-
-const s3 = new AWS.S3({
-  accessKeyId: process.env.S3_ACCESS_KEY,
-  secretAccessKey: process.env.S3_ACCESS_SECRET,
-});
+const s3 = require("../aws/s3");
 
 module.exports.uploadFile = async (req, res) => {
   const file = {
@@ -29,7 +24,7 @@ module.exports.deleteFile = async (req, res) => {
   const { id, fileKey } = req.params;
   await s3
     .deleteObject({
-      Bucket: process.env.S3_BUCKET || "track-my-warranties-dev",
+      Bucket: process.env.S3_BUCKET,
       Key: fileKey,
     })
     .promise();

@@ -3,7 +3,7 @@ services:
   mongodb:
     image: mongo
     container_name: mongodb
-    restart: unless-stopped
+    restart: always
     ports:
       - 27017:27017
     volumes:
@@ -25,7 +25,22 @@ services:
       - PROD_URL=http://localhost:3000
       - SECRET=thisIsNotAGoodSecret
       - TZ=Pacific/Auckland
+      - S3_ACCESS_KEY=minioadmin
+      - S3_ACCESS_SECRET=minioadmin
+      - S3_BUCKET=track-my-warranties-dev
+      - S3MOCK_PORT=9000
     depends_on:
       - mongodb
+  s3mock:
+    image: minio/minio:latest
+    container_name: s3mock
+    restart: always
+    ports:
+      - 9000:9000
+      - 9001:9001
+    volumes:
+      - s3mockdata:/data
+    command: ["server", "--console-address", ":9001", "/data"]
 volumes:
   mongodata:
+  s3mockdata:

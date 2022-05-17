@@ -12,12 +12,7 @@ const catchAsync = require("../utils/catchAsync");
 const uuid = require("uuid");
 const multer = require("multer");
 const multerS3 = require("multer-s3");
-const AWS = require("aws-sdk");
-
-const s3 = new AWS.S3({
-  accessKeyId: process.env.S3_ACCESS_KEY,
-  secretAccessKey: process.env.S3_ACCESS_SECRET,
-});
+const s3 = require("../aws/s3");
 
 const fileFilter = (req, file, cb) => {
   const isAllowableMimeType =
