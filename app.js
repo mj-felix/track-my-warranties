@@ -1,7 +1,3 @@
-if (process.env.NODE_ENV !== "production") {
-  require("dotenv").config();
-}
-
 const express = require("express");
 const path = require("path");
 const mongoose = require("mongoose");
@@ -24,7 +20,7 @@ const attachmentRoutes = require("./routes/attachments");
 const replaceLinks = require("./utils/replaceLinks.js");
 const dateFormat = require("dateformat");
 const csrf = require("csurf");
-const nocache = require('nocache');
+const nocache = require("nocache");
 
 // MongoDB connection
 const dbName = "track-my-warranties";
@@ -173,12 +169,16 @@ if (process.env.NODE_ENV === "production") {
 
 // remove caching
 app.use(nocache());
-app.set('etag', false); 
+app.set("etag", false);
 
 // Use Morgan logging in dev
 if (process.env.NODE_ENV !== "production") {
-    const morgan = require('morgan');
-    app.use(morgan(':user-agent :date[iso] :method :url :status :response-time ms - :res[content-length]'));
+  const morgan = require("morgan");
+  app.use(
+    morgan(
+      ":user-agent :date[iso] :method :url :status :response-time ms - :res[content-length]"
+    )
+  );
 }
 
 // ROUTING:
