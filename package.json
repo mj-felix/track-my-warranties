@@ -12,7 +12,8 @@
     "start": "node app.js",
     "notifications": "docker exec -it app node sendNotificationsSchedule.js",
     "format": "docker exec -it app npx prettier --write './**/*.js'",
-    "check-ejs": "docker exec -it app npx prettier --check './**/*.ejs'"
+    "check-ejs": "docker exec -it app npx prettier --check './**/*.ejs'",
+    "test": "docker exec -it cypress cypress run"
   },
   "author": "MJ Felix",
   "license": "MIT",

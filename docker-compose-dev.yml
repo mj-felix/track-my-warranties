@@ -53,6 +53,19 @@ services:
       /usr/bin/mc mb s3mock/track-my-warranties-dev;
       exit 0;
       "
+  cypress:
+    image: cypress/included:10.1.0
+    container_name: cypress
+    depends_on:
+      - app
+    environment:
+      - CYPRESS_baseUrl=http://app:3000
+      # - CYPRESS_baseUrl=http://localhost:3000
+    # network_mode: host
+    working_dir: /e2e
+    volumes:
+      - ./e2e:/e2e
+    entrypoint: ["sleep","infinity"]
 volumes:
   mongodata:
   s3mockdata:
