@@ -16,7 +16,7 @@
     "test": "docker exec -it cypress cypress run",
     "ci:build": "docker-compose -f docker-compose-test.yml up --build -d",
     "ci:test": "docker exec cypress cypress run",
-    "ci:format:check": "docker exec app npx prettier --check './**/*.{js,ejs}'"
+    "ci:format:check": "npx prettier --check './**/*.js'"
   },
   "author": "MJ Felix",
   "license": "MIT",
