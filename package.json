@@ -5,17 +5,18 @@
   "main": "app.js",
   "scripts": {
     "updev": "docker-compose -f docker-compose-dev.yml up -d",
-    "build-dev": "docker-compose -f docker-compose-dev.yml up --build -d",
+    "build:dev": "docker-compose -f docker-compose-dev.yml up --build -d",
     "downdev": "docker-compose -f docker-compose-dev.yml down",
     "logs": "docker logs -f app",
     "dev": "nodemon app.js",
     "start": "node app.js",
     "notifications": "docker exec -it app node sendNotificationsSchedule.js",
     "format": "docker exec -it app npx prettier --write './**/*.js'",
-    "check-ejs": "docker exec -it app npx prettier --check './**/*.ejs'",
+    "format:check:ejs": "docker exec -it app npx prettier --check './**/*.ejs'",
     "test": "docker exec -it cypress cypress run",
     "ci:build": "docker-compose -f docker-compose-test.yml up --build -d",
-    "ci:test": "docker exec cypress cypress run"
+    "ci:test": "docker exec cypress cypress run",
+    "ci:format:check": "docker exec -it app npx prettier --check './**/*.{js,ejs}'"
   },
   "author": "MJ Felix",
   "license": "MIT",

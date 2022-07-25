@@ -75,6 +75,7 @@ After initial release of the application, refactoring of the code has been limit
 Docker was introduced for development environment setup only a year after the initial release.
 
 ## Development Environment
+
 ### Main Setup
 
 #### Running Development Environment
@@ -89,13 +90,13 @@ Application will be served at [localhost:3000](http://localhost:3000/).
 
 #### Rebuilding Development Environment
 
-In order to rebuid the development environment (e.g. after installing new modules) run `npm run build-dev`.
+In order to rebuid the development environment (e.g. after installing new modules) run `npm run build:dev`.
 
 #### Code Formatting
 
 JavaScript code can be formatted using `npm run format` (after `npm run updev`).
 
-Embedded JavaScript (EJS) code can be checked using `npm run check-ejs` (after `npm run updev`). Any discovered errors will have to be fixed manually.
+Embedded JavaScript (EJS) code can be checked using `npm run format:check:ejs` (after `npm run updev`). Any discovered errors will have to be fixed manually.
 
 #### Scheduled Email Notifications
 
@@ -154,11 +155,12 @@ NO_RESPONSE_EMAIL=From email configured in SendGrid
 ```
 
 There are 2 types of emails:
+
 1. Reset password emails
 2. Transactional emails:
 
-   * email sent to Admin's email (set via `ADMIN_EMAIL` variable) on new user registration
-   * notification emails about expiring warranty
+   - email sent to Admin's email (set via `ADMIN_EMAIL` variable) on new user registration
+   - notification emails about expiring warranty
 
 For more information about SendGrid setup with Node.js see [the official SendGrid docs](https://sendgrid.com/docs/for-developers/sending-email/quickstart-nodejs/).
 

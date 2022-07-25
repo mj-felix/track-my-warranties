@@ -11,6 +11,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
+      - name: Check code formatting
+        run: npm run ci:format:check
       - name: Build environment
         env:
           S3_ACCESS_KEY: ${{ secrets.S3_ACCESS_KEY }}
