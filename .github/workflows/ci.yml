@@ -9,15 +9,15 @@ jobs:
   build-test-deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Repo
+      - name: Checkout repository
         uses: actions/checkout@v3
-      - name: Build Environment
+      - name: Build environment
         env:
           S3_ACCESS_KEY: ${{ secrets.S3_ACCESS_KEY }}
           S3_ACCESS_SECRET: ${{ secrets.S3_ACCESS_SECRET }}
           SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
         run: docker-compose -f docker-compose-test.yml up --build -d
-      - name: Run Tests
+      - name: Run cypress tests
         run: docker exec cypress cypress run
       - name: Deploy to Heroku
         uses: akhileshns/heroku-deploy@v3.12.12
@@ -25,10 +25,3 @@ jobs:
           heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
           heroku_app_name: "track-my-warranties"
           heroku_email: "mjfelixdev@gmail.com"
-      - name: Email Workflow Failure
-        if: failure()
-        uses: mmichailidis/sendgrid-mail-action@v1.0
-        with:
-          sendgrid-token: ${{ secrets.SENDGRID_API_KEY }}
-          mail: "mjfelixdev@gmail.com"
-          subject: "TrackMyWarranties GitHub Workflow Failed"
