@@ -25,6 +25,7 @@ services:
       - PROD_URL=http://localhost:3000
       - SECRET=thisIsNotAGoodSecret
       - TZ=Pacific/Auckland
+      # - SENDGRID_API_KEY=defined in .github/workflows/ci.yml
       # - S3_ACCESS_KEY=defined in .github/workflows/ci.yml
       # - S3_ACCESS_SECRET=defined in .github/workflows/ci.yml
       - S3_BUCKET=track-my-warranties-dev
