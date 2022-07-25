@@ -25,34 +25,11 @@ services:
       - PROD_URL=http://localhost:3000
       - SECRET=thisIsNotAGoodSecret
       - TZ=Pacific/Auckland
-      - S3_ACCESS_KEY=minioadmin
-      - S3_ACCESS_SECRET=minioadmin
+      # - S3_ACCESS_KEY=defined in .github/workflows/ci.yml
+      # - S3_ACCESS_SECRET=defined in .github/workflows/ci.yml
       - S3_BUCKET=track-my-warranties-dev
-      - S3MOCK_PORT=9000
     depends_on:
       - mongodb
-      - createbucket
-  s3mock:
-    image: minio/minio:latest
-    container_name: s3mock
-    restart: always
-    ports:
-      - 9000:9000
-      - 9001:9001
-    volumes:
-      - s3mockdata:/data
-    command: ["server", "--console-address", ":9001", "/data"]
-  createbucket:
-    image: minio/mc
-    container_name: createbucket
-    depends_on:
-      - s3mock
-    entrypoint: >
-      /bin/sh -c "
-      /usr/bin/mc config host add s3mock http://s3mock:9000 minioadmin minioadmin;
-      /usr/bin/mc mb s3mock/track-my-warranties-dev;
-      exit 0;
-      "
   cypress:
     image: cypress/included:10.1.0
     container_name: cypress
