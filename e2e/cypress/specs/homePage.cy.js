@@ -1,8 +1,7 @@
 it("visits main page", () => {
   cy.visit("/");
-  cy.contains("TrackMyWarranties");
+  cy.contains("TrackMyWarranties888");
 });
-
 
 /*
 homePage:
