@@ -25,3 +25,10 @@ jobs:
           heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
           heroku_app_name: "track-my-warranties"
           heroku_email: "mjfelixdev@gmail.com"
+      - name: Email Workflow Failure
+        if: failure()
+        uses: mmichailidis/sendgrid-mail-action@v1.0
+        with:
+          sendgrid-token: ${{ secrets.SENDGRID_API_KEY }}
+          mail: "mjfelixdev@gmail.com"
+          subject: "TrackMyWarranties GitHub Workflow Failed"
