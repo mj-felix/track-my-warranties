@@ -63,7 +63,7 @@ services:
     working_dir: /e2e
     volumes:
       - ./e2e:/e2e
-    entrypoint: ["sleep","infinity"]
+    # entrypoint: ["sleep","infinity"]
 volumes:
   mongodata:
   s3mockdata:
