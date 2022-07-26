@@ -85,6 +85,7 @@ const scriptSrcUrls = [
   "https://cdn.jsdelivr.net",
   "https://www.google.com",
   "https://www.gstatic.com",
+  "'unsafe-inline'",
 ];
 const styleSrcUrls = ["https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/"];
 const frameSrcUrls = ["https://www.google.com"];

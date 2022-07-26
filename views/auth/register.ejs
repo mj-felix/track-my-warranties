@@ -41,11 +41,7 @@
           <input type="password" class="form-control" id="password2" required />
         </div>
         <div class="mb-3">
-          <div
-            class="g-recaptcha"
-            data-size="normal"
-            data-sitekey="<%= process.env.RECAPTCHA_SITE_KEY %>"
-          ></div>
+          <div id="recaptcha"></div>
         </div>
         <button class="btn btn-success w-100">Register</button>
       </form>
@@ -53,8 +49,19 @@
   </div>
 </div>
 
+<script type="text/javascript">
+  var onloadCallback = function () {
+    try {
+      grecaptcha.render("recaptcha", {
+        sitekey: "<%= process.env.RECAPTCHA_SITE_KEY %>",
+      });
+    } catch (error) {
+      console.log("grecaptcha:", error.message);
+    }
+  };
+</script>
 <script
-  src="https://www.google.com/recaptcha?render=explicit"
+  src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit"
   async
   defer
-></script>
+/>
