@@ -19,7 +19,7 @@ services:
       - 3000:3000
     environment:
       - MONGO_URL=mongodb://mongodb:27017/track-my-warranties
-      - NO_RESPONSE_EMAIL=noresponse@email.com
+      - NO_RESPONSE_EMAIL=no.response.track.my@gmail.com
       - ADMIN_EMAIL=admin@email.com
       - PROD_URL=http://localhost:3000
       - SECRET=thisIsNotAGoodSecret
