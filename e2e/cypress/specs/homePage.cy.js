@@ -3,6 +3,23 @@ it("visits main page", () => {
   cy.contains("TrackMyWarranties");
 });
 
+it("registers, adds warranty and uploads a file", () => {
+  cy.visit("/register");
+  cy.get("input[type=email]").type("test11@gmail.com");
+  cy.get("input#password").type("password");
+  cy.get("input#password2").type("password");
+  cy.get("button").contains("Register").click();
+
+  cy.get("input#productName").type("Product Name");
+  cy.get("input#datePurchased").type("2021-12-15");
+  cy.get("input#dateExpired").type("2023-12-15");
+  cy.get("input#storeName").type("Store Name");
+  cy.get("button").contains("Save").click();
+
+  cy.get("input#file").selectFile("./cypress/specs/upload_me.png");
+  cy.get("table#files").contains("upload_me.png");
+});
+
 /*
 homePage:
 - goes to home page and checks content and links
