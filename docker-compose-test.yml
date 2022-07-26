@@ -6,8 +6,6 @@ services:
     restart: always
     ports:
       - 27017:27017
-    volumes:
-      - mongodata:/data/db
   app:
     container_name: app
     build:
@@ -41,6 +39,3 @@ services:
     volumes:
       - ./e2e:/e2e
     entrypoint: ["sleep", "infinity"]
-volumes:
-  mongodata:
-  s3mockdata:
