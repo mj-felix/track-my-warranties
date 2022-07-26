@@ -1,11 +1,15 @@
+const crypto = require("crypto");
+
 it("visits main page", () => {
   cy.visit("/");
   cy.contains("TrackMyWarranties");
 });
 
 it("registers, adds warranty and uploads a file", () => {
+  const randomEmail = crypto.randomBytes(10).toString("hex") + "@email.com";
+
   cy.visit("/register");
-  cy.get("input[type=email]").type("test11@gmail.com");
+  cy.get("input[type=email]").type(randomEmail);
   cy.get("input#password").type("password");
   cy.get("input#password2").type("password");
   cy.get("button").contains("Register").click();
